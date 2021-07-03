@@ -1,0 +1,92 @@
+﻿@model List<DCDGear.Models.User>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Tài khoản</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Danh sách thành viên</li>
+        </ol>
+        <div class="card mb-4">
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <a href="/admin/user/create" class="btn btn-blue btn-flat" style="background-color:#1D89E2; color: #ffffff"><i class="far fa-plus"></i>&nbsp;Thêm mới</a>
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">Tên đăng nhập</th>
+                            <th scope="col">Thông tin</th>
+                            <th scope="col">Thuộc nhóm</th>
+                            <th scope="col">Nguồn</th>
+                            <th scope="col">Trạng thái</th>
+                            <th scope="col">Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="row_@item.ID">
+                                <td>@item.UserName</td>
+                                <td>
+                                    <p><i class="far fa-user"></i> @item.Name</p>
+                                    <p><i class="far fa-envelope"></i> @item.Email</p>
+                                    <p><i class="fas fa-phone"></i> @item.Phone</p>
+                                    <p><i class="fas fa-home"></i> @item.Address</p>
+                                </td>
+                                <td>@item.GroupID</td>
+
+                               
+                            <td>
+                                @{
+                                    if (!string.IsNullOrEmpty(item.ModifiedBy))
+                                    {
+                                        <span>@item.ModifiedBy (Người chỉnh sửa)</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@item.CreateBy (Người tạo)</span>
+                                    }
+                                }
+
+                            </td>
+                            <td>
+                                @{
+                                    if (item.Status == true)
+                                    {
+                                        <span>Đang hoạt động</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Đang tạm khóa</span>
+                                    }
+                                }
+                               
+                            </td>
+                            <td>
+                                <a href="/Admin/user/Edit/@item.ID">Edit</a>  ||
+                                <i class="zmdi zmdi - delete">
+                                    @Ajax.ActionLink("Xoa", "Delete", new { @id = item.ID }, new AjaxOptions
+    {
+     Confirm = "Are you sure?",
+     OnComplete = "$('#row_" + @item.ID + "').remove()",
+     HttpMethod = "Delete"
+    })
+                                </i>
+                            </td>
+                        </tr>
+                    }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

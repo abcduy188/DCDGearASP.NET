@@ -77,3 +77,9 @@ D:\laptrinhweb_asp.net\DCDGear\obj\Debug\DCDGear.csproj.CoreCompileInputs.cache
 D:\laptrinhweb_asp.net\DCDGear\obj\Debug\DCDGear.csproj.CopyComplete
 D:\laptrinhweb_asp.net\DCDGear\obj\Debug\DCDGear.dll
 D:\laptrinhweb_asp.net\DCDGear\obj\Debug\DCDGear.pdb
+D:\laptrinhweb_asp.net\DCDGear\bin\EntityFramework.dll
+D:\laptrinhweb_asp.net\DCDGear\bin\EntityFramework.SqlServer.dll
+D:\laptrinhweb_asp.net\DCDGear\bin\EntityFramework.xml
+D:\laptrinhweb_asp.net\DCDGear\bin\EntityFramework.SqlServer.xml
+D:\laptrinhweb_asp.net\DCDGear\bin\CKFinder.dll
+D:\laptrinhweb_asp.net\DCDGear\bin\CKFinder.pdb

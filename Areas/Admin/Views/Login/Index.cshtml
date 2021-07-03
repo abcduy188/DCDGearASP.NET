@@ -1,0 +1,114 @@
+﻿@model DCDGear.ViewModel.LoginModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login V1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/Assets/login/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Assets/login/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Assets/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Assets/login/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Assets/login/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Assets/login/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Assets/login/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/login/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="/Assets/login/images/img-01.png" alt="IMG">
+                </div>
+                @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "login100-form validate-form" }))
+                {
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" });
+<span class="login100-form-title">
+    Member Login
+</span>
+
+                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "input100", @name = "username", @placeholder = "username", required = "required" })
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+                                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                                    @Html.TextBoxFor(model => model.PassWord, new { @class = "input100", @name = "password", @placeholder = "password", @type = "password", required = "required" })
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+
+                                                <div class="container-login100-form-btn">
+                                                    <button class="login100-form-btn">
+                                                        Login
+                                                    </button>
+                                                </div>
+
+                                                                <div class="text-center p-t-12">
+                                                                    <span class="txt1">
+                                                                        Forgot
+                                                                    </span>
+                                                                    <a class="txt2" href="#">
+                                                                        Username / Password?
+                                                                    </a>
+                                                                </div>
+                                                                                <!--<div class="form-group col-3">
+                                                                                    <div class="icheck-material-white">--> @*@Html.CheckBoxFor(model => model.RememberMe)*@
+                                                                                                    <!--<label for="user-checkbox">Remember me</label>
+                                                                                                        </div>
+                                                                                                    </div>-->
+                                                                                                                    <div class="text-center mt-3">Sign In With</div>
+
+                                                                                                                                    <div class="form-row mt-4">
+                                                                                                                                        <div class="form-group mb-0 col-6">
+                                                                                                                                            <button type="button" class="btn btn-light btn-block"><i class="fa fa-facebook-square"></i> Facebook</button>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="form-group mb-0 col-6 text-right">
+                                                                                                                                            <button type="submit" class="btn btn-light btn-block"><i class="fa fa-twitter-square"></i> Twitter</button>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                                    <div class="text-center p-t-136">
+                                                                                                                                                        <a class="txt2" href="#">
+                                                                                                                                                            Create your Account
+                                                                                                                                                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                                                                                                                                                        </a>
+                                                                                                                                                    </div>}
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!--===============================================================================================-->
+    <script src="/Assets/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/Assets/login/vendor/bootstrap/js/popper.js"></script>
+    <script src="/Assets/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/Assets/login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/Assets/login/vendor/tilt/tilt.jquery.min.js"></script>
+    <script>$('.js-tilt').tilt({
+            scale: 1.1
+        })</script>
+    <!--===============================================================================================-->
+    <script src="/Assets/login/js/main.js"></script>
+
+</body>
+</html>
