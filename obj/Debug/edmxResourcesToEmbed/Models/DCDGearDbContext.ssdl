@@ -119,6 +119,8 @@
     <Property Name="Status" Type="int" />
     <Property Name="ShipName" Type="nvarchar" MaxLength="50" />
     <Property Name="ShipPhone" Type="nvarchar" MaxLength="50" />
+    <Property Name="ShipAddress" Type="nvarchar" MaxLength="250" />
+    <Property Name="ShipEmail" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -193,6 +195,33 @@
     <Property Name="ID" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="SystemConfig">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="Value" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="bit" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="ID" />
@@ -217,6 +246,14 @@
     </Key>
     <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ViewTag">
+    <Key>
+      <PropertyRef Name="ViewID" />
+      <PropertyRef Name="TagID" />
+    </Key>
+    <Property Name="ViewID" Type="bigint" Nullable="false" />
+    <Property Name="TagID" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <Association Name="FK_Group_Role_Role">
     <End Role="Role" Type="Self.Role" Multiplicity="1" />
@@ -292,8 +329,12 @@
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SystemConfig" EntityType="Self.SystemConfig" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserGroup" EntityType="Self.UserGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ViewTag" EntityType="Self.ViewTag" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Group_Role_Role" Association="Self.FK_Group_Role_Role">
       <End Role="Role" EntitySet="Role" />
       <End Role="Group_Role" EntitySet="Group_Role" />

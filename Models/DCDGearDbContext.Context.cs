@@ -26,6 +26,7 @@ namespace DCDGear.Models
         }
     
         public virtual DbSet<About> Abouts { get; set; }
+        public virtual DbSet<Banner> Banners { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<FeedBack> FeedBacks { get; set; }
@@ -36,8 +37,11 @@ namespace DCDGear.Models
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<SystemConfig> SystemConfigs { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
-        public virtual DbSet<Banner> Banners { get; set; }
+        public virtual DbSet<ViewTag> ViewTags { get; set; }
     }
 }

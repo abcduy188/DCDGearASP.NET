@@ -18,6 +18,17 @@
     <Property Name="MetaKeywords" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="MetaDescriptions" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
   </EntityType>
+  <EntityType Name="Banner">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MoreIMG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="Int32" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+  </EntityType>
   <EntityType Name="Category">
     <Key>
       <PropertyRef Name="ID" />
@@ -102,6 +113,8 @@
     <Property Name="Status" Type="Int32" />
     <Property Name="ShipName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ShipPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ShipAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ShipEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -179,6 +192,33 @@
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="UserGroups" Relationship="Self.Group_Role" FromRole="Role" ToRole="UserGroup" />
   </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="SystemConfig">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="ID" />
@@ -206,6 +246,14 @@
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Users" Relationship="Self.FK_User_UserGroup" FromRole="UserGroup" ToRole="User" />
     <NavigationProperty Name="Roles" Relationship="Self.Group_Role" FromRole="UserGroup" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="ViewTag">
+    <Key>
+      <PropertyRef Name="ViewID" />
+      <PropertyRef Name="TagID" />
+    </Key>
+    <Property Name="ViewID" Type="Int64" Nullable="false" />
+    <Property Name="TagID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
   </EntityType>
   <Association Name="FK_New_Category">
     <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
@@ -249,6 +297,7 @@
   </Association>
   <EntityContainer Name="WebPhoneEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Abouts" EntityType="Self.About" />
+    <EntitySet Name="Banners" EntityType="Self.Banner" />
     <EntitySet Name="Categories" EntityType="Self.Category" />
     <EntitySet Name="Contacts" EntityType="Self.Contact" />
     <EntitySet Name="FeedBacks" EntityType="Self.FeedBack" />
@@ -259,8 +308,12 @@
     <EntitySet Name="Products" EntityType="Self.Product" />
     <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
     <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="SystemConfigs" EntityType="Self.SystemConfig" />
+    <EntitySet Name="Tags" EntityType="Self.Tag" />
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="UserGroups" EntityType="Self.UserGroup" />
+    <EntitySet Name="ViewTags" EntityType="Self.ViewTag" />
     <AssociationSet Name="FK_New_Category" Association="Self.FK_New_Category">
       <End Role="Category" EntitySet="Categories" />
       <End Role="New" EntitySet="News" />
@@ -277,17 +330,5 @@
       <End Role="Role" EntitySet="Roles" />
       <End Role="UserGroup" EntitySet="UserGroups" />
     </AssociationSet>
-    <EntitySet Name="Banners" EntityType="WebPhoneModel.Banner" />
   </EntityContainer>
-  <EntityType Name="Banner">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="MoreIMG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Type" Type="Int32" />
-    <Property Name="Status" Type="Boolean" Nullable="false" />
-  </EntityType>
 </Schema>

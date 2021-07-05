@@ -203,10 +203,22 @@
     <Compile Include="Models\Role.cs">
       <DependentUpon>DCDGearDbContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>DCDGearDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SystemConfig.cs">
+      <DependentUpon>DCDGearDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tag.cs">
+      <DependentUpon>DCDGearDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>DCDGearDbContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserGroup.cs">
+      <DependentUpon>DCDGearDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewTag.cs">
       <DependentUpon>DCDGearDbContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1435,13 +1447,6 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\DCDGearDbContext.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DCDGearDbContext.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DCDGearDbContext.edmx.diagram">
-      <DependentUpon>DCDGearDbContext.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\Shared\_Menu.cshtml" />
     <Content Include="Assets\Admin\ckeditor\CHANGES.md" />
     <Content Include="Assets\Admin\ckeditor\LICENSE.md" />
@@ -1555,6 +1560,13 @@
     <Content Include="Assets\login\vendor\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="Areas\Admin\Views\User\Create.cshtml" />
     <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
+    <EntityDeploy Include="Models\DCDGearDbContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DCDGearDbContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DCDGearDbContext.edmx.diagram">
+      <DependentUpon>DCDGearDbContext.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
