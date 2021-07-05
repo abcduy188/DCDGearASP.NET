@@ -18,6 +18,14 @@ namespace DCDGear.Areas.Admin.Controllers
         {
             return View(db.Banners.ToList());
         }
+        [HttpDelete]
+        public ActionResult Delete(long id)
+        {
+            var banner = db.Banners.Find(id);
+            db.Banners.Remove(banner);
+            db.SaveChanges();
+            return Redirect("Index");
+        }
         public ActionResult ImageUpload()
         {
             return View();

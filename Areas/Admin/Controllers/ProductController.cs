@@ -27,6 +27,8 @@ namespace DCDGear.Areas.Admin.Controllers
             SetViewBag();
             return View();
         }
+        #region Create with single img
+
         //[HttpPost]
         //[ValidateInput(false)]//chap nhan mã html
         //public ActionResult Create(Product products, HttpPostedFileBase fileUpload)
@@ -69,70 +71,77 @@ namespace DCDGear.Areas.Admin.Controllers
         //    }
         //    return View("Index");
         //}
+        #endregion
         public ActionResult Edit(long id)
         {
             var dao = new ProductDAO().GetByID(id);
             ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", id);
             return View(dao);
         }
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult Edit(Product products, HttpPostedFileBase fileUpload)
-        {
-            ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", products.ID);
-            var dao = new ProductDAO();
-            if (fileUpload == null)
-            {
-                var session = (UserLogin)Session["DUY"];
-                products.ModifiedBy = session.UserName;
-                products.ModifiedDate = DateTime.Now;
-                var result = dao.Update(products);
-                if (result == 1)
-                {
-                    SetAlert("Sửa sản phẩm thành công", "success");
-                    return RedirectToAction("Index", "Product");
-                }
-                else if (result == 0)
-                {
-                    SetAlert("Vui lòng chọn ảnh sản phẩm", "warning");
-                }
-                return View();
-            }
-            else
-            {
-                if (ModelState.IsValid) // kiem tra co valid form hay khong
-                {
-                    var fileName = Path.GetFileName(fileUpload.FileName);
-                    var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
-                    if (System.IO.File.Exists(path))
-                    {
-                        ViewBag.thongbao = "Hình ảnh đã tồn tại";
 
-                    }
-                    else
-                    {
-                        fileUpload.SaveAs(path);
-                    }
 
-                    var session = (UserLogin)Session["DUY"];
-                    products.ModifiedBy = session.UserName;
-                    products.Image = fileName;
-                    products.ModifiedDate = DateTime.Now;
-                    var result = dao.Update(products);
-                    if (result == 1)
-                    {
-                        SetAlert("Sửa tin tức thành công", "success");
-                        return RedirectToAction("Index", "Product");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Cap nhat khong thanh cong!!");
-                    }
+        #region Edit with single img
 
-                }
-            }
-            return View("Index");
-        }
+        //[HttpPost]
+        //[ValidateInput(false)]
+        //public ActionResult Edit(Product products, HttpPostedFileBase fileUpload)
+        //{
+        //    ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", products.ID);
+        //    var dao = new ProductDAO();
+        //    if (fileUpload == null)
+        //    {
+        //        var session = (UserLogin)Session["DUY"];
+        //        products.ModifiedBy = session.UserName;
+        //        products.ModifiedDate = DateTime.Now;
+        //        var result = dao.Update(products);
+        //        if (result == 1)
+        //        {
+        //            SetAlert("Sửa sản phẩm thành công", "success");
+        //            return RedirectToAction("Index", "Product");
+        //        }
+        //        else if (result == 0)
+        //        {
+        //            SetAlert("Vui lòng chọn ảnh sản phẩm", "warning");
+        //        }
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            var fileName = Path.GetFileName(fileUpload.FileName);
+        //            var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
+        //            if (System.IO.File.Exists(path))
+        //            {
+        //                ViewBag.thongbao = "Hình ảnh đã tồn tại";
+
+        //            }
+        //            else
+        //            {
+        //                fileUpload.SaveAs(path);
+        //            }
+
+        //            var session = (UserLogin)Session["DUY"];
+        //            products.ModifiedBy = session.UserName;
+        //            products.Image = fileName;
+        //            products.ModifiedDate = DateTime.Now;
+        //            var result = dao.Update(products);
+        //            if (result == 1)
+        //            {
+        //                SetAlert("Sửa tin tức thành công", "success");
+        //                return RedirectToAction("Index", "Product");
+        //            }
+        //            else
+        //            {
+        //                ModelState.AddModelError("", "Cap nhat khong thanh cong!!");
+        //            }
+
+        //        }
+        //    }
+        //    return View("Index");
+        //}
+
+        #endregion
         public void SetViewBag(long? selectedId = null)
         {
             var dao = new ProductCategoryDAO();
@@ -144,7 +153,7 @@ namespace DCDGear.Areas.Admin.Controllers
             return Redirect("Index");
         }
 
-
+        #region Create with multiple img
         [HttpPost]
         [ValidateInput(false)]//chap nhan mã html
         public ActionResult Create(Product products)
@@ -157,20 +166,11 @@ namespace DCDGear.Areas.Admin.Controllers
                 for (int i = 0; i < files.Count; i++)
                 {
                     HttpPostedFileBase fileUpload = files[i];
-                    if (i == 0)
-                    {
-                        var fileName1 = Path.GetFileName(fileUpload.FileName);
-                        var path1 = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName1);
-                        fileUpload.SaveAs(path1);
-                        products.Code = fileName1;
-                    }
-                    else if (i > 0)
-                    {
-                        var fileName = Path.GetFileName(fileUpload.FileName);
-                        x += fileName + ",";
-                        var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
-                        fileUpload.SaveAs(path);
-                    }
+
+                    var fileName = Path.GetFileName(fileUpload.FileName);
+                    x += fileName + ",";
+                    var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
+                    fileUpload.SaveAs(path);
 
                 }
                 products.Image = x.Remove(x.Length - 1);
@@ -192,5 +192,65 @@ namespace DCDGear.Areas.Admin.Controllers
             }
             return View("Index");
         }
+        #endregion
+        #region Edit with multiple img
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Edit(Product products)
+        {
+            ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", products.ID);
+            var dao = new ProductDAO();
+            var session = (UserLogin)Session["DUY"];
+
+            if (ModelState.IsValid) // kiem tra co valid form hay khong
+            {
+                HttpFileCollectionBase files = Request.Files;
+
+                var x = "";
+                for (int i = 0; i < files.Count; i++)
+                {
+                    HttpPostedFileBase fileUpload = files[i];
+                    if (i == 0 && fileUpload.ContentLength == 0)
+                    {
+                        products.ModifiedBy = session.UserName;
+                        products.ModifiedDate = DateTime.Now;
+                        var result1 = dao.Update(products);
+                        if (result1 == 1)
+                        {
+                            SetAlert("Sửa sản phẩm thành công", "success");
+                            return RedirectToAction("Index", "Product");
+                        }
+                        else if (result1 == 0)
+                        {
+                            SetAlert("Vui lòng chọn ảnh sản phẩm", "warning");
+                        }
+                        return View();
+                    }
+                    else
+                    {
+                        var fileName = Path.GetFileName(fileUpload.FileName);
+                        x += fileName + ",";
+                        var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
+                        fileUpload.SaveAs(path);
+                    }
+                }
+                products.Image = x.Remove(x.Length - 1);
+                products.ModifiedBy = session.UserName;
+                products.ModifiedDate = DateTime.Now;
+                var result = dao.Update(products);
+                if (result == 1)
+                {
+                    SetAlert("Sửa tin tức thành công", "success");
+                    return RedirectToAction("Index", "Product");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Cap nhat khong thanh cong!!");
+                }
+
+            }
+            return View("Index");
+        }
+        #endregion
     }
 }

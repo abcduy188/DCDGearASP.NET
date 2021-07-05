@@ -113,7 +113,7 @@
                             @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 <div class="col-md-10" style="margin-top:5px">
-                                    <input type="file" name="fileUpload" />
+                                    <input type="file" name="fileUpload" multiple/>
                                 </div>
                                 @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
                             </div>
