@@ -130,7 +130,7 @@ namespace DCDGear.Areas.Admin.Controllers
                     }
 
                 }
-            } 
+            }
             return View("Index");
         }
         public void SetViewBag(long? selectedId = null)
@@ -157,10 +157,21 @@ namespace DCDGear.Areas.Admin.Controllers
                 for (int i = 0; i < files.Count; i++)
                 {
                     HttpPostedFileBase fileUpload = files[i];
-                    var fileName = Path.GetFileName(fileUpload.FileName);
-                    x += fileName + ",";
-                    var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
-                    fileUpload.SaveAs(path);
+                    if (i == 0)
+                    {
+                        var fileName1 = Path.GetFileName(fileUpload.FileName);
+                        var path1 = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName1);
+                        fileUpload.SaveAs(path1);
+                        products.Code = fileName1;
+                    }
+                    else if (i > 0)
+                    {
+                        var fileName = Path.GetFileName(fileUpload.FileName);
+                        x += fileName + ",";
+                        var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
+                        fileUpload.SaveAs(path);
+                    }
+
                 }
                 products.Image = x.Remove(x.Length - 1);
                 var dao = new ProductDAO();
@@ -169,7 +180,7 @@ namespace DCDGear.Areas.Admin.Controllers
                 //products.Image = fileName;
                 products.CreateDate = DateTime.Now;
                 long id = dao.Create(products);
-                if (id == 1)
+                if (id > 0)
                 {
                     SetAlert("Thêm sản phẩm thành công", "success");
                     return RedirectToAction("Index", "Product");

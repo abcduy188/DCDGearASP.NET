@@ -22,18 +22,13 @@ namespace DCDGear.Models
     
         public long ID { get; set; }
         public string Name { get; set; }
-        public string MetaTitle { get; set; }
-        public Nullable<long> ParentID { get; set; }
-        public Nullable<int> DisplayOrder { get; set; }
         public string SeoTitle { get; set; }
-        public Nullable<System.DateTime> CreateDate { get; set; }
-        public string CreateBy { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public string ModifiedBy { get; set; }
-        public string MetaKeywords { get; set; }
-        public string MetaDescriptions { get; set; }
+        public Nullable<long> ParentID { get; set; }
         public bool Status { get; set; }
-        public Nullable<bool> ShowOnHome { get; set; }
+        public string CreateBy { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
+        public string ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<New> News { get; set; }

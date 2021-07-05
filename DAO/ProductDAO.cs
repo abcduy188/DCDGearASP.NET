@@ -1,4 +1,5 @@
-﻿using DCDGear.Models;
+﻿using DCDGear.Common;
+using DCDGear.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,13 +30,13 @@ namespace DCDGear.DAO
             var products = db.Products.Find(entity.ID);
             products.Name = entity.Name;
             products.CategoryID = entity.CategoryID;
-            products.MetaTitle = entity.MetaTitle;
+            products.SeoTitle = entity.SeoTitle;
             products.Description = entity.Description;
             try
             {
-                if(entity.Image == null)
+                if (entity.Image == null)
                 {
-                    if(!string.IsNullOrEmpty(products.Image))
+                    if (!string.IsNullOrEmpty(products.Image))
                     {
                         products.Image = products.Image;
                     }
@@ -47,12 +48,11 @@ namespace DCDGear.DAO
                 else
                 {
                     products.Image = entity.Image;
-                }    
+                }
             }
             catch (Exception e)
             {
             }
-            products.MoreImages = entity.MoreImages;
             products.Price = entity.Price;
             products.PromotionPrice = entity.PromotionPrice;
             products.LinkVideo = entity.LinkVideo;

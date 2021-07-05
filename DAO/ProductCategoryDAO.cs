@@ -31,7 +31,7 @@ namespace DCDGear.DAO
         {
             var productCategory = db.ProductCategories.Find(entity.ID);
             productCategory.Name = entity.Name;
-            productCategory.MetaTitle = entity.MetaTitle;
+            productCategory.SeoTitle = entity.SeoTitle;
             productCategory.ParentID = entity.ParentID;
             productCategory.Status = entity.Status;
             productCategory.ModifiedBy = entity.ModifiedBy;

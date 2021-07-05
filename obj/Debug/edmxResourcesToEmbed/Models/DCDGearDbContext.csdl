@@ -1,33 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="WebPhoneModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="DCDGearModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="About">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MetaTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="SeoTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Boolean" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
     <Property Name="CreateDate" Type="DateTime" Precision="3" />
     <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="MetaKeywords" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MetaDescriptions" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
   </EntityType>
   <EntityType Name="Banner">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID" Type="Int64" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="MoreIMG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Type" Type="Int32" />
+    <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="Type" Type="Int32" />
   </EntityType>
   <EntityType Name="Category">
     <Key>
@@ -35,18 +32,13 @@
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MetaTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="SeoTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="ParentID" Type="Int64" />
-    <Property Name="DisplayOrder" Type="Int32" />
-    <Property Name="SeoTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="CreateDate" Type="DateTime" Precision="3" />
-    <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="MetaKeywords" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MetaDescriptions" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
     <Property Name="Status" Type="Boolean" Nullable="false" />
-    <Property Name="ShowOnHome" Type="Boolean" />
+    <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="News" Relationship="Self.FK_New_Category" FromRole="Category" ToRole="New" />
   </EntityType>
   <EntityType Name="Contact">
@@ -61,7 +53,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID" Type="Int64" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
@@ -70,38 +62,26 @@
     <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="Status" Type="Boolean" />
   </EntityType>
-  <EntityType Name="Menu">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Text" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="Link" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="DisplayOrder" Type="Int32" />
-    <Property Name="Target" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Boolean" />
-    <Property Name="TypeID" Type="Int32" />
-  </EntityType>
   <EntityType Name="New">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MetaTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SeoTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="CategoryID" Type="Int64" />
     <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LinkVideo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Status" Type="Boolean" Nullable="false" />
-    <Property Name="CreateDate" Type="DateTime" Precision="3" />
-    <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-    <Property Name="MetaKeywords" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MetaDescriptions" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
     <Property Name="Tags" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ViewCount" Type="Int32" />
+    <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Category" Relationship="Self.FK_New_Category" FromRole="New" ToRole="Category" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -132,25 +112,21 @@
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="SeoTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="Code" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="MetaTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MoreImages" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryID" Type="Int64" />
     <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="PromotionPrice" Type="Decimal" Precision="18" Scale="0" />
-    <Property Name="Quantity" Type="Int32" Nullable="false" />
-    <Property Name="LinkVideo" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="CategoryID" Type="Int64" />
+    <Property Name="Quantity" Type="Int32" />
     <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LinkVideo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CreateDate" Type="DateTime" Precision="3" />
-    <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="MetaKeywords" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MetaDescriptions" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
-    <Property Name="Warranty" Type="Int32" />
     <Property Name="CPU" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="OperatingSystem" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="RAM" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
@@ -170,18 +146,13 @@
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MetaTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="SeoTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="ParentID" Type="Int64" />
-    <Property Name="DisplayOrder" Type="Int32" />
-    <Property Name="SeoTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="CreateDate" Type="DateTime" Precision="3" />
-    <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-    <Property Name="MetaKeywords" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="MetaDescriptions" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
     <Property Name="Status" Type="Boolean" Nullable="false" />
-    <Property Name="ShowOnHome" Type="Boolean" />
+    <Property Name="CreateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Products" Relationship="Self.FK_Product_ProductCategory" FromRole="ProductCategory" ToRole="Product" />
   </EntityType>
   <EntityType Name="Role">
@@ -191,33 +162,6 @@
     <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="UserGroups" Relationship="Self.Group_Role" FromRole="Role" ToRole="UserGroup" />
-  </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
-  <EntityType Name="SystemConfig">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Boolean" />
-  </EntityType>
-  <EntityType Name="Tag">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -237,6 +181,7 @@
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="UserGroup" Relationship="Self.FK_User_UserGroup" FromRole="User" ToRole="UserGroup" />
+    <NavigationProperty Name="UserGroup1" Relationship="Self.FK_User_UserGroup1" FromRole="User" ToRole="UserGroup" />
   </EntityType>
   <EntityType Name="UserGroup">
     <Key>
@@ -245,15 +190,8 @@
     <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Users" Relationship="Self.FK_User_UserGroup" FromRole="UserGroup" ToRole="User" />
+    <NavigationProperty Name="Users1" Relationship="Self.FK_User_UserGroup1" FromRole="UserGroup" ToRole="User" />
     <NavigationProperty Name="Roles" Relationship="Self.Group_Role" FromRole="UserGroup" ToRole="Role" />
-  </EntityType>
-  <EntityType Name="ViewTag">
-    <Key>
-      <PropertyRef Name="ViewID" />
-      <PropertyRef Name="TagID" />
-    </Key>
-    <Property Name="ViewID" Type="Int64" Nullable="false" />
-    <Property Name="TagID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
   </EntityType>
   <Association Name="FK_New_Category">
     <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
@@ -291,29 +229,36 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_User_UserGroup1">
+    <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserGroup">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="Group_Role">
     <End Role="Role" Type="Self.Role" Multiplicity="*" />
     <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="WebPhoneEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="DCDGearDbContext" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Abouts" EntityType="Self.About" />
     <EntitySet Name="Banners" EntityType="Self.Banner" />
     <EntitySet Name="Categories" EntityType="Self.Category" />
     <EntitySet Name="Contacts" EntityType="Self.Contact" />
     <EntitySet Name="FeedBacks" EntityType="Self.FeedBack" />
-    <EntitySet Name="Menus" EntityType="Self.Menu" />
     <EntitySet Name="News" EntityType="Self.New" />
     <EntitySet Name="Orders" EntityType="Self.Order" />
     <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
     <EntitySet Name="Products" EntityType="Self.Product" />
     <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
     <EntitySet Name="Roles" EntityType="Self.Role" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-    <EntitySet Name="SystemConfigs" EntityType="Self.SystemConfig" />
-    <EntitySet Name="Tags" EntityType="Self.Tag" />
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="UserGroups" EntityType="Self.UserGroup" />
-    <EntitySet Name="ViewTags" EntityType="Self.ViewTag" />
     <AssociationSet Name="FK_New_Category" Association="Self.FK_New_Category">
       <End Role="Category" EntitySet="Categories" />
       <End Role="New" EntitySet="News" />
@@ -323,6 +268,10 @@
       <End Role="Product" EntitySet="Products" />
     </AssociationSet>
     <AssociationSet Name="FK_User_UserGroup" Association="Self.FK_User_UserGroup">
+      <End Role="UserGroup" EntitySet="UserGroups" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_UserGroup1" Association="Self.FK_User_UserGroup1">
       <End Role="UserGroup" EntitySet="UserGroups" />
       <End Role="User" EntitySet="Users" />
     </AssociationSet>

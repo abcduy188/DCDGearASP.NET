@@ -1,22 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="WebPhoneModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="DCDGearModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="About">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" />
-    <Property Name="MetaTitle" Type="varchar" MaxLength="250" />
+    <Property Name="SeoTitle" Type="varchar" MaxLength="250" />
     <Property Name="Description" Type="ntext" />
     <Property Name="Image" Type="varchar" MaxLength="250" />
     <Property Name="Detail" Type="ntext" />
-    <Property Name="Status" Type="bit" />
+    <Property Name="Status" Type="bit" Nullable="false" />
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="CreateBy" Type="varchar" MaxLength="50" />
     <Property Name="ModifiedDate" Type="datetime" />
     <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
-    <Property Name="MetaKeywords" Type="nvarchar" MaxLength="250" />
-    <Property Name="MetaDescriptions" Type="nchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="Banner">
     <Key>
@@ -24,8 +22,7 @@
     </Key>
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" />
-    <Property Name="Image" Type="varchar(max)" />
-    <Property Name="MoreIMG" Type="xml" />
+    <Property Name="Image" Type="nvarchar" MaxLength="250" />
     <Property Name="Type" Type="int" />
     <Property Name="Status" Type="bit" Nullable="false" />
   </EntityType>
@@ -35,18 +32,13 @@
     </Key>
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" />
-    <Property Name="MetaTitle" Type="varchar" MaxLength="250" />
+    <Property Name="SeoTitle" Type="varchar" MaxLength="250" />
     <Property Name="ParentID" Type="bigint" />
-    <Property Name="DisplayOrder" Type="int" />
-    <Property Name="SeoTitle" Type="nvarchar" MaxLength="250" />
-    <Property Name="CreateDate" Type="datetime" />
-    <Property Name="CreateBy" Type="varchar" MaxLength="50" />
-    <Property Name="ModifiedDate" Type="datetime" />
-    <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
-    <Property Name="MetaKeywords" Type="nvarchar" MaxLength="250" />
-    <Property Name="MetaDescriptions" Type="nchar" MaxLength="250" />
     <Property Name="Status" Type="bit" Nullable="false" />
-    <Property Name="ShowOnHome" Type="bit" />
+    <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModifiedDate" Type="datetime" />
   </EntityType>
   <EntityType Name="Contact">
     <Key>
@@ -60,7 +52,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID" Type="bigint" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" />
     <Property Name="Phone" Type="varchar" MaxLength="50" />
     <Property Name="Email" Type="varchar" MaxLength="250" />
@@ -77,37 +69,25 @@
     <Property Name="UserGroupID" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="RoleID" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
-  <EntityType Name="Menu">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Text" Type="nvarchar" MaxLength="250" />
-    <Property Name="Link" Type="nvarchar" MaxLength="250" />
-    <Property Name="DisplayOrder" Type="int" />
-    <Property Name="Target" Type="nvarchar" MaxLength="50" />
-    <Property Name="Status" Type="bit" />
-    <Property Name="TypeID" Type="int" />
-  </EntityType>
   <EntityType Name="New">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" />
-    <Property Name="MetaTitle" Type="varchar" MaxLength="250" />
+    <Property Name="SeoTitle" Type="varchar" MaxLength="250" />
     <Property Name="Description" Type="ntext" />
     <Property Name="Image" Type="nvarchar" MaxLength="250" />
     <Property Name="CategoryID" Type="bigint" />
     <Property Name="Detail" Type="ntext" />
+    <Property Name="LinkVideo" Type="ntext" />
     <Property Name="Status" Type="bit" Nullable="false" />
-    <Property Name="CreateDate" Type="datetime" />
-    <Property Name="CreateBy" Type="varchar" MaxLength="50" />
-    <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
-    <Property Name="ModifiedDate" Type="datetime" />
-    <Property Name="MetaKeywords" Type="nvarchar" MaxLength="250" />
-    <Property Name="MetaDescriptions" Type="nchar" MaxLength="250" />
     <Property Name="Tags" Type="nvarchar" MaxLength="500" />
+    <Property Name="ViewCount" Type="int" />
+    <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModifiedDate" Type="datetime" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -138,25 +118,21 @@
     </Key>
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" />
+    <Property Name="SeoTitle" Type="varchar" MaxLength="250" />
     <Property Name="Code" Type="varchar" MaxLength="250" />
-    <Property Name="MetaTitle" Type="varchar" MaxLength="250" />
     <Property Name="Description" Type="ntext" />
     <Property Name="Image" Type="nvarchar" MaxLength="250" />
-    <Property Name="MoreImages" Type="xml" />
+    <Property Name="CategoryID" Type="bigint" />
     <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
     <Property Name="PromotionPrice" Type="decimal" Precision="18" Scale="0" />
-    <Property Name="Quantity" Type="int" Nullable="false" />
-    <Property Name="LinkVideo" Type="varchar" MaxLength="300" />
-    <Property Name="CategoryID" Type="bigint" />
+    <Property Name="Quantity" Type="int" />
     <Property Name="Detail" Type="ntext" />
+    <Property Name="LinkVideo" Type="ntext" />
     <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
     <Property Name="CreateDate" Type="datetime" />
-    <Property Name="CreateBy" Type="varchar" MaxLength="50" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
     <Property Name="ModifiedDate" Type="datetime" />
-    <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
-    <Property Name="MetaKeywords" Type="nvarchar" MaxLength="250" />
-    <Property Name="MetaDescriptions" Type="nchar" MaxLength="250" />
-    <Property Name="Warranty" Type="int" />
     <Property Name="CPU" Type="nvarchar" MaxLength="250" />
     <Property Name="OperatingSystem" Type="nvarchar" MaxLength="250" />
     <Property Name="RAM" Type="nvarchar" MaxLength="250" />
@@ -175,47 +151,15 @@
     </Key>
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" />
-    <Property Name="MetaTitle" Type="varchar" MaxLength="250" />
+    <Property Name="SeoTitle" Type="varchar" MaxLength="250" />
     <Property Name="ParentID" Type="bigint" />
-    <Property Name="DisplayOrder" Type="int" />
-    <Property Name="SeoTitle" Type="nvarchar" MaxLength="250" />
-    <Property Name="CreateDate" Type="datetime" />
-    <Property Name="CreateBy" Type="varchar" MaxLength="50" />
-    <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
-    <Property Name="ModifiedDate" Type="datetime" />
-    <Property Name="MetaKeywords" Type="nvarchar" MaxLength="250" />
-    <Property Name="MetaDescriptions" Type="nchar" MaxLength="250" />
     <Property Name="Status" Type="bit" Nullable="false" />
-    <Property Name="ShowOnHome" Type="bit" />
+    <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModifiedDate" Type="datetime" />
   </EntityType>
   <EntityType Name="Role">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
-  <EntityType Name="SystemConfig">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" />
-    <Property Name="Type" Type="varchar" MaxLength="50" />
-    <Property Name="Value" Type="nvarchar" MaxLength="50" />
-    <Property Name="Status" Type="bit" />
-  </EntityType>
-  <EntityType Name="Tag">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -247,15 +191,7 @@
     <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
   </EntityType>
-  <EntityType Name="ViewTag">
-    <Key>
-      <PropertyRef Name="ViewID" />
-      <PropertyRef Name="TagID" />
-    </Key>
-    <Property Name="ViewID" Type="bigint" Nullable="false" />
-    <Property Name="TagID" Type="varchar" MaxLength="50" Nullable="false" />
-  </EntityType>
-  <Association Name="FK_Group_Role_Role">
+  <Association Name="FK_Grroup_Role_Role">
     <End Role="Role" Type="Self.Role" Multiplicity="1" />
     <End Role="Group_Role" Type="Self.Group_Role" Multiplicity="*" />
     <ReferentialConstraint>
@@ -267,7 +203,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Group_Role_UserGroup">
+  <Association Name="FK_Grroup_Role_UserGroup">
     <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="1" />
     <End Role="Group_Role" Type="Self.Group_Role" Multiplicity="*" />
     <ReferentialConstraint>
@@ -315,31 +251,38 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="WebPhoneModelStoreContainer">
+  <Association Name="FK_User_UserGroup1">
+    <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserGroup">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DCDGearModelStoreContainer">
     <EntitySet Name="About" EntityType="Self.About" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Banner" EntityType="Self.Banner" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FeedBack" EntityType="Self.FeedBack" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Group_Role" EntityType="Self.Group_Role" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="New" EntityType="Self.New" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="SystemConfig" EntityType="Self.SystemConfig" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserGroup" EntityType="Self.UserGroup" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ViewTag" EntityType="Self.ViewTag" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Group_Role_Role" Association="Self.FK_Group_Role_Role">
+    <AssociationSet Name="FK_Grroup_Role_Role" Association="Self.FK_Grroup_Role_Role">
       <End Role="Role" EntitySet="Role" />
       <End Role="Group_Role" EntitySet="Group_Role" />
     </AssociationSet>
-    <AssociationSet Name="FK_Group_Role_UserGroup" Association="Self.FK_Group_Role_UserGroup">
+    <AssociationSet Name="FK_Grroup_Role_UserGroup" Association="Self.FK_Grroup_Role_UserGroup">
       <End Role="UserGroup" EntitySet="UserGroup" />
       <End Role="Group_Role" EntitySet="Group_Role" />
     </AssociationSet>
@@ -352,6 +295,10 @@
       <End Role="Product" EntitySet="Product" />
     </AssociationSet>
     <AssociationSet Name="FK_User_UserGroup" Association="Self.FK_User_UserGroup">
+      <End Role="UserGroup" EntitySet="UserGroup" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_UserGroup1" Association="Self.FK_User_UserGroup1">
       <End Role="UserGroup" EntitySet="UserGroup" />
       <End Role="User" EntitySet="User" />
     </AssociationSet>

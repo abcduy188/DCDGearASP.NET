@@ -182,9 +182,6 @@
     <Compile Include="Models\FeedBack.cs">
       <DependentUpon>DCDGearDbContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Menu.cs">
-      <DependentUpon>DCDGearDbContext.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\New.cs">
       <DependentUpon>DCDGearDbContext.tt</DependentUpon>
     </Compile>
@@ -203,22 +200,10 @@
     <Compile Include="Models\Role.cs">
       <DependentUpon>DCDGearDbContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>DCDGearDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SystemConfig.cs">
-      <DependentUpon>DCDGearDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Tag.cs">
-      <DependentUpon>DCDGearDbContext.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>DCDGearDbContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserGroup.cs">
-      <DependentUpon>DCDGearDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ViewTag.cs">
       <DependentUpon>DCDGearDbContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

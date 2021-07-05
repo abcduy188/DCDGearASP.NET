@@ -48,6 +48,7 @@ namespace DCDGear.Areas.Admin.Controllers
                     banner.Image = x.Remove(x.Length - 1);
                     db.Banners.Add(banner);
                     db.SaveChanges();
+                    return RedirectToAction("Index", "Banner");
                 }
             }
             catch (Exception ex)
@@ -55,7 +56,7 @@ namespace DCDGear.Areas.Admin.Controllers
 
                 throw ex;
             }
-            return View("Index", banner);
+            return View("Index");
         }
         #region ImageResize
         private byte[] ConvertToBytes(HttpPostedFileBase image)

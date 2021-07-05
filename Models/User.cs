@@ -29,5 +29,6 @@ namespace DCDGear.Models
         public string ModifiedBy { get; set; }
     
         public virtual UserGroup UserGroup { get; set; }
+        public virtual UserGroup UserGroup1 { get; set; }
     }
 }

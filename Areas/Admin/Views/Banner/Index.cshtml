@@ -23,6 +23,7 @@
 
                             <th scope="col" style="width: 40%;">Tên banner</th>
                             <th scope="col" style="width: 15%;">Hình ảnh</th>
+                            <th scope="col" style="width: 15%;">Loại</th>
                             <th scope="col" style="width: 15%;">Trạng thái</th>
                             <th scope="col" style="width: 15%;">Tác vụ</th>
                         </tr>
@@ -30,52 +31,65 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr id="row_@item.ID">
-                                <td style="width: 45%;">@item.Name</td>
-                                <td style="width: 15%;">
-                                    @{
+                        <tr id="row_@item.ID">
+                            <td style="width: 45%;">@item.Name</td>
+                            <td style="width: 15%;">
+                                @{
 
-                                        for (int path = 0; path < item.Image.Split(',').Length; path++)
-                                        {
-                                            string newpath = item.Image.Split(',')[path];
-                                            <img src="@Url.Content("/Assets/Thumbnail/" + newpath)" width="100px" />
-                                            <div class="clearfix"></div>
-                                        }
-
-                                        @*var path = item.Image.Split(',')[0];
-                                            <img src="@Url.Content("/Images/"+path)" width="100px" />
-                                            var path2 = item.Image.Split(',')[1];
-                                            <img src="@Url.Content("/Images/"+path2)" width="100px" />
-                                            var path3 = item.Image.Split(',')[2];
-                                            <img src="@Url.Content("/Images/"+path3)" width="100px" />*@
-                                    }
-                                </td>
-                                <td>
-                                    @{
-                                        if (item.Status == true)
-                                        {
-                                            <span>Đang hoạt động</span>
-                                        }
-                                        else
-                                        {
-                                            <span>Đang tạm khóa</span>
-                                        }
+                                    for (int path = 0; path < item.Image.Split(',').Length; path++)
+                                    {
+                                        string newpath = item.Image.Split(',')[path];
+                                        <img src="@Url.Content("/Assets/Thumbnail/" + newpath)" width="100px" />
+                                        <div class="clearfix"></div>
                                     }
 
-                                </td>
-                                <td style="width: 10%;">
-                                    <a href="/Admin/Product/Edit/@item.ID">Edit</a>  ||
-                                    <i class="zmdi zmdi - delete">
-                                        @Ajax.ActionLink("Xoa", "Delete", new { @id = item.ID }, new AjaxOptions
-        {
-         Confirm = "Are you sure?",
-         OnComplete = "$('#row_" + @item.ID + "').remove()",
-         HttpMethod = "Delete"
-        })
-                                    </i>
+                                    @*var path = item.Image.Split(',')[0];
+                <img src="@Url.Content("/Images/"+path)" width="100px" />
+                var path2 = item.Image.Split(',')[1];
+                <img src="@Url.Content("/Images/"+path2)" width="100px" />
+                var path3 = item.Image.Split(',')[2];
+                <img src="@Url.Content("/Images/"+path3)" width="100px" />*@
+                                }
+                            </td>
+                            <td>
+                                @{
+                                    if (item.Type == 1)
+                                    {
+                                        <span>Banner chính</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Chưa rõ</span>
+                                    }
+                                }
 
-                                </td>
-                            </tr>
+                            </td>
+                            <td>
+                                @{
+                                    if (item.Status == true)
+                                    {
+                                        <span>Đang hoạt động</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Đang tạm khóa</span>
+                                    }
+                                }
+
+                            </td>
+                            <td style="width: 10%;">
+                                <a href="/Admin/Product/Edit/@item.ID">Edit</a>  ||
+                                <i class="zmdi zmdi - delete">
+                                    @Ajax.ActionLink("Xoa", "Delete", new { @id = item.ID }, new AjaxOptions
+    {
+     Confirm = "Are you sure?",
+     OnComplete = "$('#row_" + @item.ID + "').remove()",
+     HttpMethod = "Delete"
+    })
+                                </i>
+
+                            </td>
+                        </tr>
                         }
 
                     </tbody>
