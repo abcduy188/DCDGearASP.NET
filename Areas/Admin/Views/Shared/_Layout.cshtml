@@ -50,6 +50,13 @@
     <script src="/Assets/Admin/js/datatables-simple-demo.js"></script>
     <script src="/Assets/Admin/ckeditor/ckeditor.js"></script>
     <script src="/Assets/Admin/ckfinder/ckfinder.js"></script>
+    <script>
+        $(document).ready(function () {
+            //custom alert
+            $('#alertM').removeClass('hide');
+            $('#alertM').delay(1000).slideUp(500);
+        });
+    </script>
     @RenderSection("js", required: false)
 </body>
 </html>

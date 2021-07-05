@@ -1,0 +1,90 @@
+﻿@model List<DCDGear.Models.ProductCategory>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section js{
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">PRODUCT</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+            <li class="breadcrumb-item active">Danh sach</li>
+        </ol>
+        <div class="card mb-4">
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <a href="/admin/productcategory/create" class="btn btn-blue btn-flat" style="background-color:#1D89E2; color: #ffffff"><i class="far fa-plus"></i>&nbsp;Thêm mới</a>
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 40%;">Mã danh mục</th>
+                            <th scope="col" style="width: 40%;">Tên danh mục</th>
+                            <th scope="col" style="width: 40%;">Danh mục con</th>
+                            <th scope="col" style="width: 15%;">Trạng thái</th>
+                            <th scope="col" style="width: 15%;">Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="row_@item.ID">
+                                <td style="width: 45%;">@item.ID</td>
+                                <td style="width: 45%;">@item.Name</td>
+                                <td style="width: 15%;">@item.ParentID</td>
+                                <td>
+                                    @{
+                                        if (item.Status == true)
+                                        {
+                                            <span>Đang hoạt động</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Đang tạm khóa</span>
+                                        }
+                                    }
+
+                                </td>
+                                <td style="width: 10%;">
+                                    <a href="/Admin/ProductCategory/Edit/@item.ID">Edit</a>  ||
+                                    @*<a href="/Admin/ProductCategory/Delete/@item.ID">Xóa</a>*@
+                                <a href="#" data-id="@item.ID" data-toggle="modal" data-target="#myModal" class="btn-images">Modal</a>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Modal body..
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>

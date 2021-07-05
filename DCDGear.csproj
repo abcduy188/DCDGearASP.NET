@@ -133,23 +133,29 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BannerController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\NewController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
-    <Compile Include="Common\CommonConstants.cs" />
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DAO\BannerDAO.cs" />
+    <Compile Include="DAO\ProductCategoryDAO.cs" />
     <Compile Include="DAO\ProductDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\About.cs">
+      <DependentUpon>DCDGearDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Banner.cs">
       <DependentUpon>DCDGearDbContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs">
@@ -218,6 +224,14 @@
     <Content Include="Areas\Admin\Views\New\DeleteConfirmed.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\New\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Banner\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductCategory\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductCategory\DeleteConfirmed.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductCategory\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductCategory\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductCategory\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Banner\ImageUpload.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Header.cshtml" />
     <Content Include="Assets\Admin\assets\demo\chart-area-demo.js" />
     <Content Include="Assets\Admin\assets\demo\chart-bar-demo.js" />
@@ -1373,6 +1387,7 @@
     <Content Include="Assets\Thumbnail\GF63-THIN-10SC-014VN-1-768x768.jpg" />
     <Content Include="Assets\Thumbnail\IDEAPAD-GAMING-3-15ARH05-82EY00C3VN-768x768.jpg" />
     <Content Include="Assets\Thumbnail\logodc1.png" />
+    <Content Include="Assets\Thumbnail\LogoDCDGear.png" />
     <Content Include="Assets\Thumbnail\nebula.jpg" />
     <Content Include="Assets\Thumbnail\Perspective - IdP Workflow image Version2.png" />
     <Content Include="Assets\Thumbnail\phuongly.jpg" />
@@ -1567,7 +1582,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Assets\Client\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>

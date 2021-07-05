@@ -77,7 +77,7 @@ namespace DCDGear.DAO
             {
                 if(isAdmin==true)
                 {
-                    if(result.GroupID == Common.CommonConstants.ADMIN_GROUP || result.GroupID == Common.CommonConstants.MOD_GROUP)
+                    if(result.GroupID == "ADMIN")
                     {
                         if(result.Status == false)
                         {

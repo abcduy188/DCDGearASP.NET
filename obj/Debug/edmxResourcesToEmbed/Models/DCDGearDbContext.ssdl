@@ -18,6 +18,17 @@
     <Property Name="MetaKeywords" Type="nvarchar" MaxLength="250" />
     <Property Name="MetaDescriptions" Type="nchar" MaxLength="250" />
   </EntityType>
+  <EntityType Name="Banner">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" />
+    <Property Name="Image" Type="varchar(max)" />
+    <Property Name="MoreIMG" Type="xml" />
+    <Property Name="Type" Type="int" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+  </EntityType>
   <EntityType Name="Category">
     <Key>
       <PropertyRef Name="ID" />
@@ -269,6 +280,7 @@
   </Association>
   <EntityContainer Name="WebPhoneModelStoreContainer">
     <EntitySet Name="About" EntityType="Self.About" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Banner" EntityType="Self.Banner" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FeedBack" EntityType="Self.FeedBack" Schema="dbo" store:Type="Tables" />

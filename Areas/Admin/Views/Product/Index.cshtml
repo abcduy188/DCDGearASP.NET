@@ -21,36 +21,37 @@
                     <thead>
                         <tr>
 
-                            <th scope="col">Tên tin tức</th>
-                            <th scope="col">Hình ảnh</th>
-                            <th scope="col">Danh mục</th>
-                            <th scope="col">Giá</th>
-                            <th scope="col">Tác vụ</th>
+                            <th scope="col" style="width: 40%;">Tên tin tức</th>
+                            <th scope="col"  style="width: 15%;">Hình ảnh</th>
+                            <th scope="col"  style="width: 15%;">Danh mục</th>
+                            <th scope="col"  style="width: 15%;">Giá</th>
+                            <th scope="col"  style="width: 15%;">Tác vụ</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr id="row_@item.ID">
-                                <td>@item.Name</td>
-                                <td><img src="@Url.Content("/Assets/Thumbnail/" + item.Image)" width="auto" height="100" /></td>
-                                <td>@item.ProductCategory.Name</td>
+                        <tr id="row_@item.ID">
+                            <td style="width: 45%;">@item.Name</td>
+                            <td style="width: 15%;"><img src="@Url.Content("/Assets/Thumbnail/" + item.Image)" width="auto" height="100" /></td>
 
-                                @*<td>@item.Detail</td>*@
-                                <td>@item.Price.Value.ToString("N0")Đ</td>
-                                <td>
-                                    <a href="/Admin/Product/Edit/@item.ID">Edit</a>  ||
-                                    <i class="zmdi zmdi - delete">
-                                                                        @Ajax.ActionLink("Xoa", "Delete", new { @id = item.ID }, new AjaxOptions
-                                        {
-                                         Confirm = "Are you sure?",
-                                         OnComplete = "$('#row_" + @item.ID + "').remove()",
-                                         HttpMethod = "Delete"
-                                        })
-                                                                    </i>
-                                   
-                                </td>
-                            </tr>
+                            @*<td style="width: 15%;">@item.ProductCategory.Name</td>*@
+
+                            @*<td>@item.Detail</td>*@
+                            <td style="width: 15%;">@item.Price.Value.ToString("N0")Đ</td>
+                            <td style="width: 10%;">
+                                <a href="/Admin/Product/Edit/@item.ID">Edit</a>  ||
+                                <i class="zmdi zmdi - delete">
+                                    @Ajax.ActionLink("Xoa", "Delete", new { @id = item.ID }, new AjaxOptions
+    {
+     Confirm = "Are you sure?",
+     OnComplete = "$('#row_" + @item.ID + "').remove()",
+     HttpMethod = "Delete"
+    })
+                                </i>
+
+                            </td>
+                        </tr>
                         }
 
                     </tbody>

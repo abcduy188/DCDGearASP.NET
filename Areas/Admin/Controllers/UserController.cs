@@ -31,13 +31,13 @@ namespace DCDGear.Areas.Admin.Controllers
             ViewBag.GroupID = new SelectList(dao.ListParent(), "ID", "Name", user.UserGroup);
             if (ModelState.IsValid)
             {
-                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                var session = (UserLogin)Session["DUY"];
                 user.CreateBy = session.Name;
                 user.CreateDate = DateTime.Now;
                 var create = dao.Create(user);
                 if (create)
                 {
-                    SetAlert("Thêm tin tức thành công", "succes");
+                    SetAlert("Thêm tin tức thành công", "success");
                     return RedirectToAction("Index", "User");
                 }
                 else
@@ -63,12 +63,12 @@ namespace DCDGear.Areas.Admin.Controllers
             ViewBag.GroupID = new SelectList(dao.ListParent(), "ID", "Name", user.UserGroup);
             if (ModelState.IsValid)
             {
-                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                var session = (UserLogin)Session["DUY"];
                 user.ModifiedBy = session.Name;
                 var result = dao.Edit(user);
                 if (result)
                 {
-                    SetAlert("Cap nhat nguoi dung thanh cong", "succes");
+                    SetAlert("Cap nhat nguoi dung thanh cong", "success");
                     return RedirectToAction("Index", "User");
                 }
                 else

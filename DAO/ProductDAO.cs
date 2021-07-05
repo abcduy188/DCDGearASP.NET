@@ -24,14 +24,34 @@ namespace DCDGear.DAO
         {
             return db.Products.Find(id);
         }
-        public bool Update(Product entity)
+        public int Update(Product entity)
         {
             var products = db.Products.Find(entity.ID);
             products.Name = entity.Name;
             products.CategoryID = entity.CategoryID;
             products.MetaTitle = entity.MetaTitle;
             products.Description = entity.Description;
-            products.Image = entity.Image;
+            try
+            {
+                if(entity.Image == null)
+                {
+                    if(!string.IsNullOrEmpty(products.Image))
+                    {
+                        products.Image = products.Image;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+                else
+                {
+                    products.Image = entity.Image;
+                }    
+            }
+            catch (Exception e)
+            {
+            }
             products.MoreImages = entity.MoreImages;
             products.Price = entity.Price;
             products.PromotionPrice = entity.PromotionPrice;
@@ -52,7 +72,7 @@ namespace DCDGear.DAO
             products.Status = entity.Status;
             products.ModifiedDate = DateTime.Now;
             db.SaveChanges();
-            return true;
+            return 1;
         }
         public bool Delete(long id)
         {

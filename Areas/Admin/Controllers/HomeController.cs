@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DCDGear.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,8 @@ namespace DCDGear.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
-            return View();
+            var dao = new ProductDAO().ListAll();
+            return View(dao);
         }
     }
 }

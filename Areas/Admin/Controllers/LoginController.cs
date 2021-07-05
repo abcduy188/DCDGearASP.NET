@@ -30,7 +30,7 @@ namespace DCDGear.Areas.Admin.Controllers
                     userSession.UserName = user.UserName;
                     userSession.UserID = user.ID;
                     userSession.Name = user.Name;
-                    Session.Add(CommonConstants.USER_SESSION, userSession);
+                    Session.Add("DUY", userSession);
                     return RedirectToAction("Index", "Home");
                 }
                 else if (result == 0)
@@ -58,8 +58,8 @@ namespace DCDGear.Areas.Admin.Controllers
         }
         public ActionResult Logout()
         {
-            Session[CommonConstants.USER_SESSION] = null;
-            return RedirectToAction("Login", "User");
+            Session["DUY"] = null;
+            return RedirectToAction("Index", "Login");
         }
     }
 }

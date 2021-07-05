@@ -277,5 +277,17 @@
       <End Role="Role" EntitySet="Roles" />
       <End Role="UserGroup" EntitySet="UserGroups" />
     </AssociationSet>
+    <EntitySet Name="Banners" EntityType="WebPhoneModel.Banner" />
   </EntityContainer>
+  <EntityType Name="Banner">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MoreIMG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="Int32" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+  </EntityType>
 </Schema>

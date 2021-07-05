@@ -1,0 +1,86 @@
+﻿@model List<DCDGear.Models.Banner>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">PRODUCT</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+            <li class="breadcrumb-item active">Danh sach</li>
+        </ol>
+        <div class="card mb-4">
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <a href="/admin/banner/ImageUpload" class="btn btn-blue btn-flat" style="background-color:#1D89E2; color: #ffffff"><i class="far fa-plus"></i>&nbsp;Thêm mới</a>
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+
+                            <th scope="col" style="width: 40%;">Tên banner</th>
+                            <th scope="col" style="width: 15%;">Hình ảnh</th>
+                            <th scope="col" style="width: 15%;">Trạng thái</th>
+                            <th scope="col" style="width: 15%;">Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="row_@item.ID">
+                                <td style="width: 45%;">@item.Name</td>
+                                <td style="width: 15%;">
+                                    @{
+
+                                        for (int path = 0; path < item.Image.Split(',').Length; path++)
+                                        {
+                                            string newpath = item.Image.Split(',')[path];
+                                            <img src="@Url.Content("/Assets/Thumbnail/" + newpath)" width="100px" />
+                                            <div class="clearfix"></div>
+                                        }
+
+                                        @*var path = item.Image.Split(',')[0];
+                                            <img src="@Url.Content("/Images/"+path)" width="100px" />
+                                            var path2 = item.Image.Split(',')[1];
+                                            <img src="@Url.Content("/Images/"+path2)" width="100px" />
+                                            var path3 = item.Image.Split(',')[2];
+                                            <img src="@Url.Content("/Images/"+path3)" width="100px" />*@
+                                    }
+                                </td>
+                                <td>
+                                    @{
+                                        if (item.Status == true)
+                                        {
+                                            <span>Đang hoạt động</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Đang tạm khóa</span>
+                                        }
+                                    }
+
+                                </td>
+                                <td style="width: 10%;">
+                                    <a href="/Admin/Product/Edit/@item.ID">Edit</a>  ||
+                                    <i class="zmdi zmdi - delete">
+                                        @Ajax.ActionLink("Xoa", "Delete", new { @id = item.ID }, new AjaxOptions
+        {
+         Confirm = "Are you sure?",
+         OnComplete = "$('#row_" + @item.ID + "').remove()",
+         HttpMethod = "Delete"
+        })
+                                    </i>
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

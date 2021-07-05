@@ -17,7 +17,7 @@
 		// ... where Session[ "IsAuthorized" ] is set to "true" as soon as the
 		// user logs on your system.
 
-		return Session["USER_SESSION"]!=null;
+		return Session["DUY"]!=null;
 	}
 
 	/**

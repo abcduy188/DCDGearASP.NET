@@ -113,7 +113,7 @@
                         @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             <div class="col-md-10" style="margin-top:5px">
-                                <input type="file" name="fileUpload" />
+                                <input type="file" name="fileUpload" multiple />
                             </div>
                             @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
                         </div>
@@ -162,7 +162,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.CategoryID, "CategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.CategoryID, null, htmlAttributes: new { @class = "form-control-mandatory" })
                             @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
                         </div>
                     </div>

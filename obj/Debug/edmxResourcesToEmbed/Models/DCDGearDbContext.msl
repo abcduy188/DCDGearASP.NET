@@ -220,5 +220,17 @@
         <ScalarProperty Name="ID" ColumnName="UserGroupID" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="Banners">
+      <EntityTypeMapping TypeName="WebPhoneModel.Banner">
+        <MappingFragment StoreEntitySet="Banner">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="MoreIMG" ColumnName="MoreIMG" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
