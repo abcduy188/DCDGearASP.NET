@@ -46,18 +46,8 @@ namespace DCDGear.DAO
             return true;
 
         }
-        public bool Delete(long id)
-        {
-            var user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return true;
-        }
         //List usergroup l for Viewbag
-        public List<UserGroup> ListParent()
-        {
-            return db.UserGroups.ToList();
-        }
+
         public User GetByUserName(string userName)
         {
             return db.Users.SingleOrDefault(d=>d.UserName==userName);

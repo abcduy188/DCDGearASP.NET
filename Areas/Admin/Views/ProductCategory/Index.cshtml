@@ -4,7 +4,8 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @section js{
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>}
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+}
 <main>
     <div class="container-fluid px-4">
         <h1 class="mt-4">PRODUCT</h1>
@@ -22,42 +23,46 @@
                 <table id="datatablesSimple">
                     <thead>
                         <tr>
-                            <th scope="col" style="width: 40%;">Mã danh mục</th>
-                            <th scope="col" style="width: 40%;">Tên danh mục</th>
-                            <th scope="col" style="width: 40%;">Danh mục con</th>
-                            <th scope="col" style="width: 15%;">Trạng thái</th>
-                            <th scope="col" style="width: 15%;">Tác vụ</th>
+
+                            <th scope="col">Tên Danh mục</th>
+                            <th scope="col">Trạng thái</th>
+                            <th scope="col">Tác vụ</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+
+                        @foreach (var item in Model.Where(d => d.ParentID == null))
                         {
+                            var child = Model.Where(d => d.ParentID == item.ID);
                             <tr id="row_@item.ID">
-                                <td style="width: 45%;">@item.ID</td>
-                                <td style="width: 45%;">@item.Name</td>
-                                <td style="width: 15%;">@item.ParentID</td>
-                                <td>
-                                    @{
-                                        if (item.Status == true)
-                                        {
-                                            <span>Đang hoạt động</span>
-                                        }
+                                <td style="background-color:yellow"><b>@item.Name</b></td>
+                                <td style="background-color:yellow">
+                                    @if (item.Status == true)
+                                    {<span> Đang hoạt động</span>}
+
+                                    else
+                                    {<span> Không hoạt động</span>}
+                                </td>
+                                <td style="background-color:yellow"></td>
+                                @foreach (var childItem in child)
+                                {
+                                <tr id="row_@childItem.ID">
+                                    <td>@childItem.Name</td>
+                                    <td>
+                                        @if (childItem.Status == true)
+                                        {<span> Đang hoạt động</span>}
+
                                         else
-                                        {
-                                            <span>Đang tạm khóa</span>
-                                        }
-                                    }
-
-                                </td>
-                                <td style="width: 10%;">
-                                    <a href="/Admin/ProductCategory/Edit/@item.ID">Edit</a>  ||
-                                    @*<a href="/Admin/ProductCategory/Delete/@item.ID">Xóa</a>*@
-                                <a href="#" data-id="@item.ID" data-toggle="modal" data-target="#myModal" class="btn-images">Modal</a>
-
-                                </td>
-
-                            </tr>
-                        }
+                                        {<span> Không hoạt động</span>}
+                                    </td>
+                                    <td>
+                                        <a href="/Admin/ProductCategory/Edit/@childItem.ID">Edit</a>  ||
+                                        <a href="/Admin/ProductCategory/Delete/@childItem.ID">Xóa</a>
+                                    </td>
+                                </tr>
+                            }
+                                </tr>
+                            }
 
                     </tbody>
                 </table>
@@ -65,26 +70,3 @@
         </div>
     </div>
 </main>
-<!-- The Modal -->
-<div class="modal" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                Modal body..
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
-        </div>
-    </div>
-</div>

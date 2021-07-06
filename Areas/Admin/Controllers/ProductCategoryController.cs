@@ -24,14 +24,14 @@ namespace DCDGear.Areas.Admin.Controllers
         public ActionResult Create()
         {
             var dao = new ProductCategoryDAO();
-            SetViewBag();
+            ViewBag.ParentID = new SelectList(db.ProductCategories.Where(d => d.ParentID == null), "ID", "Name");
             return View();
         }
         [HttpPost]
         public ActionResult Create(ProductCategory productCategory)
         {
             var dao = new ProductCategoryDAO();
-            SetViewBag();
+            ViewBag.ParentID = new SelectList(db.ProductCategories.Where(d => d.ParentID == null), "ID", "Name");
             if (ModelState.IsValid)
             {
                 var session = (UserLogin)Session["DUY"];
@@ -56,14 +56,14 @@ namespace DCDGear.Areas.Admin.Controllers
         {
             var dao = new ProductCategoryDAO();
             var model = dao.FindByID(id);
-            SetViewBag(model.ParentID);
+            ViewBag.ParentID = new SelectList(db.ProductCategories.Where(d => d.ParentID == null), "ID", "Name",model.ParentID);
             return View(model);
         }
         [HttpPost]
         public ActionResult Edit(ProductCategory productCategory)
         {
             var dao = new ProductCategoryDAO();
-            SetViewBag(productCategory.ParentID);
+            ViewBag.ParentID = new SelectList(db.ProductCategories.Where(d => d.ParentID == null), "ID", "Name", productCategory.ParentID);
             if (ModelState.IsValid)
             {
                 var session = (UserLogin)Session["DUY"];
@@ -113,7 +113,7 @@ namespace DCDGear.Areas.Admin.Controllers
         public void SetViewBag(long? selectedId = null)
         {
             var dao = new ProductCategoryDAO();
-            ViewBag.ParentID = new SelectList(dao.ListByParent(), "ID", "Name", selectedId);
+            ViewBag.ParentID = new SelectList(db.ProductCategories.Where(d=>d.ParentID==null), "ID", "Name", selectedId);
         }
     }
 }

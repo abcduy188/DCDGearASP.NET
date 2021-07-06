@@ -12,6 +12,7 @@ namespace DCDGear.Areas.Admin.Controllers
 {
     public class UserController : BaseController
     {
+        private DCDGearDbContext db = new DCDGearDbContext();
         // GET: Admin/User
         public ActionResult Index()
         {
@@ -20,20 +21,20 @@ namespace DCDGear.Areas.Admin.Controllers
         }
         public ActionResult Create()
         {
-            var dao = new UserDAO();
-            ViewBag.GroupID = new SelectList(dao.ListParent(), "ID", "Name");
+            ViewBag.GroupID = new SelectList(db.UserGroups, "ID", "Name");
             return View();
         }
         [HttpPost]
         public ActionResult Create(User user)
         {
             var dao = new UserDAO();
-            ViewBag.GroupID = new SelectList(dao.ListParent(), "ID", "Name", user.UserGroup);
+            ViewBag.GroupID = new SelectList(db.UserGroups, "ID", "Name", user.GroupID);
             if (ModelState.IsValid)
             {
                 var session = (UserLogin)Session["DUY"];
                 user.CreateBy = session.Name;
                 user.CreateDate = DateTime.Now;
+                user.PassWord = Encryptor.MD5Hash(user.PassWord);
                 var create = dao.Create(user);
                 if (create)
                 {
@@ -52,7 +53,7 @@ namespace DCDGear.Areas.Admin.Controllers
         {
             var dao = new UserDAO();
             var user = dao.GetByID(id);
-            ViewBag.GroupID = new SelectList(dao.ListParent(), "ID", "Name", id);
+            ViewBag.GroupID = new SelectList(db.UserGroups, "ID", "Name", user.GroupID);
             return View(user);
         }
         [HttpPost]
@@ -60,7 +61,7 @@ namespace DCDGear.Areas.Admin.Controllers
         {
 
             var dao = new UserDAO();
-            ViewBag.GroupID = new SelectList(dao.ListParent(), "ID", "Name", user.UserGroup);
+            ViewBag.GroupID = new SelectList(db.UserGroups, "ID", "Name", user.GroupID);
             if (ModelState.IsValid)
             {
                 var session = (UserLogin)Session["DUY"];
@@ -73,15 +74,20 @@ namespace DCDGear.Areas.Admin.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Khong tao dc nguoi dung");
+                    SetAlert( "Khong tao dc nguoi dung", "error");
+                    return RedirectToAction("Edit", "User");
                 }
             }
             return View("Index");
         }
+
+        [HttpDelete]
         public ActionResult Delete(long id)
         {
-            new UserDAO().Delete(id);
-            return Redirect("index");
+            var user = db.Users.Find(id);
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return Redirect("Index");
         }
     }
 }

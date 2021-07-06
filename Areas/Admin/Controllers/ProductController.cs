@@ -24,8 +24,22 @@ namespace DCDGear.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            SetViewBag();
+            ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name");
             return View();
+        }
+       
+        public ActionResult Edit(long id)
+        {
+            var dao = new ProductDAO().GetByID(id);
+            ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", dao.CategoryID);
+            return View(dao);
+        }
+
+        [HttpDelete]
+        public ActionResult Delete(long id)
+        {
+            new ProductDAO().Delete(id);
+            return Redirect("Index");
         }
         #region Create with single img
 
@@ -33,7 +47,7 @@ namespace DCDGear.Areas.Admin.Controllers
         //[ValidateInput(false)]//chap nhan mã html
         //public ActionResult Create(Product products, HttpPostedFileBase fileUpload)
         //{
-        //    SetViewBag();
+        //     ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", products.CategoryID);
         //    if (fileUpload == null)
         //    {
         //        SetAlert("Vui lòng chọn ảnh", "warning");
@@ -72,21 +86,13 @@ namespace DCDGear.Areas.Admin.Controllers
         //    return View("Index");
         //}
         #endregion
-        public ActionResult Edit(long id)
-        {
-            var dao = new ProductDAO().GetByID(id);
-            ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", id);
-            return View(dao);
-        }
-
-
         #region Edit with single img
 
         //[HttpPost]
         //[ValidateInput(false)]
         //public ActionResult Edit(Product products, HttpPostedFileBase fileUpload)
         //{
-        //    ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", products.ID);
+        //   ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", products.CategoryID);
         //    var dao = new ProductDAO();
         //    if (fileUpload == null)
         //    {
@@ -142,17 +148,6 @@ namespace DCDGear.Areas.Admin.Controllers
         //}
 
         #endregion
-        public void SetViewBag(long? selectedId = null)
-        {
-            var dao = new ProductCategoryDAO();
-            ViewBag.CategoryID = new SelectList(dao.ListAll(), "ID", "Name", selectedId);
-        }
-        public ActionResult Delete(long id)
-        {
-            new ProductDAO().Delete(id);
-            return Redirect("Index");
-        }
-
         #region Create with multiple img
         [HttpPost]
         [ValidateInput(false)]//chap nhan mã html
@@ -198,11 +193,11 @@ namespace DCDGear.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(Product products)
         {
-            ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", products.ID);
+            ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", products.CategoryID);
             var dao = new ProductDAO();
             var session = (UserLogin)Session["DUY"];
 
-            if (ModelState.IsValid) // kiem tra co valid form hay khong
+            if (ModelState.IsValid)
             {
                 HttpFileCollectionBase files = Request.Files;
 
@@ -252,5 +247,10 @@ namespace DCDGear.Areas.Admin.Controllers
             return View("Index");
         }
         #endregion
+        //public void SetViewBag(long? selectedId = null)
+        //{
+        //    var dao = new ProductCategoryDAO();
+        //    ViewBag.CategoryID = new SelectList(dao.ListAll(), "ID", "Name", selectedId);
+        //}
     }
 }
