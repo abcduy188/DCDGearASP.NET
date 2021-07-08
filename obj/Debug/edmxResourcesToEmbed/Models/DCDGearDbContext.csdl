@@ -20,11 +20,11 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Int64" Nullable="false" />
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Boolean" Nullable="false" />
     <Property Name="Type" Type="Int32" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="Category">
     <Key>
@@ -69,6 +69,7 @@
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="SeoTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="CategoryID" Type="Int64" />
     <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -81,7 +82,6 @@
     <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Category" Relationship="Self.FK_New_Category" FromRole="New" ToRole="Category" />
-    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -181,7 +181,6 @@
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="UserGroup" Relationship="Self.FK_User_UserGroup" FromRole="User" ToRole="UserGroup" />
-    <NavigationProperty Name="UserGroup1" Relationship="Self.FK_User_UserGroup1" FromRole="User" ToRole="UserGroup" />
   </EntityType>
   <EntityType Name="UserGroup">
     <Key>
@@ -190,7 +189,6 @@
     <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Users" Relationship="Self.FK_User_UserGroup" FromRole="UserGroup" ToRole="User" />
-    <NavigationProperty Name="Users1" Relationship="Self.FK_User_UserGroup1" FromRole="UserGroup" ToRole="User" />
     <NavigationProperty Name="Roles" Relationship="Self.Group_Role" FromRole="UserGroup" ToRole="Role" />
   </EntityType>
   <Association Name="FK_New_Category">
@@ -229,18 +227,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_User_UserGroup1">
-    <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="0..1" />
-    <End Role="User" Type="Self.User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="UserGroup">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="GroupID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="Group_Role">
     <End Role="Role" Type="Self.Role" Multiplicity="*" />
     <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="*" />
@@ -268,10 +254,6 @@
       <End Role="Product" EntitySet="Products" />
     </AssociationSet>
     <AssociationSet Name="FK_User_UserGroup" Association="Self.FK_User_UserGroup">
-      <End Role="UserGroup" EntitySet="UserGroups" />
-      <End Role="User" EntitySet="Users" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_UserGroup1" Association="Self.FK_User_UserGroup1">
       <End Role="UserGroup" EntitySet="UserGroups" />
       <End Role="User" EntitySet="Users" />
     </AssociationSet>

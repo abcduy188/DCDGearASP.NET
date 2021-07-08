@@ -18,7 +18,6 @@ namespace DCDGear.Models
         public UserGroup()
         {
             this.Users = new HashSet<User>();
-            this.Users1 = new HashSet<User>();
             this.Roles = new HashSet<Role>();
         }
     
@@ -27,8 +26,6 @@ namespace DCDGear.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Roles { get; set; }
     }

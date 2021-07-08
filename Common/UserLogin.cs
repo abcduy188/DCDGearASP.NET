@@ -9,7 +9,7 @@ namespace DCDGear.Common
     [Serializable]
     public class UserLogin
     {
-        public long UserID { set; get; }
+        public long UserID { set; get; } //các hàm properties
         public string UserName { set; get; }
         public string Name { set; get; }
     }

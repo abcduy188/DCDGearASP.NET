@@ -1,9 +1,10 @@
-﻿@model DCDGear.Models.New
+﻿@model DCDGear.Models.Banner
 @{
-    ViewBag.Title = "Index";
-    var listProductsNew = (List<DCDGear.Models.Product>)ViewBag.ListProductsNew;
+    ViewBag.Title = "DCD Gear";
+
     var listNewsNew = (List<DCDGear.Models.New>)ViewBag.ListNewsNew;
     var listNewsNew1 = (List<DCDGear.Models.New>)ViewBag.ListNewsNew1;
+    var listProductsNew = (List<DCDGear.Models.Product>)ViewBag.ListProductsNew;
     var ListRepresentative = (List<DCDGear.Models.Product>)ViewBag.ListRepresentative;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -12,61 +13,71 @@
     <!-- data-ride="carousel" -->
     <div id="carouselLaptop" class="carousel slide carousel-fade">
         <ol class="carousel-indicators container">
-            <li data-target="#carouselLaptop" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselLaptop" data-slide-to="1"></li>
-            <li data-target="#carouselLaptop" data-slide-to="2"></li>
+            @{
+                for (int i = 0; i < Model.Image.Split(',').Length; i++)
+                {
+                    if (i == 0)
+                    {
+                        <li data-target="#carouselLaptop" data-slide-to="@i" class="active"></li>
+                    }
+                    else
+                    {
+                        <li data-target="#carouselLaptop" data-slide-to="@i"></li>
+                    }
+                }
+            }
         </ol>
         <div class="carousel-inner">
+            @{
 
-            <div class="carousel-item active">
-                <div class="overlay"></div>
-                <img src="/Assets/Client/img/carousel1.jpg" class="d-block w-100" alt="...">
-                <div class="container carousel-caption d-none d-md-block">
+                for (int path = 0; path < Model.Image.Split(',').Length; path++) //tach chuoi
+                {
+                    string newpath = Model.Image.Split(',')[path];
+                    if (path == 0)
+                    {
+                        <div class="carousel-item active">
+                            <div class="overlay"></div>
+                            <img src="@Url.Content("/Assets/Thumbnail/" + newpath)" class="d-block w-100" alt="...">
+                            <div class="container carousel-caption d-none d-md-block">
 
-                    <p class="text-warning ">ACTION, ADVENTURE, FANTASY</p>
-                    <h2 class="display-4">End of the World: Part II</h2>
-                    <p>
-                        Claritas est etiam processus dynamicus, qui sequitur mutati onem consuetudium lectorum. Mirum
-                        est notare quam littera gothica, quam n unc putamus parum.
-                    </p>
-                    <div>
-                        <span class="border rounded-circle p-2">PG</span>
-                        <button class="btn_trailer"> <i class="fa fa-play mr-2"></i>PLAY TRAILER</button>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="overlay"></div>
-                <img src="/Assets/Client/img/carousel2.jpg" class="d-block w-100" alt="...">
-                <div class="container carousel-caption d-none d-md-block">
-                    <p class="text-warning">ACTION, ADVENTURE, FANTASY</p>
-                    <h2 class="display-4">End of the World: Part II</h2>
-                    <p>
-                        Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum
-                        est notare quam littera gothica, quam nunc putamu.
-                    </p>
-                    <div>
-                        <span class="border rounded-circle p-2">PG</span>
-                        <button class="btn_trailer"> <i class="fa fa-play mr-2"></i>PLAY TRAILER</button>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="overlay"></div>
-                <img src="/Assets/Client/img/carousel3.jpg" class="d-block w-100" alt="...">
-                <div class="container carousel-caption d-none d-md-block">
-                    <p class="text-warning">ACTION, ADVENTURE, FANTASY</p>
-                    <h2 class="display-4">End of the World: Part II</h2>
-                    <p>
-                        Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum
-                        est notare quam littera gothica, quam nunc putamu.
-                    </p>
-                    <div>
-                        <span class="border rounded-circle p-2">PG</span>
-                        <button class="btn_trailer"> <i class="fa fa-play mr-2"></i>PLAY TRAILER</button>
-                    </div>
-                </div>
-            </div>
+                                <p class="text-warning ">ACTION, ADVENTURE, FANTASY</p>
+                                <h2 class="display-4">End of the World: Part II</h2>
+                                <p>
+                                    Claritas est etiam processus dynamicus, qui sequitur mutati onem consuetudium lectorum. Mirum
+                                    est notare quam littera gothica, quam n unc putamus parum.
+                                </p>
+                                <div>
+                                    <span class="border rounded-circle p-2">PG</span>
+                                    <button class="btn_trailer"> <i class="fa fa-play mr-2"></i>PLAY TRAILER</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="carousel-item">
+                            <div class="overlay"></div>
+                            <img src="@Url.Content("/Assets/Thumbnail/" + newpath)" class="d-block w-100" alt="...">
+                            <div class="container carousel-caption d-none d-md-block">
+                                <p class="text-warning">ACTION, ADVENTURE, FANTASY</p>
+                                <h2 class="display-4">End of the World: Part II</h2>
+                                <p>
+                                    Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum
+                                    est notare quam littera gothica, quam nunc putamu.
+                                </p>
+                                <div>
+                                    <span class="border rounded-circle p-2">PG</span>
+                                    <button class="btn_trailer"> <i class="fa fa-play mr-2"></i>PLAY TRAILER</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                }
+
+            }
+           
         </div>
     </div>
 </section>
@@ -75,86 +86,30 @@
         <h1 class="newIn__title">Sản Phẩm Tiêu Biểu</h1>
         <div class="d-flex">
             <div class="row">
-                <div class="col-6 col-md-3">
-                    <div class="newIn__item">
-                        <div class="newIn__info">
-                            <img class="img-fluid" src="/Assets/Client/img/tieubieu1.png" alt="">
-                            <div class="newIn__overlay"></div>
-                            <div class="newIn__detail">
-                                <a href="#">MORE INFO</a>
-                                <p>Release: 7 Mar, 2020</p>
+                @foreach (var item in ListRepresentative)
+                {
+                    var url = "/chi-tiet/" + item.SeoTitle + "-" + item.ID;
+                    <div class="col-6 col-md-3">
+                        <div class="newIn__item">
+                            <div class="newIn__info">
+                                <img class="img-fluid" src="~/Assets/Thumbnail/@item.Image.Split(',')[0]" alt="">
+                                <div class="newIn__overlay"></div>
+                                <div class="newIn__detail">
+                                    <a href="@url">CHI TIET</a>
+                                    <p>Release: @item.CreateDate.Value.ToString("dd/MM/yyyy")</p>
+                                </div>
                             </div>
+                            <p class="newIn__item__title">@item.Name</p>
+                            <p class="newIn__item__rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </p>
                         </div>
-                        <p class="newIn__item__title">Bàn phím Corsair K68 RGB - Red Switch</p>
-                        <p class="newIn__item__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </p>
                     </div>
-                </div>
-                <div class="col-6  col-md-3">
-                    <div class="newIn__item">
-                        <div class="newIn__info">
-                            <img class="img-fluid" src="/Assets/Client/img/tieubieu2.jpg" alt="">
-                            <div class="newIn__overlay"></div>
-                            <div class="newIn__detail">
-                                <a href="#">MORE INFO</a>
-                                <p>Release: 7 Mar, 2020</p>
-                            </div>
-                        </div>
-                        <p class="newIn__item__title">MSI AMD Radeon™ RX 5700XT</p>
-                        <p class="newIn__item__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-6  col-md-3">
-                    <div class="newIn__item">
-                        <div class="newIn__info">
-                            <img class="img-fluid" src="/Assets/Client/img/tieubieu3.jpg" alt="">
-                            <div class="newIn__overlay"></div>
-                            <div class="newIn__detail">
-                                <a href="#">MORE INFO</a>
-                                <p>Release: 7 Mar, 2020</p>
-                            </div>
-                        </div>
-                        <div class="newIn__item__title">Laptop Acer Predator Triton 500 PT515 51 7398 i7</div>
-                        <p class="newIn__item__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-6  col-md-3">
-                    <div class="newIn__item">
-                        <div class="newIn__info">
-                            <img class="img-fluid" src="/Assets/Client/img/tieubieu4.jpg" alt="">
-                            <div class="newIn__overlay"></div>
-                            <div class="newIn__detail">
-                                <a href="#">MORE INFO</a>
-                                <p>Release: 7 Mar, 2020</p>
-                            </div>
-                        </div>
-                        <p class="newIn__item__title">Intel i7 7700T (2.90GHz, 8M) Chính Hãng</p>
-                        <p class="newIn__item__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </p>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
@@ -172,7 +127,7 @@
                     </div>
                     <div class="content">
                         <div class="title">@item.Name</div>
-                        <div class="sub-title"> @(item.PromotionPrice.HasValue? item.PromotionPrice.Value.ToString("N0"):"")</div>
+                        <div class="sub-title"> @(item.PromotionPrice.HasValue? item.PromotionPrice.Value.ToString("N0"):""+item.Price.Value.ToString("N0"))</div>
                         <strike>@item.Price.Value.ToString("N0")D</strike>
                         <div class="btn">
                             <a href="@url" class="button">Read More</a>
@@ -218,10 +173,10 @@
                     </div>
                     <div class="content">
                         <div class="title">@item.Name</div>
-                        <div class="sub-title"> @(item.PromotionPrice.HasValue? item.PromotionPrice.Value.ToString("N0"):"")</div>
+                        <div class="sub-title"> @(item.PromotionPrice.HasValue? item.PromotionPrice.Value.ToString("N0"):item.Price.Value.ToString("N0"))</div>
                         <strike>@item.Price.Value.ToString("N0")D</strike>
                         <div class="btn">
-                            <button>Read More</button>
+                            <button>Xem thêm</button>
                         </div>
                     </div>
                 </div>

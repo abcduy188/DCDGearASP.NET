@@ -21,10 +21,10 @@
     <EntitySetMapping Name="Banners">
       <EntityTypeMapping TypeName="DCDGearModel.Banner">
         <MappingFragment StoreEntitySet="Banner">
-          <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -70,10 +70,10 @@
     <EntitySetMapping Name="News">
       <EntityTypeMapping TypeName="DCDGearModel.New">
         <MappingFragment StoreEntitySet="New">
-          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="SeoTitle" ColumnName="SeoTitle" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
           <ScalarProperty Name="Detail" ColumnName="Detail" />

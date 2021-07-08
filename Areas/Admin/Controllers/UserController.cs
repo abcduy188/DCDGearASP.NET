@@ -16,34 +16,43 @@ namespace DCDGear.Areas.Admin.Controllers
         // GET: Admin/User
         public ActionResult Index()
         {
-            var dao = new UserDAO().ListAll();
-            return View(dao);
+            var user = db.Users.OrderBy(d => d.Name).ToList();
+            return View(user);
         }
         public ActionResult Create()
         {
-            ViewBag.GroupID = new SelectList(db.UserGroups, "ID", "Name");
+            ViewBag.GroupID = new SelectList(db.UserGroups.ToList(), "ID", "Name");
             return View();
         }
         [HttpPost]
         public ActionResult Create(User user)
         {
-            var dao = new UserDAO();
-            ViewBag.GroupID = new SelectList(db.UserGroups, "ID", "Name", user.GroupID);
+            ViewBag.GroupID = new SelectList(db.UserGroups.ToList(), "ID", "Name");
+            var session = (UserLogin)Session["DUY"];
+            user.CreateBy = session.Name;
+            user.CreateDate = DateTime.Now;
+            user.PassWord = Encryptor.MD5Hash(user.PassWord);
             if (ModelState.IsValid)
             {
-                var session = (UserLogin)Session["DUY"];
-                user.CreateBy = session.Name;
-                user.CreateDate = DateTime.Now;
-                user.PassWord = Encryptor.MD5Hash(user.PassWord);
-                var create = dao.Create(user);
-                if (create)
+                if (db.Users.Count(d => d.UserName == user.UserName) > 0)
                 {
-                    SetAlert("Thêm tin tức thành công", "success");
-                    return RedirectToAction("Index", "User");
+                    SetAlert("Username đã có người sử dụng", "error");
+                    return RedirectToAction("Create", "User");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Khong tao dc sản phẩm");
+                    if (db.Users.Count(d => d.Email == user.Email) > 0)
+                    {
+                        SetAlert("Email đã có người sử dụng", "error");
+                        return RedirectToAction("Create", "User");
+                    }
+                    else
+                    {
+                        db.Users.Add(user);
+                        db.SaveChanges();
+                        SetAlert("Thêm tài khoản thành công", "success");
+                        return RedirectToAction("Index", "User");
+                    }
                 }
             }
             return View("Index");
@@ -51,31 +60,58 @@ namespace DCDGear.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(long id)
         {
-            var dao = new UserDAO();
-            var user = dao.GetByID(id);
-            ViewBag.GroupID = new SelectList(db.UserGroups, "ID", "Name", user.GroupID);
+
+            var user = db.Users.Find(id);
+            ViewBag.GroupID = new SelectList(db.UserGroups.ToList(), "ID", "Name", user.GroupID);
             return View(user);
         }
         [HttpPost]
-        public ActionResult Edit(User user)
+        public ActionResult Edit(User entity)
         {
-
-            var dao = new UserDAO();
-            ViewBag.GroupID = new SelectList(db.UserGroups, "ID", "Name", user.GroupID);
+            ViewBag.GroupID = new SelectList(db.UserGroups.ToList(), "ID", "Name", entity.GroupID);
             if (ModelState.IsValid)
             {
+                var user = db.Users.Find(entity.ID);
                 var session = (UserLogin)Session["DUY"];
-                user.ModifiedBy = session.Name;
-                var result = dao.Edit(user);
-                if (result)
+                entity.ModifiedBy = session.Name;
+                
+                if (db.Users.Count(d => d.UserName == entity.UserName) > 0 && user.UserName != entity.UserName)
                 {
-                    SetAlert("Cap nhat nguoi dung thanh cong", "success");
-                    return RedirectToAction("Index", "User");
-                }
-                else
-                {
-                    SetAlert( "Khong tao dc nguoi dung", "error");
+
+                    SetAlert("Username đã có người sử dụng", "error");
                     return RedirectToAction("Edit", "User");
+                }
+                else 
+                {
+                    if (db.Users.Count(d => d.Email == entity.Email) > 0 && user.Email != entity.Email)
+                    {
+                        SetAlert("Email đã có người sử dụng", "error");
+                        return RedirectToAction("Edit", "User");
+                    }
+                    else
+                    {
+                        
+                        user.UserName = entity.UserName;
+                        user.Name = entity.Name;
+                        if (!string.IsNullOrEmpty(entity.PassWord))
+                        {
+                            user.PassWord = Encryptor.MD5Hash(entity.PassWord);
+                        }
+                        else
+                        {
+                            user.PassWord = user.PassWord;
+                        }
+                        user.GroupID = entity.GroupID;
+                        user.Email = entity.Email;
+                        user.Phone = entity.Phone;
+                        user.Address = entity.Address;
+                        user.Status = entity.Status;
+                        user.ModifiedBy = entity.ModifiedBy;
+                        user.ModifiedDate = DateTime.Now;
+                        db.SaveChanges();
+                        SetAlert("Sửa tài khoản thành công", "success");
+                        return RedirectToAction("Index", "User");
+                    }
                 }
             }
             return View("Index");

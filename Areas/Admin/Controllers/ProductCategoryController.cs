@@ -19,34 +19,26 @@ namespace DCDGear.Areas.Admin.Controllers
         // GET: Admin/ProductCategory
         public ActionResult Index()
         {
-            return View(db.ProductCategories.OrderBy(d=>d.Name).ToList());
+            return View(db.ProductCategories.OrderBy(d => d.Name).ToList());
         }
         public ActionResult Create()
         {
-            var dao = new ProductCategoryDAO();
-            ViewBag.ParentID = new SelectList(db.ProductCategories.Where(d => d.ParentID == null), "ID", "Name");
+            ViewBag.ParentID = new SelectList(db.ProductCategories.Where(d => d.ParentID == null).ToList(), "ID", "Name");
             return View();
         }
         [HttpPost]
         public ActionResult Create(ProductCategory productCategory)
         {
-            var dao = new ProductCategoryDAO();
-            ViewBag.ParentID = new SelectList(db.ProductCategories.Where(d => d.ParentID == null), "ID", "Name");
+            ViewBag.ParentID = new SelectList(db.ProductCategories.Where(d => d.ParentID == null).ToList(), "ID", "Name");
             if (ModelState.IsValid)
             {
                 var session = (UserLogin)Session["DUY"];
                 productCategory.CreateBy = session.Name;
                 productCategory.CreateDate = DateTime.Now;
-                var create = dao.Create(productCategory);
-                if (create == true)
-                {
-                    SetAlert("Thêm danh muc thanh cong", "success");
-                    return RedirectToAction("Index", "ProductCategory");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Khong tao dc danh muc");
-                }
+                db.ProductCategories.Add(productCategory);
+                db.SaveChanges();
+                SetAlert("Thêm danh muc thanh cong", "success");
+                return RedirectToAction("Index", "ProductCategory");
             }
             return View();
         }
@@ -54,30 +46,28 @@ namespace DCDGear.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(long id)
         {
-            var dao = new ProductCategoryDAO();
-            var model = dao.FindByID(id);
-            ViewBag.ParentID = new SelectList(db.ProductCategories.Where(d => d.ParentID == null), "ID", "Name",model.ParentID);
+            ProductCategory model = db.ProductCategories.Find(id);
+            ViewBag.ParentID = new SelectList(db.ProductCategories.Where(d => d.ParentID == null).ToList(), "ID", "Name", model.ParentID);
             return View(model);
         }
         [HttpPost]
-        public ActionResult Edit(ProductCategory productCategory)
+        public ActionResult Edit(ProductCategory entity)
         {
-            var dao = new ProductCategoryDAO();
-            ViewBag.ParentID = new SelectList(db.ProductCategories.Where(d => d.ParentID == null), "ID", "Name", productCategory.ParentID);
+            ProductCategory productCategory = db.ProductCategories.Find(entity.ID);
+            
+            ViewBag.ParentID = new SelectList(db.ProductCategories.Where(d => d.ParentID == null).ToList(), "ID", "Name", entity.ParentID);
             if (ModelState.IsValid)
             {
                 var session = (UserLogin)Session["DUY"];
                 productCategory.ModifiedBy = session.Name;
-                var edit = dao.Edit(productCategory);
-                if(edit)
-                {
-                    SetAlert("Chỉnh sửa danh mục thành công", "success");
-                    return RedirectToAction("Index", "ProductCategory");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Khong tao dc danh muc");
-                }
+                productCategory.Name = entity.Name;
+                productCategory.SeoTitle = entity.SeoTitle;
+                productCategory.ParentID = entity.ParentID;
+                productCategory.Status = entity.Status;
+                productCategory.ModifiedDate = DateTime.Now;
+                db.SaveChanges();
+                SetAlert("Chỉnh sửa danh mục thành công", "success");
+                return RedirectToAction("Index", "ProductCategory");
             }
             return View("Index");
         }
@@ -102,18 +92,13 @@ namespace DCDGear.Areas.Admin.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             ProductCategory productCategory = db.ProductCategories.Find(id);
-            foreach(var item in productCategory.Products.ToList())
+            foreach (var item in productCategory.Products.ToList())
             {
                 db.Products.Remove(item);
             }
             db.ProductCategories.Remove(productCategory);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-        public void SetViewBag(long? selectedId = null)
-        {
-            var dao = new ProductCategoryDAO();
-            ViewBag.ParentID = new SelectList(db.ProductCategories.Where(d=>d.ParentID==null), "ID", "Name", selectedId);
         }
     }
 }

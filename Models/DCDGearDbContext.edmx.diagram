@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="dc2d42225804417e927f6e7f0889fb6e" Name="Diagram1">
+      <Diagram DiagramId="b550a9ac1daa40a48bfb762190836101" Name="Diagram1">
         <EntityTypeShape EntityType="DCDGearModel.About" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DCDGearModel.Banner" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DCDGearModel.Category" Width="1.5" PointX="5.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCDGearModel.Category" Width="1.5" PointX="5.75" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DCDGearModel.Contact" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DCDGearModel.FeedBack" Width="1.5" PointX="5.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCDGearModel.FeedBack" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DCDGearModel.New" Width="1.5" PointX="8" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="DCDGearModel.Order" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DCDGearModel.OrderDetail" Width="1.5" PointX="7.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCDGearModel.Order" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCDGearModel.OrderDetail" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DCDGearModel.Product" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DCDGearModel.ProductCategory" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="DCDGearModel.Role" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
@@ -21,7 +21,6 @@
         <AssociationConnector Association="DCDGearModel.FK_New_Category" ManuallyRouted="false" />
         <AssociationConnector Association="DCDGearModel.FK_Product_ProductCategory" ManuallyRouted="false" />
         <AssociationConnector Association="DCDGearModel.FK_User_UserGroup" ManuallyRouted="false" />
-        <AssociationConnector Association="DCDGearModel.FK_User_UserGroup1" ManuallyRouted="false" />
         <AssociationConnector Association="DCDGearModel.Group_Role" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

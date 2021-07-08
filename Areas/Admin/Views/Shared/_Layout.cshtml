@@ -6,12 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>DCDGear</title>
+    <title>@ViewBag.Title</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="/Assets/Admin/css/styles.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     <!-- sweetalert delete -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!--favicon-->
+    <link rel="icon"
+          href="~/Assets/Thumbnail/LogoDCDGearicon.ico"
+          type="image/x-icon'>">
 </head>
 <body class="sb-nav-fixed">
     @RenderPage("_Header.cshtml")
@@ -20,10 +24,9 @@
         <div id="layoutSidenav_content">
             @if (TempData["AlertMessage"] != null)
             {
-                <div id="alertM" class="alert @TempData["AlertType"] hide">
-                    @TempData["AlertMessage"]
-                </div>
-            }
+<div id="alertM" class="alert @TempData["AlertType"] hide">
+    @TempData["AlertMessage"]
+</div>      }
             @RenderBody()
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
@@ -50,6 +53,8 @@
     <script src="/Assets/Admin/js/datatables-simple-demo.js"></script>
     <script src="/Assets/Admin/ckeditor/ckeditor.js"></script>
     <script src="/Assets/Admin/ckfinder/ckfinder.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script>
         $(document).ready(function () {
             //custom alert

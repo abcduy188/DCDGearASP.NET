@@ -72,7 +72,6 @@ D:\laptrinhweb_asp.net\DCDGear\bin\System.Web.WebPages.Razor.xml
 D:\laptrinhweb_asp.net\DCDGear\bin\Newtonsoft.Json.xml
 D:\laptrinhweb_asp.net\DCDGear\bin\Antlr3.Runtime.pdb
 D:\laptrinhweb_asp.net\DCDGear\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\laptrinhweb_asp.net\DCDGear\obj\Debug\DCDGear.csprojAssemblyReference.cache
 D:\laptrinhweb_asp.net\DCDGear\obj\Debug\DCDGear.csproj.CoreCompileInputs.cache
 D:\laptrinhweb_asp.net\DCDGear\obj\Debug\DCDGear.csproj.CopyComplete
 D:\laptrinhweb_asp.net\DCDGear\obj\Debug\DCDGear.dll
@@ -83,3 +82,4 @@ D:\laptrinhweb_asp.net\DCDGear\bin\EntityFramework.xml
 D:\laptrinhweb_asp.net\DCDGear\bin\EntityFramework.SqlServer.xml
 D:\laptrinhweb_asp.net\DCDGear\bin\CKFinder.dll
 D:\laptrinhweb_asp.net\DCDGear\bin\CKFinder.pdb
+D:\laptrinhweb_asp.net\DCDGear\obj\Debug\DCDGear.csprojAssemblyReference.cache

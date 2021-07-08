@@ -27,7 +27,7 @@ namespace DCDGear.Areas.Admin.Controllers
         // GET: Admin/New/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name");
+            ViewBag.CategoryID = new SelectList(db.Categories.ToList(), "ID", "Name");
             return View();
         }
 
@@ -37,89 +37,15 @@ namespace DCDGear.Areas.Admin.Controllers
         [ValidateInput(false)]//chap nhan mã html
         public ActionResult Create(New @new, HttpPostedFileBase fileUpload)
         {
-            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", @new.CategoryID);
-            if (fileUpload == null)
-            {
-                SetAlert("Vui lòng chọn ảnh", "warning");
-                return View();
-            }
-            else
+            ViewBag.CategoryID = new SelectList(db.Categories.ToList(), "ID", "Name");
             if (ModelState.IsValid)
             {
-                var fileName = Path.GetFileName(fileUpload.FileName);
-                var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
-                if (System.IO.File.Exists(path))
+                if (fileUpload == null)
                 {
-                    ViewBag.thongbao = "Hình ảnh đã tồn tại";
-
+                    SetAlert("Vui lòng chọn ảnh", "warning");
+                    return View();
                 }
                 else
-                {
-                    fileUpload.SaveAs(path);
-                }
-                var dao = new NewDAO();
-                var session = (UserLogin)Session["DUY"];
-                @new.CreateBy = session.UserName;
-                @new.Image = fileName;
-                @new.CreateDate = DateTime.Now;
-                long id = dao.Create(@new);
-                if (id > 0)
-                {
-                    SetAlert("Thêm tin tức thành công", "success");
-                    return RedirectToAction("Index", "New");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Khong tao dc sản phẩm");
-                }
-            }
-            return View("Index");
-        }
-        #endregion
-
-        // GET: Admin/New/Edit/5
-        public ActionResult Edit(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            New @new = db.News.Find(id);
-            if (@new == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", @new.CategoryID);
-            return View(@new);
-        }
-        #region Edit with single img
-
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult Edit(New @new, HttpPostedFileBase fileUpload)
-        {
-            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", @new.CategoryID);
-            var dao = new NewDAO();
-            if (fileUpload == null)
-            {
-                var session = (UserLogin)Session["DUY"];
-                @new.ModifiedBy = session.UserName;
-                @new.ModifiedDate = DateTime.Now;
-                var result = dao.Update(@new);
-                if (result == 1)
-                {
-                    SetAlert("Sửa tin tứcthành công", "success");
-                    return RedirectToAction("Index", "New");
-                }
-                else if (result == 0)
-                {
-                    SetAlert("Vui lòng chọn ảnh sản phẩm", "warning");
-                }
-                return View();
-            }
-            else
-            {
-                if (ModelState.IsValid)
                 {
                     var fileName = Path.GetFileName(fileUpload.FileName);
                     var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
@@ -132,22 +58,105 @@ namespace DCDGear.Areas.Admin.Controllers
                     {
                         fileUpload.SaveAs(path);
                     }
+                    var dao = new NewDAO();
+                    var session = (UserLogin)Session["DUY"];
+                    @new.CreateBy = session.UserName;
+                    @new.Image = fileName;
+                    @new.CreateDate = DateTime.Now;
+                    db.News.Add(@new);
+                    db.SaveChanges();
+                    SetAlert("Thêm tin tức thành công", "success");
+                    return RedirectToAction("Index", "New");
+                }
+            }
+            return View("Index");
 
+            #endregion
+        }
+        // GET: Admin/New/Edit/5
+        public ActionResult Edit(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            New @new = db.News.Find(id);
+            if (@new == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.CategoryID = new SelectList(db.Categories.ToList(), "ID", "Name", @new.CategoryID);
+            return View(@new);
+        }
+        #region Edit with single img
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Edit(New @new, HttpPostedFileBase fileUpload)
+        {
+            ViewBag.CategoryID = new SelectList(db.Categories.ToList(), "ID", "Name", @new.CategoryID);
+            New news = db.News.Find(@new.ID);
+            if (ModelState.IsValid)
+            {
+                if (fileUpload == null)
+                {
                     var session = (UserLogin)Session["DUY"];
                     @new.ModifiedBy = session.UserName;
-                    @new.Image = fileName;
                     @new.ModifiedDate = DateTime.Now;
-                    var result = dao.Update(@new);
-                    if (result == 1)
+                    news.Name = @new.Name;
+                    news.CategoryID = @new.CategoryID;
+                    news.SeoTitle = @new.SeoTitle;
+                    news.Description = @new.Description;
+                    try
                     {
-                        SetAlert("Sửa tin tức thành công", "success");
-                        return RedirectToAction("Index", "New");
+                        if (!string.IsNullOrEmpty(news.Image))
+                        {
+                            news.Image = news.Image;
+                        }
+                        else
+                        {
+                            SetAlert("Vui lòng chọn ảnh sản phẩm", "warning");
+                            return RedirectToAction("Edit", "New");
+                        }
                     }
-                    else
+                    catch
                     {
                         ModelState.AddModelError("", "Cap nhat khong thanh cong!!");
                     }
+                    news.Detail = @new.Detail;
+                    news.Status = @new.Status;
+                    news.ModifiedDate = DateTime.Now;
+                    news.ModifiedBy = session.UserName;
+                    db.SaveChanges();
+                    SetAlert("Sửa tin tức thành công", "success");
+                    return RedirectToAction("Index", "New");
+                }
+                else
+                {
 
+                    var fileName = Path.GetFileName(fileUpload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
+                    if (System.IO.File.Exists(path))
+                    {
+                        ViewBag.thongbao = "Hình ảnh đã tồn tại";
+                    }
+                    else
+                    {
+                        fileUpload.SaveAs(path);
+                    }
+                    var session = (UserLogin)Session["DUY"];
+                    news.Image = fileName;
+                    news.Name = @new.Name;
+                    news.CategoryID = @new.CategoryID;
+                    news.SeoTitle = @new.SeoTitle;
+                    news.Description = @new.Description;
+                    news.Detail = @new.Detail;
+                    news.Status = @new.Status;
+                    news.ModifiedDate = DateTime.Now;
+                    news.ModifiedBy = session.UserName;
+                    db.SaveChanges();
+                    SetAlert("Sửa tin tức thành công", "success");
+                    return RedirectToAction("Index", "New");
                 }
             }
             return View("Index");

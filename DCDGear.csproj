@@ -146,6 +146,7 @@
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAO\BannerDAO.cs" />
     <Compile Include="DAO\NewDAO.cs" />
     <Compile Include="DAO\ProductCategoryDAO.cs" />
@@ -230,10 +231,10 @@
     <Content Include="Areas\Admin\Views\ProductCategory\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ProductCategory\Create.cshtml" />
     <Content Include="Areas\Admin\Views\ProductCategory\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Banner\ImageUpload.cshtml" />
     <Content Include="Areas\Admin\Views\New\Create.cshtml" />
     <Content Include="Areas\Admin\Views\New\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Banner\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Banner\Create.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Header.cshtml" />
     <Content Include="Assets\Admin\assets\demo\chart-area-demo.js" />
     <Content Include="Assets\Admin\assets\demo\chart-bar-demo.js" />
@@ -1350,38 +1351,6 @@
     <Content Include="Assets\Client\img\logo6.png" />
     <Content Include="Assets\Client\img\logoGear.png" />
     <Content Include="Assets\Client\img\logoTitle.png" />
-    <Content Include="Assets\Client\img\new1.png" />
-    <Content Include="Assets\Client\img\new10.jpg" />
-    <Content Include="Assets\Client\img\new2.png" />
-    <Content Include="Assets\Client\img\new3.jpg" />
-    <Content Include="Assets\Client\img\new4.jpg" />
-    <Content Include="Assets\Client\img\new5.png" />
-    <Content Include="Assets\Client\img\new6.png" />
-    <Content Include="Assets\Client\img\new7.jpg" />
-    <Content Include="Assets\Client\img\new8.jpg" />
-    <Content Include="Assets\Client\img\new9.jpg" />
-    <Content Include="Assets\Client\img\news1.jpg" />
-    <Content Include="Assets\Client\img\news2.jpg" />
-    <Content Include="Assets\Client\img\news3.jpg" />
-    <Content Include="Assets\Client\img\news4.jpg" />
-    <Content Include="Assets\Client\img\news5.png" />
-    <Content Include="Assets\Client\img\news6.jpg" />
-    <Content Include="Assets\Client\img\news7.jpg" />
-    <Content Include="Assets\Client\img\sell1.png" />
-    <Content Include="Assets\Client\img\sell10.jpg" />
-    <Content Include="Assets\Client\img\sell2.jpg" />
-    <Content Include="Assets\Client\img\sell3.png" />
-    <Content Include="Assets\Client\img\sell4.jpg" />
-    <Content Include="Assets\Client\img\sell5.jpg" />
-    <Content Include="Assets\Client\img\sell6.jpg" />
-    <Content Include="Assets\Client\img\sell7.jpg" />
-    <Content Include="Assets\Client\img\sell8.jpg" />
-    <Content Include="Assets\Client\img\sell9.jpg" />
-    <Content Include="Assets\Client\img\tech1.jpg" />
-    <Content Include="Assets\Client\img\tieubieu1.png" />
-    <Content Include="Assets\Client\img\tieubieu2.jpg" />
-    <Content Include="Assets\Client\img\tieubieu3.jpg" />
-    <Content Include="Assets\Client\img\tieubieu4.jpg" />
     <Content Include="Assets\login\css\main.css" />
     <Content Include="Assets\login\css\util.css" />
     <Content Include="Assets\login\fonts\font-awesome-4.7.0\css\font-awesome.css" />
@@ -1420,6 +1389,7 @@
     <Content Include="Assets\Thumbnail\IDEAPAD-GAMING-3-15ARH05-82EY00C3VN-768x768.jpg" />
     <Content Include="Assets\Thumbnail\image.png" />
     <Content Include="Assets\Thumbnail\LogoDCDGear.png" />
+    <Content Include="Assets\Thumbnail\LogoDCDGearicon.ico" />
     <Content Include="Assets\Thumbnail\matA_Alpha.jpg" />
     <Content Include="Assets\Thumbnail\matA_asphire7.jpg" />
     <Content Include="Assets\Thumbnail\matA_Le_Id.jpg" />
@@ -1601,6 +1571,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Product\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

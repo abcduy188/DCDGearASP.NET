@@ -18,21 +18,21 @@ namespace DCDGear.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            var dao = new ProductDAO().ListAll();
+            var dao = db.Products.OrderBy(d => d.Name).ToList();
             return View(dao);
         }
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name");
+            ViewBag.CategoryID = new SelectList(db.ProductCategories.ToList(), "ID", "Name");
             return View();
         }
-       
+
         public ActionResult Edit(long id)
         {
-            var dao = new ProductDAO().GetByID(id);
-            ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", dao.CategoryID);
-            return View(dao);
+            Product products = db.Products.Find(id);
+            ViewBag.CategoryID = new SelectList(db.ProductCategories.ToList(), "ID", "Name", products.CategoryID);
+            return View(products);
         }
 
         [HttpDelete]
@@ -47,7 +47,7 @@ namespace DCDGear.Areas.Admin.Controllers
         //[ValidateInput(false)]//chap nhan mã html
         //public ActionResult Create(Product products, HttpPostedFileBase fileUpload)
         //{
-        //     ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", products.CategoryID);
+        //    ViewBag.CategoryID = new SelectList(db.ProductCategories.ToList(), "ID", "Name");
         //    if (fileUpload == null)
         //    {
         //        SetAlert("Vui lòng chọn ảnh", "warning");
@@ -67,21 +67,14 @@ namespace DCDGear.Areas.Admin.Controllers
         //        {
         //            fileUpload.SaveAs(path);
         //        }
-        //        var dao = new ProductDAO();
         //        var session = (UserLogin)Session["DUY"];
         //        products.CreateBy = session.UserName;
         //        products.Image = fileName;
         //        products.CreateDate = DateTime.Now;
-        //        long id = dao.Create(products);
-        //        if (id > 0)
-        //        {
-        //            SetAlert("Thêm sản phẩm thành công", "success");
-        //            return RedirectToAction("Index", "Product");
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("", "Khong tao dc sản phẩm");
-        //        }
+        //        db.Products.Add(products);
+        //        db.SaveChanges();
+        //        SetAlert("Thêm sản phẩm thành công", "success");
+        //        return RedirectToAction("Index", "Product");
         //    }
         //    return View("Index");
         //}
@@ -90,58 +83,91 @@ namespace DCDGear.Areas.Admin.Controllers
 
         //[HttpPost]
         //[ValidateInput(false)]
-        //public ActionResult Edit(Product products, HttpPostedFileBase fileUpload)
+        //public ActionResult Edit(Product entity, HttpPostedFileBase fileUpload)
         //{
-        //   ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", products.CategoryID);
-        //    var dao = new ProductDAO();
-        //    if (fileUpload == null)
+        //    ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", entity.CategoryID);
+        //    var products = db.Products.Find(entity.ID);
+        //    var session = (UserLogin)Session["DUY"];
+        //    entity.ModifiedBy = session.UserName;
+        //    entity.ModifiedDate = DateTime.Now;
+        //    if (ModelState.IsValid)
         //    {
-        //        var session = (UserLogin)Session["DUY"];
-        //        products.ModifiedBy = session.UserName;
-        //        products.ModifiedDate = DateTime.Now;
-        //        var result = dao.Update(products);
-        //        if (result == 1)
+        //        if (fileUpload == null)
         //        {
-        //            SetAlert("Sửa sản phẩm thành công", "success");
-        //            return RedirectToAction("Index", "Product");
-        //        }
-        //        else if (result == 0)
-        //        {
-        //            SetAlert("Vui lòng chọn ảnh sản phẩm", "warning");
-        //        }
-        //        return View();
-        //    }
-        //    else
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            var fileName = Path.GetFileName(fileUpload.FileName);
-        //            var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
-        //            if (System.IO.File.Exists(path))
+        //            products.Name = entity.Name;
+        //            products.CategoryID = entity.CategoryID;
+        //            products.SeoTitle = entity.SeoTitle;
+        //            products.Description = entity.Description;
+        //            try
         //            {
-        //                ViewBag.thongbao = "Hình ảnh đã tồn tại";
-
+        //                if (!string.IsNullOrEmpty(products.Image))
+        //                {
+        //                    products.Image = products.Image;
+        //                }
+        //                else
+        //                {
+        //                    SetAlert("Vui lòng chọn ảnh sản phẩm", "warning");
+        //                    return RedirectToAction("Index", "Product");
+        //                }
         //            }
-        //            else
-        //            {
-        //                fileUpload.SaveAs(path);
-        //            }
-
-        //            var session = (UserLogin)Session["DUY"];
-        //            products.ModifiedBy = session.UserName;
-        //            products.Image = fileName;
-        //            products.ModifiedDate = DateTime.Now;
-        //            var result = dao.Update(products);
-        //            if (result == 1)
-        //            {
-        //                SetAlert("Sửa tin tức thành công", "success");
-        //                return RedirectToAction("Index", "Product");
-        //            }
-        //            else
+        //            catch
         //            {
         //                ModelState.AddModelError("", "Cap nhat khong thanh cong!!");
         //            }
-
+        //            products.Price = entity.Price;
+        //            products.PromotionPrice = entity.PromotionPrice;
+        //            products.LinkVideo = entity.LinkVideo;
+        //            products.Detail = entity.Detail;
+        //            products.Quantity = entity.Quantity;
+        //            products.CPU = entity.CPU;
+        //            products.OperatingSystem = entity.OperatingSystem;
+        //            products.RAM = entity.RAM;
+        //            products.GPU = entity.GPU;
+        //            products.Screen = entity.Screen;
+        //            products.SSDHardDrive = entity.SSDHardDrive;
+        //            products.ConnectionPorts = entity.ConnectionPorts;
+        //            products.Keyboard = entity.Keyboard;
+        //            products.Pin = entity.Pin;
+        //            products.Size = entity.Size;
+        //            products.Weight = entity.Weight;
+        //            products.Status = entity.Status;
+        //            products.ModifiedDate = DateTime.Now;
+        //            db.SaveChanges();
+        //            SetAlert("Sửa tin tức thành công", "success");
+        //            return RedirectToAction("Index", "Product");
+        //        }
+        //        else
+        //        {
+        //            var fileName = Path.GetFileName(fileUpload.FileName);
+        //            var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
+        //            fileUpload.SaveAs(path);
+        //            entity.Image = fileName;
+        //            products.Name = entity.Name;
+        //            products.CategoryID = entity.CategoryID;
+        //            products.SeoTitle = entity.SeoTitle;
+        //            products.Description = entity.Description;
+        //            products.Image = entity.Image;
+        //            products.Price = entity.Price;
+        //            products.PromotionPrice = entity.PromotionPrice;
+        //            products.LinkVideo = entity.LinkVideo;
+        //            products.Detail = entity.Detail;
+        //            products.Quantity = entity.Quantity;
+        //            products.CPU = entity.CPU;
+        //            products.OperatingSystem = entity.OperatingSystem;
+        //            products.RAM = entity.RAM;
+        //            products.GPU = entity.GPU;
+        //            products.Screen = entity.Screen;
+        //            products.SSDHardDrive = entity.SSDHardDrive;
+        //            products.ConnectionPorts = entity.ConnectionPorts;
+        //            products.Keyboard = entity.Keyboard;
+        //            products.Pin = entity.Pin;
+        //            products.Size = entity.Size;
+        //            products.Weight = entity.Weight;
+        //            products.Status = entity.Status;
+        //            products.ModifiedDate = DateTime.Now;
+        //            db.SaveChanges();
+        //            SetAlert("Sửa tin tức thành công", "success");
+        //            return RedirectToAction("Index", "Product");
         //        }
         //    }
         //    return View("Index");
@@ -153,7 +179,7 @@ namespace DCDGear.Areas.Admin.Controllers
         [ValidateInput(false)]//chap nhan mã html
         public ActionResult Create(Product products)
         {
-            ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", products.CategoryID);
+            ViewBag.CategoryID = new SelectList(db.ProductCategories.ToList(), "ID", "Name");
             if (ModelState.IsValid) // kiem tra co valid form hay khong
             {
                 HttpFileCollectionBase files = Request.Files;
@@ -161,65 +187,10 @@ namespace DCDGear.Areas.Admin.Controllers
                 for (int i = 0; i < files.Count; i++)
                 {
                     HttpPostedFileBase fileUpload = files[i];
-
-                    var fileName = Path.GetFileName(fileUpload.FileName);
-                    x += fileName + ",";
-                    var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
-                    fileUpload.SaveAs(path);
-
-                }
-                products.Image = x.Remove(x.Length - 1);
-                var dao = new ProductDAO();
-                var session = (UserLogin)Session["DUY"];
-                products.CreateBy = session.UserName;
-                //products.Image = fileName;
-                products.CreateDate = DateTime.Now;
-                long id = dao.Create(products);
-                if (id > 0)
-                {
-                    SetAlert("Thêm sản phẩm thành công", "success");
-                    return RedirectToAction("Index", "Product");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Khong tao dc sản phẩm");
-                }
-            }
-            return View("Index");
-        }
-        #endregion
-        #region Edit with multiple img
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult Edit(Product products)
-        {
-            ViewBag.CategoryID = new SelectList(db.ProductCategories, "ID", "Name", products.CategoryID);
-            var dao = new ProductDAO();
-            var session = (UserLogin)Session["DUY"];
-
-            if (ModelState.IsValid)
-            {
-                HttpFileCollectionBase files = Request.Files;
-
-                var x = "";
-                for (int i = 0; i < files.Count; i++)
-                {
-                    HttpPostedFileBase fileUpload = files[i];
                     if (i == 0 && fileUpload.ContentLength == 0)
                     {
-                        products.ModifiedBy = session.UserName;
-                        products.ModifiedDate = DateTime.Now;
-                        var result1 = dao.Update(products);
-                        if (result1 == 1)
-                        {
-                            SetAlert("Sửa sản phẩm thành công", "success");
-                            return RedirectToAction("Index", "Product");
-                        }
-                        else if (result1 == 0)
-                        {
-                            SetAlert("Vui lòng chọn ảnh sản phẩm", "warning");
-                        }
-                        return View();
+                        SetAlert("Vui lòng thêm ảnh cho sản phẩm", "warning");
+                        return RedirectToAction("Index", "Product");
                     }
                     else
                     {
@@ -230,27 +201,144 @@ namespace DCDGear.Areas.Admin.Controllers
                     }
                 }
                 products.Image = x.Remove(x.Length - 1);
-                products.ModifiedBy = session.UserName;
-                products.ModifiedDate = DateTime.Now;
-                var result = dao.Update(products);
-                if (result == 1)
+                var session = (UserLogin)Session["DUY"];
+                products.CreateBy = session.UserName;
+                products.CreateDate = DateTime.Now;
+                db.Products.Add(products);
+                db.SaveChanges();
+                SetAlert("Thêm sản phẩm thành công", "success");
+                return RedirectToAction("Index", "Product");
+            }
+            return View("Index");
+        }
+        #endregion
+        #region Edit with multiple img
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Edit(Product entity)
+        {
+            ViewBag.CategoryID = new SelectList(db.ProductCategories.ToList(), "ID", "Name", entity.CategoryID);
+            Product products = db.Products.Find(entity.ID);
+            var session = (UserLogin)Session["DUY"];
+            products.ModifiedBy = session.UserName;
+            if (ModelState.IsValid)
+            {
+                HttpFileCollectionBase files = Request.Files;
+
+                var x = "";
+                for (int i = 0; i < files.Count; i++)
                 {
-                    SetAlert("Sửa tin tức thành công", "success");
-                    return RedirectToAction("Index", "Product");
+                    HttpPostedFileBase fileUpload = files[i];
+                    if (i == 0 && fileUpload.ContentLength == 0)
+                    {
+                        products.Name = entity.Name;
+                        products.CategoryID = entity.CategoryID;
+                        products.SeoTitle = entity.SeoTitle;
+                        products.Description = entity.Description;
+                        try
+                        {
+                            if (entity.Image == null)
+                            {
+                                if (!string.IsNullOrEmpty(products.Image))
+                                {
+                                    products.Image = products.Image;
+                                }
+                                else
+                                {
+                                    ModelState.AddModelError("", "Cap nhat khong thanh cong!!");
+                                }
+                            }
+                            else
+                            {
+                                products.Image = entity.Image;
+                            }
+                        }
+                        catch
+                        {
+                            ModelState.AddModelError("", "Cap nhat khong thanh cong!!");
+                        }
+                        products.Price = entity.Price;
+                        products.PromotionPrice = entity.PromotionPrice;
+                        products.LinkVideo = entity.LinkVideo;
+                        products.Detail = entity.Detail;
+                        products.Quantity = entity.Quantity;
+                        products.CPU = entity.CPU;
+                        products.OperatingSystem = entity.OperatingSystem;
+                        products.RAM = entity.RAM;
+                        products.GPU = entity.GPU;
+                        products.Screen = entity.Screen;
+                        products.SSDHardDrive = entity.SSDHardDrive;
+                        products.ConnectionPorts = entity.ConnectionPorts;
+                        products.Keyboard = entity.Keyboard;
+                        products.Pin = entity.Pin;
+                        products.Size = entity.Size;
+                        products.Weight = entity.Weight;
+                        products.Status = entity.Status;
+                        products.ModifiedDate = DateTime.Now;
+                        db.SaveChanges();
+                        SetAlert("Sửa tin tức thành công", "success");
+                        return RedirectToAction("Index", "Product");
+                    }
+                    else
+                    {
+                        var fileName = Path.GetFileName(fileUpload.FileName);
+                        x += fileName + ",";
+                        var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
+                        fileUpload.SaveAs(path);
+                    }
                 }
-                else
+                entity.Image = x.Remove(x.Length - 1);
+                products.Name = entity.Name;
+                products.CategoryID = entity.CategoryID;
+                products.SeoTitle = entity.SeoTitle;
+                products.Description = entity.Description;
+                try
+                {
+                    if (entity.Image == null)
+                    {
+                        if (!string.IsNullOrEmpty(products.Image))
+                        {
+                            products.Image = products.Image;
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Cap nhat khong thanh cong!!");
+                        }
+                    }
+                    else
+                    {
+                        products.Image = entity.Image;
+                    }
+                }
+                catch
                 {
                     ModelState.AddModelError("", "Cap nhat khong thanh cong!!");
                 }
+                products.Price = entity.Price;
+                products.PromotionPrice = entity.PromotionPrice;
+                products.LinkVideo = entity.LinkVideo;
+                products.Detail = entity.Detail;
+                products.Quantity = entity.Quantity;
+                products.CPU = entity.CPU;
+                products.OperatingSystem = entity.OperatingSystem;
+                products.RAM = entity.RAM;
+                products.GPU = entity.GPU;
+                products.Screen = entity.Screen;
+                products.SSDHardDrive = entity.SSDHardDrive;
+                products.ConnectionPorts = entity.ConnectionPorts;
+                products.Keyboard = entity.Keyboard;
+                products.Pin = entity.Pin;
+                products.Size = entity.Size;
+                products.Weight = entity.Weight;
+                products.Status = entity.Status;
+                products.ModifiedDate = DateTime.Now;
+                db.SaveChanges();
+                SetAlert("Sửa tin tức thành công", "success");
+                return RedirectToAction("Index", "Product");
 
             }
             return View("Index");
         }
         #endregion
-        //public void SetViewBag(long? selectedId = null)
-        //{
-        //    var dao = new ProductCategoryDAO();
-        //    ViewBag.CategoryID = new SelectList(dao.ListAll(), "ID", "Name", selectedId);
-        //}
     }
 }

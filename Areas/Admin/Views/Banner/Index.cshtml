@@ -14,7 +14,7 @@
         </div>
         <div class="card mb-4">
             <div class="card-header">
-                <a href="/admin/banner/ImageUpload" class="btn btn-blue btn-flat" style="background-color:#1D89E2; color: #ffffff"><i class="far fa-plus"></i>&nbsp;Thêm mới</a>
+                <a href="/admin/banner/create" class="btn btn-blue btn-flat" style="background-color:#1D89E2; color: #ffffff"><i class="far fa-plus"></i>&nbsp;Thêm mới</a>
             </div>
             <div class="card-body">
                 <table id="datatablesSimple">
@@ -31,58 +31,55 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr id="row_@item.ID">
-                            <td style="width: 20%;">@item.Name</td>
-                            <td style="width: 40%;">
-                                @{
+                            <tr id="row_@item.ID">
+                                <td style="width: 20%;">@item.Name</td>
+                                <td style="width: 40%;">
+                                    @{
 
-                                    for (int path = 0; path < item.Image.Split(',').Length; path++)
-                                    {
-                                        string newpath = item.Image.Split(',')[path];
-                                        <img src="@Url.Content("/Assets/Thumbnail/" + newpath)" width="100px" />
-                                        
+                                        for (int path = 0; path < item.Image.Split(',').Length; path++)
+                                        {
+                                            string newpath = item.Image.Split(',')[path];
+                                            <img src="@Url.Content("/Assets/Thumbnail/" + newpath)" width="100px" />
+
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    @{
+                                        if (item.Type == 1)
+                                        {
+                                            <span>Banner chính</span>
+                                        }
+                                        else if (item.Type == 2)
+                                        {
+                                            <span>Banner phụ</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Chưa rõ</span>
+                                        }
                                     }
 
-                                    @*var path = item.Image.Split(',')[0];
-                <img src="@Url.Content("/Images/"+path)" width="100px" />
-                var path2 = item.Image.Split(',')[1];
-                <img src="@Url.Content("/Images/"+path2)" width="100px" />
-                var path3 = item.Image.Split(',')[2];
-                <img src="@Url.Content("/Images/"+path3)" width="100px" />*@
-                                }
-                            </td>
-                            <td>
-                                @{
-                                    if (item.Type == 1)
-                                    {
-                                        <span>Banner chính</span>
+                                </td>
+                                <td>
+                                    @{
+                                        if (item.Status == true)
+                                        {
+                                            <span>Đang hoạt động</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Đang tạm khóa</span>
+                                        }
                                     }
-                                    else
-                                    {
-                                        <span>Chưa rõ</span>
-                                    }
-                                }
 
-                            </td>
-                            <td>
-                                @{
-                                    if (item.Status == true)
-                                    {
-                                        <span>Đang hoạt động</span>
-                                    }
-                                    else
-                                    {
-                                        <span>Đang tạm khóa</span>
-                                    }
-                                }
+                                </td>
+                                <td style="width: 10%;">
+                                    <a href="/Admin/banner/Edit/@item.ID">Edit</a>  ||
+                                    <a href="/Admin/banner/delete/@item.ID">Xóa</a>
 
-                            </td>
-                            <td style="width: 10%;">
-                                <a href="/Admin/banner/Edit/@item.ID">Edit</a>  ||
-                                <a href="/Admin/banner/delete/@item.ID">Xóa</a>
-
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         }
 
                     </tbody>

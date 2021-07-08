@@ -17,7 +17,7 @@ namespace DCDGear.Models
         public long ID { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
-        public bool Status { get; set; }
         public Nullable<int> Type { get; set; }
+        public bool Status { get; set; }
     }
 }
