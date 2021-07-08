@@ -1,42 +1,88 @@
 ﻿<!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/Assets/Client/headerlayout.css" />
+    <link rel="stylesheet" href="/Assets/Client/body.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+          crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <header>
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+            <div class="row">
+                <div class="col-3">
+                    <a href="#"><img src="~/Assets/Client/img/logoGear.png" alt="Logo" width="200px"></a>
+                </div>
+                <div class="col-6 search">
+                    <input type="text" placeholder="Search" height="20px">
+                    <button>Search</button>
+                </div>
+                <div class="col-3">
+                    <a><i class="fas fa-shopping-basket"></i></a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    </header>
+    <section class="laptopCarousel">
+        <nav>
+            <ul>
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="#">Giới thiệu</a></li>
+                <!-- xử lý menu đa cấp sản phẩm -->
+                <li>
+                    <a href="#">Sản Phẩm<i class="fa fa-chevron-down"></i></a>
+                    <!-- menu con sổ xuống cấp 1 -->
+                    <ul>    
+                            @{Html.RenderAction("ProductCategory", "Product");}                  
+                    </ul>
+                </li>
+            <!-- xử lý menu đa cấp tin tức-->
+            <li>
+                <a href="#">Tin Tức<i class="fa fa-chevron-down"></i></a>
+                <ul>
+                    <li><a href="#">Công Nghệ</a></li>
+                    <li><a href="#">Review</a></li>
+                    <li><a href="#">Tin Game</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Hỗ Trợ<i class="fa fa-chevron-down"></i></a>
+                <ul>
+                    <li><a href="#">Phương Thức Vận Chuyển</a></li>
+                    <li><a href="#">Chính Sách Đổi Trả Hàng</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Liên Hệ</a></li>
+            <li><a href="#">Đăng Nhập</a></li>
+            <li><a href="#">Đăng Ký</a></li>
+            </ul>
+        </nav>
+        </section>
+        <div>
+            @RenderBody()
+        </div>
+        @*@Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")*@
+        @RenderSection("scripts", required: false)
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

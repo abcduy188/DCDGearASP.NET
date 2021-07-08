@@ -1,0 +1,23 @@
+﻿@model List<DCDGear.Models.ProductCategory>
+
+@foreach (var item in Model.Where(d => d.ParentID == null))
+{
+    var child = Model.Where(d => d.ParentID == item.ID);
+
+    var parent = child.Count() > 0;
+    <li>
+        <a href="/danh-muc/@item.SeoTitle-@item.ID "> @item.Name<i class="fa fa-chevron-right"></i></a>
+        @if (child.Count() > 0)
+        {
+            <!-- menu con sổ ngang cấp 2 -->
+            <ul>
+                @foreach (var childItem in child)
+                {
+                    <li>
+                        <a href="/danh-muc/@childItem.SeoTitle-@childItem.ID ">@childItem.Name</a>
+                    </li>
+                }
+            </ul>
+        }
+    </li>
+}

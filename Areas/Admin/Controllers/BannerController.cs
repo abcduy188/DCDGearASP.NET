@@ -18,14 +18,6 @@ namespace DCDGear.Areas.Admin.Controllers
         {
             return View(db.Banners.ToList());
         }
-        [HttpDelete]
-        public ActionResult Delete(long id)
-        {
-            var banner = db.Banners.Find(id);
-            db.Banners.Remove(banner);
-            db.SaveChanges();
-            return Redirect("Index");
-        }
         public ActionResult ImageUpload()
         {
             return View();
@@ -56,6 +48,7 @@ namespace DCDGear.Areas.Admin.Controllers
                     banner.Image = x.Remove(x.Length - 1);
                     db.Banners.Add(banner);
                     db.SaveChanges();
+                    SetAlert("Thêm banner thành công", "success");
                     return RedirectToAction("Index", "Banner");
                 }
             }
@@ -66,6 +59,26 @@ namespace DCDGear.Areas.Admin.Controllers
             }
             return View("Index");
         }
+        // GET: Admin/New/Delete/5
+        public ActionResult Delete(long id)
+        {   
+            Banner banner = db.Banners.Find(id);
+            SetAlert("Bạn có chắc muốn xóa?", "warning");
+            return View(banner);
+        }
+
+        // POST: Admin/New/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(long id)
+        {
+            Banner banner = db.Banners.Find(id);
+            db.Banners.Remove(banner);
+            db.SaveChanges();
+            SetAlert("Xóa banner thành công", "success");
+            return RedirectToAction("Index");
+        }
+
         #region ImageResize
         private byte[] ConvertToBytes(HttpPostedFileBase image)
         {

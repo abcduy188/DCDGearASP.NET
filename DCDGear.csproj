@@ -145,7 +145,9 @@
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="DAO\BannerDAO.cs" />
+    <Compile Include="DAO\NewDAO.cs" />
     <Compile Include="DAO\ProductCategoryDAO.cs" />
     <Compile Include="DAO\ProductDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
@@ -231,6 +233,7 @@
     <Content Include="Areas\Admin\Views\Banner\ImageUpload.cshtml" />
     <Content Include="Areas\Admin\Views\New\Create.cshtml" />
     <Content Include="Areas\Admin\Views\New\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Banner\Delete.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Header.cshtml" />
     <Content Include="Assets\Admin\assets\demo\chart-area-demo.js" />
     <Content Include="Assets\Admin\assets\demo\chart-bar-demo.js" />
@@ -1334,6 +1337,51 @@
     <Content Include="Assets\Admin\css\styles.css" />
     <Content Include="Assets\Admin\js\datatables-simple-demo.js" />
     <Content Include="Assets\Admin\js\scripts.js" />
+    <Content Include="Assets\Client\body.css" />
+    <Content Include="Assets\Client\headerlayout.css" />
+    <Content Include="Assets\Client\img\carousel1.jpg" />
+    <Content Include="Assets\Client\img\carousel2.jpg" />
+    <Content Include="Assets\Client\img\carousel3.jpg" />
+    <Content Include="Assets\Client\img\logo1.png" />
+    <Content Include="Assets\Client\img\logo2.png" />
+    <Content Include="Assets\Client\img\logo3.png" />
+    <Content Include="Assets\Client\img\logo4.png" />
+    <Content Include="Assets\Client\img\logo5.png" />
+    <Content Include="Assets\Client\img\logo6.png" />
+    <Content Include="Assets\Client\img\logoGear.png" />
+    <Content Include="Assets\Client\img\logoTitle.png" />
+    <Content Include="Assets\Client\img\new1.png" />
+    <Content Include="Assets\Client\img\new10.jpg" />
+    <Content Include="Assets\Client\img\new2.png" />
+    <Content Include="Assets\Client\img\new3.jpg" />
+    <Content Include="Assets\Client\img\new4.jpg" />
+    <Content Include="Assets\Client\img\new5.png" />
+    <Content Include="Assets\Client\img\new6.png" />
+    <Content Include="Assets\Client\img\new7.jpg" />
+    <Content Include="Assets\Client\img\new8.jpg" />
+    <Content Include="Assets\Client\img\new9.jpg" />
+    <Content Include="Assets\Client\img\news1.jpg" />
+    <Content Include="Assets\Client\img\news2.jpg" />
+    <Content Include="Assets\Client\img\news3.jpg" />
+    <Content Include="Assets\Client\img\news4.jpg" />
+    <Content Include="Assets\Client\img\news5.png" />
+    <Content Include="Assets\Client\img\news6.jpg" />
+    <Content Include="Assets\Client\img\news7.jpg" />
+    <Content Include="Assets\Client\img\sell1.png" />
+    <Content Include="Assets\Client\img\sell10.jpg" />
+    <Content Include="Assets\Client\img\sell2.jpg" />
+    <Content Include="Assets\Client\img\sell3.png" />
+    <Content Include="Assets\Client\img\sell4.jpg" />
+    <Content Include="Assets\Client\img\sell5.jpg" />
+    <Content Include="Assets\Client\img\sell6.jpg" />
+    <Content Include="Assets\Client\img\sell7.jpg" />
+    <Content Include="Assets\Client\img\sell8.jpg" />
+    <Content Include="Assets\Client\img\sell9.jpg" />
+    <Content Include="Assets\Client\img\tech1.jpg" />
+    <Content Include="Assets\Client\img\tieubieu1.png" />
+    <Content Include="Assets\Client\img\tieubieu2.jpg" />
+    <Content Include="Assets\Client\img\tieubieu3.jpg" />
+    <Content Include="Assets\Client\img\tieubieu4.jpg" />
     <Content Include="Assets\login\css\main.css" />
     <Content Include="Assets\login\css\util.css" />
     <Content Include="Assets\login\fonts\font-awesome-4.7.0\css\font-awesome.css" />
@@ -1547,11 +1595,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\ProductCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\Client\" />
-    <Folder Include="Views\Home\" />
+    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

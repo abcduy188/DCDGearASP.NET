@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using DCDGear.Common;
+using DCDGear.DAO;
 using DCDGear.Models;
 
 namespace DCDGear.Areas.Admin.Controllers
@@ -17,23 +20,8 @@ namespace DCDGear.Areas.Admin.Controllers
         // GET: Admin/New
         public ActionResult Index()
         {
-            var news = db.News.Include(d => d.Category);
-            return View(news.ToList());
-        }
-
-        // GET: Admin/New/Details/5
-        public ActionResult Details(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            New @new = db.News.Find(id);
-            if (@new == null)
-            {
-                return HttpNotFound();
-            }
-            return View(@new);
+            var dao = new NewDAO().ListAll();
+            return View(dao);
         }
 
         // GET: Admin/New/Create
@@ -43,23 +31,51 @@ namespace DCDGear.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/New/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        #region Create with single img
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,MetaTitle,Description,Image,CategoryID,Detail,Status,CreateDate,CreateBy,ModifiedBy,ModifiedDate,MetaKeywords,MetaDescriptions,Tags")] New @new)
+        [ValidateInput(false)]//chap nhan mã html
+        public ActionResult Create(New @new, HttpPostedFileBase fileUpload)
         {
+            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", @new.CategoryID);
+            if (fileUpload == null)
+            {
+                SetAlert("Vui lòng chọn ảnh", "warning");
+                return View();
+            }
+            else
             if (ModelState.IsValid)
             {
-                db.News.Add(@new);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                var fileName = Path.GetFileName(fileUpload.FileName);
+                var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
+                if (System.IO.File.Exists(path))
+                {
+                    ViewBag.thongbao = "Hình ảnh đã tồn tại";
 
-            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", @new.CategoryID);
-            return View(@new);
+                }
+                else
+                {
+                    fileUpload.SaveAs(path);
+                }
+                var dao = new NewDAO();
+                var session = (UserLogin)Session["DUY"];
+                @new.CreateBy = session.UserName;
+                @new.Image = fileName;
+                @new.CreateDate = DateTime.Now;
+                long id = dao.Create(@new);
+                if (id > 0)
+                {
+                    SetAlert("Thêm tin tức thành công", "success");
+                    return RedirectToAction("Index", "New");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Khong tao dc sản phẩm");
+                }
+            }
+            return View("Index");
         }
+        #endregion
 
         // GET: Admin/New/Edit/5
         public ActionResult Edit(long? id)
@@ -76,23 +92,68 @@ namespace DCDGear.Areas.Admin.Controllers
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", @new.CategoryID);
             return View(@new);
         }
+        #region Edit with single img
 
-        // POST: Admin/New/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,MetaTitle,Description,Image,CategoryID,Detail,Status,CreateDate,CreateBy,ModifiedBy,ModifiedDate,MetaKeywords,MetaDescriptions,Tags")] New @new)
+        [ValidateInput(false)]
+        public ActionResult Edit(New @new, HttpPostedFileBase fileUpload)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(@new).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", @new.CategoryID);
-            return View(@new);
+            var dao = new NewDAO();
+            if (fileUpload == null)
+            {
+                var session = (UserLogin)Session["DUY"];
+                @new.ModifiedBy = session.UserName;
+                @new.ModifiedDate = DateTime.Now;
+                var result = dao.Update(@new);
+                if (result == 1)
+                {
+                    SetAlert("Sửa tin tứcthành công", "success");
+                    return RedirectToAction("Index", "New");
+                }
+                else if (result == 0)
+                {
+                    SetAlert("Vui lòng chọn ảnh sản phẩm", "warning");
+                }
+                return View();
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var fileName = Path.GetFileName(fileUpload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
+                    if (System.IO.File.Exists(path))
+                    {
+                        ViewBag.thongbao = "Hình ảnh đã tồn tại";
+
+                    }
+                    else
+                    {
+                        fileUpload.SaveAs(path);
+                    }
+
+                    var session = (UserLogin)Session["DUY"];
+                    @new.ModifiedBy = session.UserName;
+                    @new.Image = fileName;
+                    @new.ModifiedDate = DateTime.Now;
+                    var result = dao.Update(@new);
+                    if (result == 1)
+                    {
+                        SetAlert("Sửa tin tức thành công", "success");
+                        return RedirectToAction("Index", "New");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Cap nhat khong thanh cong!!");
+                    }
+
+                }
+            }
+            return View("Index");
         }
+
+        #endregion
 
         // GET: Admin/New/Delete/5
         public ActionResult Delete(long? id)
@@ -117,6 +178,7 @@ namespace DCDGear.Areas.Admin.Controllers
             New @new = db.News.Find(id);
             db.News.Remove(@new);
             db.SaveChanges();
+            SetAlert("Xóa tin tức thành công", "success");
             return RedirectToAction("Index");
         }
 

@@ -32,15 +32,15 @@
                         @foreach (var item in Model)
                         {
                         <tr id="row_@item.ID">
-                            <td style="width: 45%;">@item.Name</td>
-                            <td style="width: 15%;">
+                            <td style="width: 20%;">@item.Name</td>
+                            <td style="width: 40%;">
                                 @{
 
                                     for (int path = 0; path < item.Image.Split(',').Length; path++)
                                     {
                                         string newpath = item.Image.Split(',')[path];
                                         <img src="@Url.Content("/Assets/Thumbnail/" + newpath)" width="100px" />
-                                        <div class="clearfix"></div>
+                                        
                                     }
 
                                     @*var path = item.Image.Split(',')[0];
@@ -79,14 +79,7 @@
                             </td>
                             <td style="width: 10%;">
                                 <a href="/Admin/banner/Edit/@item.ID">Edit</a>  ||
-                                <i class="zmdi zmdi - delete">
-                                    @Ajax.ActionLink("Xoa", "Delete", new { @id = item.ID }, new AjaxOptions
-    {
-     Confirm = "Are you sure?",
-     OnComplete = "$('#row_" + @item.ID + "').remove()",
-     HttpMethod = "Delete"
-    })
-                                </i>
+                                <a href="/Admin/banner/delete/@item.ID">Xóa</a>
 
                             </td>
                         </tr>

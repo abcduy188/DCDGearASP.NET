@@ -20,21 +20,6 @@ namespace DCDGear.Areas.Admin.Controllers
             return View(db.Categories.ToList());
         }
 
-        // GET: Admin/Category/Details/5
-        public ActionResult Details(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
-        }
-
         // GET: Admin/Category/Create
         public ActionResult Create()
         {

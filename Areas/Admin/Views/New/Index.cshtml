@@ -24,32 +24,50 @@
                             <th scope="col" style="width: 40%;">Tên tin tức</th>
                             <th scope="col" style="width: 15%;">Hình ảnh</th>
                             <th scope="col" style="width: 15%;">Danh mục</th>
-                            <th scope="col" style="width: 15%;">Trạng thái</th>
                             <th scope="col" style="width: 15%;">Ngày tạo</th>
+                            <th scope="col" style="width: 15%;">Trạng thái</th>
+                            <th scope="col" style="width: 15%;">Tác vụ</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr id="row_@item.ID">
-                            <td style="width: 30%;">@item.Name</td>
-                            <td style="width: 15%;"><img src="@Url.Content("/Assets/Thumbnail/" + item.Image)" width="auto" height="100" /></td>
-                            <td style="width: 15%;">@item.Category.Name</td>
-                            <td style="width: 15%;">@item.Status</td>
-                            <td style="width: 10%;">@item.CreateDate</td>
-                            <td style="width: 10%;">
-                                <a href="/Admin/Product/Edit/@item.ID">Edit</a>  ||
-                                <i class="zmdi zmdi - delete">
-                                    @Ajax.ActionLink("Xoa", "Delete", new { @id = item.ID }, new AjaxOptions
-    {
-     Confirm = "Are you sure?",
-     OnComplete = "$('#row_" + @item.ID + "').remove()",
-     HttpMethod = "Delete"
-    })
-                                </i>
+                            <tr id="row_@item.ID">
+                                <td style="width: 30%;">@item.Name</td>
+                                <td style="width: 15%;"><img src="@Url.Content("/Assets/Thumbnail/" + item.Image)" width="auto" height="100" /></td>
+                                <td style="width: 15%;">@item.Category.Name</td>
+                                <td>
+                                    @{
+                                        if (item.ModifiedDate == null)
+                                        {
+                                            <span>@item.CreateDate (Ngày tạo)</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@item.ModifiedDate (Ngày chỉnh sửa)</span>
+                                        }
+                                    }
 
-                            </td>
-                        </tr>
+                                </td>
+                                <td>
+                                    @{
+                                        if (item.Status == true)
+                                        {
+                                            <span>Đang hoạt động</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Đang tạm khóa</span>
+                                        }
+                                    }
+
+                                </td>
+                                <td style="width: 10%;">
+                                    <a href="/Admin/new/Edit/@item.ID">Edit</a>  ||
+                                    <a href="/Admin/new/delete/@item.ID">Xóa</a>
+
+                                </td>
+                            </tr>
                         }
 
                     </tbody>
