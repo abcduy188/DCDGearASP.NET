@@ -1,0 +1,16 @@
+﻿@model List<DCDGear.Models.ProductCategory>
+@foreach (var item in Model.Where(d => d.ParentID == null))
+{
+    var child = Model.Where(d => d.ParentID == item.ID);
+    <li>
+        <a href="/san-pham/@item.SeoTitle-@item.ID ">@item.Name<span class="sub-icon"></span></a>
+        <ul>
+            @foreach (var childItem in child)
+            {
+                <li>
+                    <a href="/san-pham/@childItem.SeoTitle-@childItem.ID ">@childItem.Name</a>
+                </li>
+            }
+        </ul>
+    </li>
+}

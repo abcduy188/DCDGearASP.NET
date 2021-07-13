@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/Assets/Client/style.css">
     <link rel="stylesheet" href="/Assets/Client/headerlayout.css" />
     <link rel="stylesheet" href="/Assets/Client/body.css" />
 
@@ -41,13 +42,13 @@
         <nav>
             <ul>
                 <li style="width:110px"></li>
-                <li><a href="#">Trang chủ</a></li>
-                <li><a href="#">Giới thiệu</a></li>
+                <li><a href="/">Trang chủ</a></li>
+                <li><a href="/gioi-thieu">Giới thiệu</a></li>
                 <!-- xử lý menu đa cấp sản phẩm -->
                 <li>
                     <a href="#">Sản Phẩm<i class="fa fa-chevron-down"></i></a>
                     <!-- menu con sổ xuống cấp 1 -->
-                    <ul>
+                    <ul >
                         @{Html.RenderAction("ProductCategory", "Product");}
                     </ul>
                 </li>
@@ -55,9 +56,7 @@
                 <li>
                     <a href="#">Tin Tức<i class="fa fa-chevron-down"></i></a>
                     <ul>
-                        <li><a href="#">Công Nghệ</a></li>
-                        <li><a href="#">Review</a></li>
-                        <li><a href="#">Tin Game</a></li>
+                        @{Html.RenderAction("NewCategory", "New");}
                     </ul>
                 </li>
                 <li>
@@ -67,39 +66,39 @@
                         <li><a href="#">Chính Sách Đổi Trả Hàng</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Liên Hệ</a></li>
+                <li><a href="/lien-he">Liên Hệ</a></li>
                 @{
                     var sess = (DCDGear.Common.UserLogin)Session["DUY"];
                     if (sess != null)
                     {
-                        <li><a href="#">Xin chào: @sess.Name </a></li>
+                        <li><a href="/thong-tin-ca-nhan-@sess.UserID">Xin chào: @sess.Name </a></li>
                         <li>@Html.ActionLink("Thoát", "Logout", "User")</li>
                     }
                     else
                     {
                         <li><a href="/dang-nhap">Đăng Nhập</a></li>
-                        <li><a href="#">Đăng Ký</a></li>
+                        <li><a href="/dang-ki">Đăng Ký</a></li>
                     }
                 }
 
             </ul>
         </nav>
-        </section>
-        <div>
-            @RenderBody()
-        </div>
-        @*@Scripts.Render("~/bundles/jquery")
-            @Scripts.Render("~/bundles/bootstrap")*@
-        @RenderSection("scripts", required: false)
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-                crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-                crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-                crossorigin="anonymous"></script>
+    </section>
+    <div>
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>

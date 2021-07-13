@@ -213,7 +213,10 @@
     text-align: left;
     margin: 10px 0;
 }
-
+.btn button a {
+    text-decoration: none;
+    color: white;
+}
     .card .content .btn button {
         background: #e74c3c;
         color: #fff;

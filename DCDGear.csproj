@@ -59,6 +59,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -145,10 +149,9 @@
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NewController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="DAO\BannerDAO.cs" />
-    <Compile Include="DAO\NewDAO.cs" />
     <Compile Include="DAO\ProductCategoryDAO.cs" />
     <Compile Include="DAO\ProductDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
@@ -211,6 +214,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\LoginModel.cs" />
+    <Compile Include="ViewModel\RegisterModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
@@ -235,6 +239,7 @@
     <Content Include="Areas\Admin\Views\New\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Banner\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Banner\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Delete.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Header.cshtml" />
     <Content Include="Assets\Admin\assets\demo\chart-area-demo.js" />
     <Content Include="Assets\Admin\assets\demo\chart-bar-demo.js" />
@@ -1351,6 +1356,10 @@
     <Content Include="Assets\Client\img\logo6.png" />
     <Content Include="Assets\Client\img\logoGear.png" />
     <Content Include="Assets\Client\img\logoTitle.png" />
+    <Content Include="Assets\Client\img\new1.png" />
+    <Content Include="Assets\Client\img\new2.png" />
+    <Content Include="Assets\Client\img\new3.jpg" />
+    <Content Include="Assets\Client\style.css" />
     <Content Include="Assets\login\css\main.css" />
     <Content Include="Assets\login\css\util.css" />
     <Content Include="Assets\login\fonts\font-awesome-4.7.0\css\font-awesome.css" />
@@ -1386,6 +1395,7 @@
     <Content Include="Assets\Thumbnail\A-TUF-A17-FA706II-H7286T-1-768x768.jpg" />
     <Content Include="Assets\Thumbnail\ALPHA-15-A4DEK-027VN-1.jpg" />
     <Content Include="Assets\Thumbnail\BRAVO-15-B5DD-028VN-1-768x768.jpg" />
+    <Content Include="Assets\Thumbnail\cyberpunk20772b.jpg" />
     <Content Include="Assets\Thumbnail\IDEAPAD-GAMING-3-15ARH05-82EY00C3VN-768x768.jpg" />
     <Content Include="Assets\Thumbnail\image.png" />
     <Content Include="Assets\Thumbnail\LogoDCDGear.png" />
@@ -1567,11 +1577,17 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\ProductCategory.cshtml" />
+    <Content Include="Views\Shared\NewCategory.cshtml" />
+    <Content Include="Views\Home\Info.cshtml" />
+    <Content Include="Views\Product\Category.cshtml" />
+    <Content Include="Views\Product\CategoryList.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Product\" />
-    <Folder Include="Views\User\" />
+    <Folder Include="Views\New\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,0 +1,98 @@
+﻿@model DCDGear.ViewModel.RegisterModel
+
+@{
+    ViewBag.Title = "Đăng kí";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+}
+<div class="container">
+    <div class="duongDan">
+        <a style="text-decoration:none" href="#">Trang Chủ</a>
+        <a>>></a>
+        <a style="text-decoration:none" href="#">Đăng Ký</a>
+    </div>
+    <div class="row">
+        @using (Html.BeginForm("Register","User",FormMethod.Post, new { @style ="padding-left: 300px" }))
+        {
+            @Html.AntiForgeryToken()
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="col-6">
+                <div class="tenTruyCap">
+                    <label>Tên đăng nhập</label>
+                    @Html.TextBoxFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+                <div class="matKhau">
+                    <label>Mật khẩu</label>
+                    @Html.PasswordFor(model => model.PassWord, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "text-danger" })
+                </div>
+                <div class="xacNhanMatKhau">
+                    <label>Nhập lại mật khẩu</label>
+                    @Html.PasswordFor(model => model.ConfirmPassWord, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassWord, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="hoTen">
+                    <label>Họ và tên</label>
+                    @Html.TextBoxFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="dienThoai">
+                    <label>Số điện thoại</label>
+                    @Html.TextBoxFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                </div>
+                <div class="Email">
+                    <label>Email</label>
+                    @Html.TextBoxFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+           
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="btn-dangKy">
+                            <button type="submit">Đăng Ký</button>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="btn-dangKy">
+                            <button type="reset" >Làm Lại</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+    <div class="row">
+
+        <div class="col-4"></div>
+        <div class="col-4"></div>
+        <div style="padding-left:420px;padding-top:20px"><h3>Hoặc đăng ký bằng</h3></div>
+        <div class="row" style="padding-left:350px">
+            <div class="col-4">
+                <div class="btn-fb">
+                    <button type="submit" name="add-to-cart" value="38363"><a href="https://www.facebook.com/">FaceBook</a></button>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="btn-gg">
+                    <button type="submit" name="add-to-cart" value="38363"><a href="https://www.facebook.com/">Google</a></button>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="btn-zalo">
+                    <button type="submit" name="add-to-cart" value="38363"><a href="https://www.facebook.com/">Zalo</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

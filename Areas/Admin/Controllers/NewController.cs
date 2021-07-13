@@ -19,9 +19,8 @@ namespace DCDGear.Areas.Admin.Controllers
 
         // GET: Admin/New
         public ActionResult Index()
-        {
-            var dao = new NewDAO().ListAll();
-            return View(dao);
+        {      
+            return View(db.News.OrderByDescending(d=>d.CreateDate).ToList());
         }
 
         // GET: Admin/New/Create
@@ -58,7 +57,7 @@ namespace DCDGear.Areas.Admin.Controllers
                     {
                         fileUpload.SaveAs(path);
                     }
-                    var dao = new NewDAO();
+                    
                     var session = (UserLogin)Session["DUY"];
                     @new.CreateBy = session.UserName;
                     @new.Image = fileName;
@@ -189,15 +188,6 @@ namespace DCDGear.Areas.Admin.Controllers
             db.SaveChanges();
             SetAlert("Xóa tin tức thành công", "success");
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

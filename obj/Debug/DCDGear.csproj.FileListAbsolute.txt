@@ -83,3 +83,4 @@ D:\laptrinhweb_asp.net\DCDGear\bin\EntityFramework.SqlServer.xml
 D:\laptrinhweb_asp.net\DCDGear\bin\CKFinder.dll
 D:\laptrinhweb_asp.net\DCDGear\bin\CKFinder.pdb
 D:\laptrinhweb_asp.net\DCDGear\obj\Debug\DCDGear.csprojAssemblyReference.cache
+D:\laptrinhweb_asp.net\DCDGear\bin\System.Numerics.Vectors.dll

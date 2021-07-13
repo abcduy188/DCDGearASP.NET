@@ -1,0 +1,63 @@
+﻿@model DCDGear.ViewModel.LoginModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="duongDan">
+        <a style="text-decoration:none" href="/">Trang Chủ</a>
+        <a>>></a>
+        <a style="text-decoration:none" href="/dang-nhap">Đăng nhập</a>
+    </div>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            @ViewBag.Success
+            @using (Html.BeginForm("Login", "User", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="login">
+                    <label>Tên đăng nhập</label>
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+                <div class="password">
+                    <label>Tên đăng nhập</label>
+                    @Html.PasswordFor(model => model.PassWord, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "text-danger" })
+                </div>
+                <div class="btn-dangnhap">
+                    <button type="submit">Đăng Nhập</button>
+                </div>
+            }
+            <div class="row">
+                <div class="col-4">
+                    <div class="btn-fb">
+                        <button type="submit" name="add-to-cart" value="38363"><a href="https://www.facebook.com/">FaceBook</a></button>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="btn-gg">
+                        <button type="submit" name="add-to-cart" value="38363"><a href="https://www.facebook.com/">Google</a></button>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="btn-zalo">
+                        <button type="submit" name="add-to-cart" value="38363"><a href="https://www.facebook.com/">Zalo</a></button>
+                    </div>
+                </div>
+            </div>
+            <div class="register">
+                <a style="padding-right:20px;text-decoration:none" href="#">Đăng Ký</a>
+                <a>|</a>
+                <a style="padding-left:20px; text-decoration:none" href="#">Đăng Nhập</a>
+            </div>
+        </div>
+
+        <div class="col-4"></div>
+    </div>
+</div>

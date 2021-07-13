@@ -1,0 +1,259 @@
+﻿@model DCDGear.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">PRODUCT</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+            <li class="breadcrumb-item active">Thêm sản phẩm</li>
+        </ol>
+        <div class="card mb-4">
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+
+            </div>
+            <div class="card-body">
+                <h3>Are you sure you want to delete this?</h3>
+                <div>
+                    <h4>Product</h4>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            <div class=" col-md-10">
+                                <input type="submit" value="Xóa" class="btn btn-default" style="background-color:#1D89E2; color: #ffffff" />
+                            </div>
+                        </div>
+                    }
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Name)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.SeoTitle)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.SeoTitle)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Code)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Code)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Description)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Image)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Image)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Price)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PromotionPrice)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.PromotionPrice)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Quantity)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Quantity)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Detail)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Detail)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.LinkVideo)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.LinkVideo)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Status)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CreateBy)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CreateBy)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CreateDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CreateDate)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ModifiedBy)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ModifiedBy)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ModifiedDate)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ModifiedDate)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CPU)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CPU)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.OperatingSystem)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.OperatingSystem)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.RAM)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.RAM)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.GPU)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.GPU)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Screen)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Screen)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.SSDHardDrive)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.SSDHardDrive)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ConnectionPorts)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ConnectionPorts)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Keyboard)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Keyboard)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Pin)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Pin)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Size)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Size)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Weight)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Weight)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ProductCategory.Name)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ProductCategory.Name)
+                        </dd>
+
+                    </dl>
+
+
+                </div>
+            </div>
+        </div>
+    </div>

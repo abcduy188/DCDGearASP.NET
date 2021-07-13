@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using DCDGear.Common;
 using DCDGear.Models;
 
 namespace DCDGear.Areas.Admin.Controllers
@@ -23,58 +24,60 @@ namespace DCDGear.Areas.Admin.Controllers
         // GET: Admin/Category/Create
         public ActionResult Create()
         {
-            ViewBag.ParentID = new SelectList(db.Categories.Where(d=>d.ParentID==null), "ID", "Name");
+            ViewBag.ParentID = new SelectList(db.Categories.Where(d=>d.ParentID==null).ToList(), "ID", "Name");
             return View();
         }
 
-        // POST: Admin/Category/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,MetaTitle,ParentID,DisplayOrder,SeoTitle,CreateDate,CreateBy,ModifiedDate,ModifiedBy,MetaKeywords,MetaDescriptions,Status,ShowOnHome")] Category category)
+        public ActionResult Create(Category category)
         {
-           
+            ViewBag.ParentID = new SelectList(db.Categories.Where(d => d.ParentID == null).ToList(), "ID", "Name");
             if (ModelState.IsValid)
             {
+                var session = (UserLogin)Session["DUY"];
+                category.CreateBy = session.Name;
+                category.CreateDate = DateTime.Now;
                 db.Categories.Add(category);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                SetAlert("Thêm danh muc thanh cong", "success");
+                return RedirectToAction("Index", "ProductCategory");
             }
-            ViewBag.ParentID = new SelectList(db.Categories.Where(d => d.ParentID == null), "ID", "Name", category.ParentID);
-            return View(category);
+            return View();
         }
 
         // GET: Admin/Category/Edit/5
         public ActionResult Edit(long? id)
         {
+            Category category = db.Categories.Find(id);
+            ViewBag.ParentID = new SelectList(db.Categories.Where(d => d.ParentID == null), "ID", "Name", category.ParentID);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+          
             if (category == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ParentID = new SelectList(db.Categories.Where(d => d.ParentID == null), "ID", "Name", category.ParentID);
+           
             return View(category);
         }
 
-        // POST: Admin/Category/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Name,MetaTitle,ParentID,DisplayOrder,SeoTitle,CreateDate,CreateBy,ModifiedDate,ModifiedBy,MetaKeywords,MetaDescriptions,Status,ShowOnHome")] Category category)
         {
+            ViewBag.ParentID = new SelectList(db.Categories.Where(d => d.ParentID == null), "ID", "Name", category.ParentID);
             if (ModelState.IsValid)
             {
                 db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ParentID = new SelectList(db.Categories.Where(d => d.ParentID == null), "ID", "Name", category.ParentID);
+           
             return View(category);
         }
 
@@ -99,18 +102,13 @@ namespace DCDGear.Areas.Admin.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Category category = db.Categories.Find(id);
+            foreach(var item in category.News.ToList())
+            {
+                db.News.Remove(item);
+            }
             db.Categories.Remove(category);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

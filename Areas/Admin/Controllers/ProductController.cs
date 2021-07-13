@@ -35,11 +35,21 @@ namespace DCDGear.Areas.Admin.Controllers
             return View(products);
         }
 
-        [HttpDelete]
         public ActionResult Delete(long id)
         {
-            new ProductDAO().Delete(id);
-            return Redirect("Index");
+            Product product = db.Products.Find(id);
+           
+            return View(product);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Product product)
+        {
+            Product entity = db.Products.Find(product.ID);
+            db.Products.Remove(entity);
+            db.SaveChanges();
+            SetAlert("Xóa sản phẩm thành công", "success");
+            return RedirectToAction("Index");
         }
         #region Create with single img
 
@@ -54,7 +64,7 @@ namespace DCDGear.Areas.Admin.Controllers
         //        return View();
         //    }
         //    else
-        //    if (ModelState.IsValid) // kiem tra co valid form hay khong
+        //    if (ModelState.IsValid)
         //    {
         //        var fileName = Path.GetFileName(fileUpload.FileName);
         //        var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
@@ -94,81 +104,40 @@ namespace DCDGear.Areas.Admin.Controllers
         //    {
         //        if (fileUpload == null)
         //        {
-        //            products.Name = entity.Name;
-        //            products.CategoryID = entity.CategoryID;
-        //            products.SeoTitle = entity.SeoTitle;
-        //            products.Description = entity.Description;
-        //            try
-        //            {
-        //                if (!string.IsNullOrEmpty(products.Image))
-        //                {
-        //                    products.Image = products.Image;
-        //                }
-        //                else
-        //                {
-        //                    SetAlert("Vui lòng chọn ảnh sản phẩm", "warning");
-        //                    return RedirectToAction("Index", "Product");
-        //                }
-        //            }
-        //            catch
-        //            {
-        //                ModelState.AddModelError("", "Cap nhat khong thanh cong!!");
-        //            }
-        //            products.Price = entity.Price;
-        //            products.PromotionPrice = entity.PromotionPrice;
-        //            products.LinkVideo = entity.LinkVideo;
-        //            products.Detail = entity.Detail;
-        //            products.Quantity = entity.Quantity;
-        //            products.CPU = entity.CPU;
-        //            products.OperatingSystem = entity.OperatingSystem;
-        //            products.RAM = entity.RAM;
-        //            products.GPU = entity.GPU;
-        //            products.Screen = entity.Screen;
-        //            products.SSDHardDrive = entity.SSDHardDrive;
-        //            products.ConnectionPorts = entity.ConnectionPorts;
-        //            products.Keyboard = entity.Keyboard;
-        //            products.Pin = entity.Pin;
-        //            products.Size = entity.Size;
-        //            products.Weight = entity.Weight;
-        //            products.Status = entity.Status;
-        //            products.ModifiedDate = DateTime.Now;
-        //            db.SaveChanges();
-        //            SetAlert("Sửa tin tức thành công", "success");
-        //            return RedirectToAction("Index", "Product");
+        //            products.Image = products.Image;
         //        }
         //        else
         //        {
         //            var fileName = Path.GetFileName(fileUpload.FileName);
         //            var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
         //            fileUpload.SaveAs(path);
-        //            entity.Image = fileName;
-        //            products.Name = entity.Name;
-        //            products.CategoryID = entity.CategoryID;
-        //            products.SeoTitle = entity.SeoTitle;
-        //            products.Description = entity.Description;
-        //            products.Image = entity.Image;
-        //            products.Price = entity.Price;
-        //            products.PromotionPrice = entity.PromotionPrice;
-        //            products.LinkVideo = entity.LinkVideo;
-        //            products.Detail = entity.Detail;
-        //            products.Quantity = entity.Quantity;
-        //            products.CPU = entity.CPU;
-        //            products.OperatingSystem = entity.OperatingSystem;
-        //            products.RAM = entity.RAM;
-        //            products.GPU = entity.GPU;
-        //            products.Screen = entity.Screen;
-        //            products.SSDHardDrive = entity.SSDHardDrive;
-        //            products.ConnectionPorts = entity.ConnectionPorts;
-        //            products.Keyboard = entity.Keyboard;
-        //            products.Pin = entity.Pin;
-        //            products.Size = entity.Size;
-        //            products.Weight = entity.Weight;
-        //            products.Status = entity.Status;
-        //            products.ModifiedDate = DateTime.Now;
-        //            db.SaveChanges();
-        //            SetAlert("Sửa tin tức thành công", "success");
-        //            return RedirectToAction("Index", "Product");
+        //            products.Image = fileName;
         //        }
+        //        products.Name = entity.Name;
+        //        products.CategoryID = entity.CategoryID;
+        //        products.SeoTitle = entity.SeoTitle;
+        //        products.Description = entity.Description;
+        //        products.Price = entity.Price;
+        //        products.PromotionPrice = entity.PromotionPrice;
+        //        products.LinkVideo = entity.LinkVideo;
+        //        products.Detail = entity.Detail;
+        //        products.Quantity = entity.Quantity;
+        //        products.CPU = entity.CPU;
+        //        products.OperatingSystem = entity.OperatingSystem;
+        //        products.RAM = entity.RAM;
+        //        products.GPU = entity.GPU;
+        //        products.Screen = entity.Screen;
+        //        products.SSDHardDrive = entity.SSDHardDrive;
+        //        products.ConnectionPorts = entity.ConnectionPorts;
+        //        products.Keyboard = entity.Keyboard;
+        //        products.Pin = entity.Pin;
+        //        products.Size = entity.Size;
+        //        products.Weight = entity.Weight;
+        //        products.Status = entity.Status;
+        //        products.ModifiedDate = DateTime.Now;
+        //        db.SaveChanges();
+        //        SetAlert("Sửa tin tức thành công", "success");
+        //        return RedirectToAction("Index", "Product");
         //    }
         //    return View("Index");
         //}
@@ -231,53 +200,7 @@ namespace DCDGear.Areas.Admin.Controllers
                     HttpPostedFileBase fileUpload = files[i];
                     if (i == 0 && fileUpload.ContentLength == 0)
                     {
-                        products.Name = entity.Name;
-                        products.CategoryID = entity.CategoryID;
-                        products.SeoTitle = entity.SeoTitle;
-                        products.Description = entity.Description;
-                        try
-                        {
-                            if (entity.Image == null)
-                            {
-                                if (!string.IsNullOrEmpty(products.Image))
-                                {
-                                    products.Image = products.Image;
-                                }
-                                else
-                                {
-                                    ModelState.AddModelError("", "Cap nhat khong thanh cong!!");
-                                }
-                            }
-                            else
-                            {
-                                products.Image = entity.Image;
-                            }
-                        }
-                        catch
-                        {
-                            ModelState.AddModelError("", "Cap nhat khong thanh cong!!");
-                        }
-                        products.Price = entity.Price;
-                        products.PromotionPrice = entity.PromotionPrice;
-                        products.LinkVideo = entity.LinkVideo;
-                        products.Detail = entity.Detail;
-                        products.Quantity = entity.Quantity;
-                        products.CPU = entity.CPU;
-                        products.OperatingSystem = entity.OperatingSystem;
-                        products.RAM = entity.RAM;
-                        products.GPU = entity.GPU;
-                        products.Screen = entity.Screen;
-                        products.SSDHardDrive = entity.SSDHardDrive;
-                        products.ConnectionPorts = entity.ConnectionPorts;
-                        products.Keyboard = entity.Keyboard;
-                        products.Pin = entity.Pin;
-                        products.Size = entity.Size;
-                        products.Weight = entity.Weight;
-                        products.Status = entity.Status;
-                        products.ModifiedDate = DateTime.Now;
-                        db.SaveChanges();
-                        SetAlert("Sửa tin tức thành công", "success");
-                        return RedirectToAction("Index", "Product");
+                        products.Image = products.Image;
                     }
                     else
                     {
@@ -285,35 +208,13 @@ namespace DCDGear.Areas.Admin.Controllers
                         x += fileName + ",";
                         var path = Path.Combine(Server.MapPath("~/Assets/Thumbnail/"), fileName);
                         fileUpload.SaveAs(path);
+                        products.Image = x.Remove(x.Length - 1);
                     }
                 }
-                entity.Image = x.Remove(x.Length - 1);
                 products.Name = entity.Name;
                 products.CategoryID = entity.CategoryID;
                 products.SeoTitle = entity.SeoTitle;
                 products.Description = entity.Description;
-                try
-                {
-                    if (entity.Image == null)
-                    {
-                        if (!string.IsNullOrEmpty(products.Image))
-                        {
-                            products.Image = products.Image;
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("", "Cap nhat khong thanh cong!!");
-                        }
-                    }
-                    else
-                    {
-                        products.Image = entity.Image;
-                    }
-                }
-                catch
-                {
-                    ModelState.AddModelError("", "Cap nhat khong thanh cong!!");
-                }
                 products.Price = entity.Price;
                 products.PromotionPrice = entity.PromotionPrice;
                 products.LinkVideo = entity.LinkVideo;

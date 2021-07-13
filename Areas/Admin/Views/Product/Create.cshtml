@@ -19,6 +19,12 @@
         var editor = CKEDITOR.replace('txtDetail', {
             customConfig: '/Assets/admin/ckeditor/config.js',
         });
+        function ChangeToYTB() {
+            var change;
+            change = document.getElementById("change").value;
+            change = change.replace("watch?v=", 'embed/');
+            document.getElementById('change').value = change;
+        }
         //slug
         function ChangeToSlug() {
             var title, slug;
@@ -57,15 +63,15 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4">PRODUCT</h1>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a hre f="admin">Home</a></li>
-            <li class="breadcrumb-item active">@Model</li>
+            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+            <li class="breadcrumb-item active">Thêm sản phẩm</li>
         </ol>
         <div class="card mb-4">
         </div>
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
-                DataTable Example
+                
             </div>
             <div class="card-body">
                 @using (Html.BeginForm("Create", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -144,7 +150,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.LinkVideo, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.LinkVideo, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.TextBoxFor(model => model.LinkVideo,new { @class = "form-control" ,@id = "change", onkeyup = "ChangeToYTB();" })
                                 @Html.ValidationMessageFor(model => model.LinkVideo, "", new { @class = "text-danger" })
                             </div>
                         </div>

@@ -1,0 +1,25 @@
+﻿@model List<DCDGear.Models.Category>
+
+@foreach (var item in Model.Where(d => d.ParentID == null))
+{
+    var child = Model.Where(d => d.ParentID == item.ID);
+    var hasChild = child.Count() > 0;
+    <li>
+        <a href="/tin-tuc/@item.SeoTitle-@item.ID ">
+            @item.Name
+        @if (hasChild == true)
+        {
+            <i class="fa fa-chevron-right"></i>
+        }
+    </a>
+    <!-- menu con sổ ngang cấp 1 -->
+    <ul>
+        @foreach (var childItem in child)
+        {
+            <li>
+                <a href="/tin-tuc/@childItem.SeoTitle-@childItem.ID ">@childItem.Name</a>
+            </li>
+        }
+    </ul>
+</li>
+}

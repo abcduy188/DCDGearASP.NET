@@ -3,10 +3,14 @@
 @foreach (var item in Model.Where(d => d.ParentID == null))
 {
     var child = Model.Where(d => d.ParentID == item.ID);
-
+    var hasChild = child.Count() > 0;
     <li>
-        <a href="/san-pham/@item.SeoTitle-@item.ID "> @item.Name<i class="fa fa-chevron-right"></i></a>
-
+        <a href="/san-pham/@item.SeoTitle-@item.ID ">@item.Name
+            @if (hasChild == true)
+            {
+                <i class="fa fa-chevron-right"></i>
+            }
+        </a>
         <!-- menu con sổ ngang cấp 1 -->
         <ul>
             @foreach (var childItem in child)

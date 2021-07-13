@@ -1,0 +1,229 @@
+﻿@model DCDGear.Models.Product
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var ListRela = (List<DCDGear.Models.Product>)ViewBag.ListRele;
+}
+@* slider là productItem slide là productChill *@
+<section class="ChiTiet">
+    <div class="container">
+        <h3 style="color:red"><b>@Model.Name </b></h3>
+        <h4> @Model.Description</h4>
+        <div class="row">
+            <div class="col-md-4">
+                <section class="laptopCarousel">
+                    <!-- data-ride="carousel" -->
+                    <div id="carouselLaptop" class="carousel slide carousel-fade">
+                        <ol class="carousel-indicators container">
+                            @{
+                                for (int i = 0; i < Model.Image.Split(',').Length; i++)
+                                {
+                                    if (i == 0)
+                                    {
+                                        <li data-target="#carouselLaptop" data-slide-to="@i" class="active"></li>
+                                    }
+                                    else
+                                    {
+                                        <li data-target="#carouselLaptop" data-slide-to="@i"></li>
+                                    }
+                                }
+                            }
+                        </ol>
+                        <div class="carousel-inner">
+                            @{
+
+                                for (int path = 0; path < Model.Image.Split(',').Length; path++) //tach chuoi
+                                {
+                                    string newpath = Model.Image.Split(',')[path];
+                                    if (path == 0)
+                                    {
+                                        <div class="carousel-item active">
+                                            <div class="overlay"></div>
+                                            <img src="@Url.Content("/Assets/Thumbnail/" + newpath)" class="d-block w-100" alt="...">
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="carousel-item">
+                                            <div class="overlay"></div>
+                                            <img src="@Url.Content("/Assets/Thumbnail/" + newpath)" class="d-block w-100" alt="...">
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-3">
+                <div class="thongTin"><strong class="price">@(Model.PromotionPrice.HasValue? Model.PromotionPrice.Value.ToString("N0"):"Liên hệ")</strong> <strike> @Model.Price.Value.ToString("N0") đ</strike></div>
+                <div class="thongTin">Tình Trạng: <strong  style="color:lawngreen">Còn Hàng</strong></div>
+                <div class="thongTin">Bảo Hành: <strong>36 tháng</strong></div>
+                <div class="thongTin">Tình Trạng : <strong>Mới 100%</strong></div>
+                <div class="btn">
+                    <button type="button" name="add-to-cart" value="38363" class="buy"><a href="/chi-tiet/@Model.SeoTitle-@Model.ID">Thêm vào giỏ hàng</a></button>
+                </div>
+
+            </div>
+            <div class="col-md-5">
+
+                <div class="wpb_wrapper">
+                    <p><span><strong><span style="color: #008000;">Bảo hành và dịch vụ:</span></strong></span></p>
+                    <p><span> ♦ Miễn phí vệ sinh laptop trong thời gian bảo hành.</span></p>
+                    <p><span> ♦ Giảm&nbsp;giá 10% khi mua Gaming Gear.</span></p>
+                    <p><span> ♦ Đổi mới trong 7 ngày nếu bị lỗi kĩ thuật.</span></p>
+                    <p><span>♦ Miễn phí quẹt thẻ ATM, Visa, Master.</span></p>
+                    <p><span>♦ Trả góp 0% bằng thẻ tín dụng qua M-Pos. <a href="/ho-tro" target="_blank" rel="noopener">Chi tiết.</a></span></p>
+                    <p><span>♦ <strong>Chính sách đảm bảo hài lòng.</strong> <a href="/ho-tro" target="_blank" rel="noopener">Chi tiết.</a></span></p>
+                    <p><span> ♦ Linh kiện nâng cấp bảo hành theo tiêu chuẩn nhà sản xuất.</span></p>
+                    <p><span> ♦ Hỗ trợ cài đặt hệ điều hành và phần mềm.</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <h1 class="newIn__title">Thông Tin Bổ Sung</h1>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>CPU</th>
+                            <td>
+                                <p>@Model.CPU</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>GPU</th>
+                            <td>
+                                <p>@Model.GPU</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Màn hình</th>
+                            <td>
+                                <p>@Model.Screen</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Hệ điều hành</th>
+                            <td>
+                                <p>@Model.OperatingSystem</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>RAM</th>
+                            <td>
+                                <p>@Model.RAM</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Ổ cứng SSD</th>
+                            <td>
+                                <p>@Model.SSDHardDrive</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Lan</th>
+                            <td>
+                                <p>Gigabit Lan</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Các cổng kết nối</th>
+                            <td>
+                                <p>@Model.ConnectionPorts</p>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Bàn Phím</th>
+                            <td>
+                                <p>@Model.Keyboard</p>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Pin</th>
+                            <td>
+                                <p>@Model.Pin</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Kích thước</th>
+                            <td>
+                                <p>@Model.Size</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Trọng lượng</th>
+                            <td>
+                                <p>@Model.Weight</p>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-4">
+                <div style="padding-top:300px">
+                    @if (Model.LinkVideo == null)
+                    {
+
+
+                        <iframe width="500" height="300"
+                                src="https://www.youtube.com/embed/uZvN3F2wWf0" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                    }
+                    else
+                    {
+                        <iframe width="500" height="300"
+                                src="@Model.LinkVideo" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="padding-top:20px">
+        <h1 class="newIn__title">Mô Tả</h1>
+        @Html.Raw(Model.Detail)
+    </div>
+</section>
+<section class="productSell">
+    <div class="container">
+        <h1 class="newProductTitle">Sản Phẩm Liên Quan</h1>
+        <div class="slider owl-carousel">
+            @foreach (var item in ListRela.Where(d => d.ID != Model.ID))
+            {
+                <div class="row" style="padding: 0 10px 0 10px">
+                    <div class="img">
+                        <a href="/chi-tiet/@item.SeoTitle-@item.ID">
+                            <img src="~/Assets/Thumbnail/@item.Image.Split(',')[0]" alt="">
+                        </a>
+                    </div>
+                    <div class="content">
+                        <div class="title">@item.Name</div>
+                        <div class="sub-title"></div>
+                        <strike>@item.Price.Value.ToString("N0")</strike>
+                        <strong class="price">@(item.PromotionPrice.HasValue? item.PromotionPrice.Value.ToString("N0"):"Liên hệ")</strong>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<script>
+    $(".slider").owlCarousel({
+        loop: true,
+        autoplay: true,
+        autoplayTimeout: 2000,
+        autoplayHoverPause: true,
+    });
+</script>

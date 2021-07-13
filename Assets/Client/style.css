@@ -1,0 +1,354 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.content ul li a {
+    text-decoration: none;
+}
+
+.content ul {
+    list-style: none;
+}
+
+.main-nav {
+    width: 250px;
+    background: #fe3e65;
+}
+
+#cate {
+    height: auto;
+    width: 100%;
+    color: #FFF;
+    font-size: 18px;
+    top: 0;
+    background-color: var(--c-1600404449734,#fe3e65);
+    padding: 7px 15px;
+    text-align: left;
+    text-transform: initial;
+    line-height: 24px;
+    font-weight: 600;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 1);
+    border-width: 0px 0px 2px 0px;
+    display: block;
+    right: 0;
+    position: relative;
+}
+
+.main-nav-ul li {
+    list-style-type: none;
+}
+
+.main-nav a {
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    color: #fff;
+    display: block;
+    padding: 10px 0 10px 20px;
+    border-bottom: 1px solid #fff;
+}
+
+    .main-nav a:hover {
+        background: #fe3e65;
+    }
+
+.main-nav-ul ul {
+    /*display: none;*/
+}
+
+.main-nav ul li:hover ul {
+    display: block;
+}
+
+.main-nav-ul .sub-icon::after {
+    content: '\203A';
+    float: right;
+    margin-right: 20px;
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+}
+
+.main-nav-ul li:hover .sub-icon::after {
+    content: '\203A';
+}
+
+.main-nav-ul ul a::before {
+    content: '\203A';
+    margin-right: 20px;
+}
+/* ------------------ */
+.slider {
+    max-width: 1200px;
+    display: flex;
+}
+
+    .slider .card {
+        background: #fff;
+        flex: 1;
+        margin: 0 10px;
+    }
+
+        .slider .card .img {
+            height: 258px;
+            width: 258px;
+        }
+
+            .slider .card .img img {
+                height: 258px;
+                width: 258px;
+                object-fit: cover;
+            }
+
+        .slider .card .content {
+            padding: 10px 20px;
+        }
+
+.card .content .title {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.card .content .sub-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #e74c3c;
+    line-height: 20px;
+}
+
+.card .content p {
+    text-align: justify;
+    max-width: 10px 0;
+}
+
+.card .content .btn {
+    display: block;
+    text-align: left;
+    margin: 10px 0;
+}
+
+    .card .content .btn button {
+        background: #e74c3c;
+        color: #fff;
+        border: none;
+        outline: none;
+        font-size: 17px;
+        padding: 5px 8px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+        .card .content .btn button:hover {
+            transform: scale(0.9);
+        }
+
+.price {
+    color: palevioletred;
+    font-size: 30px;
+}
+
+.thongTin {
+    padding-bottom: 20px;
+}
+
+.buy {
+    width: 200px;
+    height: 50px;
+    background: #ff006e;
+    color: white;
+    border-radius: 10px;
+}
+/*tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+table {
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: gray;
+}
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+.woocommerce table.shop_attributes th {
+    width: 150px;
+    font-weight: 700;
+    padding: 8px;
+    border-top: 0;
+    border-bottom: 1px dotted rgba(0,0,0,.1);
+    margin: 0;
+    line-height: 1.5;
+}
+th {
+    text-align: left;
+}
+.woocommerce table.shop_attributes td {
+    font-style: italic;
+    padding: 0;
+    border-top: 0;
+    border-bottom: 1px dotted rgba(0,0,0,.1);
+    margin: 0;
+    line-height: 1.5;
+}
+.woocommerce tbody tr td, .woocommerce thead tr th, .woocommerce-page tbody tr td, .woocommerce-page thead tr th {
+    font-size: 14px;
+}
+.shop_attributes td {
+    vertical-align: middle;
+}*/
+td {
+    width: 500px;
+    padding-left: 50px;
+}
+
+    td p {
+        padding-top: 5px
+    }
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+tr th {
+    width: 200px;
+    text-align: center;
+}
+
+th td {
+    width: 700px;
+}
+
+.login {
+    padding-top: 150px;
+}
+
+    .login > input {
+        width: 355px;
+        height: 40px;
+        border-radius: 5px;
+    }
+
+.password > input {
+    width: 355px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.password {
+    padding-top: 10px;
+}
+
+.btn-dangnhap {
+    padding-top: 10px;
+}
+
+    .btn-dangnhap button {
+        width: 355px;
+        height: 40px;
+        background: #fe3e65;
+        color: white;
+    }
+
+        .btn-dangnhap button:hover {
+            background: black;
+        }
+
+        .btn-dangnhap button a {
+            text-decoration: none;
+            color: white;
+        }
+
+.btn-fb button a {
+    text-decoration: none;
+    color: white;
+}
+
+.btn-gg button a {
+    text-decoration: none;
+    color: white;
+}
+
+.btn-zalo button a {
+    text-decoration: none;
+    color: white;
+}
+
+.btn-fb button {
+    width: 100px;
+    height: 40px;
+    background: #3b5998;
+    color: white;
+    border-radius: 5px;
+}
+
+.btn-gg button {
+    width: 100px;
+    height: 40px;
+    background: #dc4e41;
+    color: white;
+    border-radius: 5px;
+}
+
+.btn-zalo button {
+    width: 100px;
+    height: 40px;
+    background: #0591e9;
+    color: white;
+    border-radius: 5px;
+}
+
+.btn-fb, .btn-gg, .btn-zalo {
+    padding-top: 10px;
+}
+
+.register {
+    padding-top: 15px;
+    padding-left: 90px;
+}
+
+    .register a {
+        color: black;
+    }
+
+.duongDan > a {
+    color: black;
+}
+
+.hoTen, .dienThoai, .Email, .tenTruyCap, .matKhau, .xacNhanMatKhau {
+    padding-top: 20px;
+}
+
+    .hoTen > input, .dienThoai input, .Email input, .tenTruyCap input, .matKhau input, .xacNhanMatKhau input {
+        width: 500px;
+        height: 40px;
+    }
+
+.btn-dangKy {
+    padding-top: 40px;
+}
+
+    .btn-dangKy button {
+        width: 100px;
+        height: 40px;
+        background: #fe3e65;
+        color: white;
+        border-radius: 5px;
+    }
+
+        .btn-dangKy button:hover {
+            background: black;
+        }
+
+        .btn-dangKy button a {
+            text-decoration: none;
+            color: white;
+        }

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<DCDGear.Models.Product>
+@{
+    ViewBag.Title = "Sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- <div class="container"> -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+
+            <nav class="main-nav">
+
+                <div class="content">
+                    <div id="cate">
+                        Danh mục sản phẩm
+                    </div>
+                    <ul class="main-nav-ul" style="display:block">
+                        @{Html.RenderAction("CategoryList", "Product");}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="col-9">
+            <h1 class="newProductTitle">Sản Phẩm</h1>
+            <div class="slider">
+                <div class="row">
+                    @if (Model.Count()>0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="col-4">
+                                <div class="card">
+                                    <a href="/chi-tiet/@item.SeoTitle-@item.ID">
+                                        <div class="img">
+                                            <img src="~/Assets/Thumbnail/@item.Image.Split(',')[0]" alt="">
+                                        </div>
+                                    </a>
+                                    <div class="content">
+                                        <div class="title">@item.Name</div>
+                                        <div class="sub-title">@(item.PromotionPrice.HasValue? item.PromotionPrice.Value.ToString("N0"):"Liên hệ")</div>
+                                        <strike>@item.Price.Value.ToString("N0")</strike>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger" style="padding-left:30px">Khong co san pham</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

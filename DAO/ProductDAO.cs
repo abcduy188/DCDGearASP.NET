@@ -52,6 +52,7 @@ namespace DCDGear.DAO
             }
             catch (Exception e)
             {
+                throw e;
             }
             products.Price = entity.Price;
             products.PromotionPrice = entity.PromotionPrice;
@@ -83,7 +84,7 @@ namespace DCDGear.DAO
                 db.SaveChanges();
                 return true;
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }

@@ -40,15 +40,15 @@
                             <img src="@Url.Content("/Assets/Thumbnail/" + newpath)" class="d-block w-100" alt="...">
                             <div class="container carousel-caption d-none d-md-block">
 
-                                <p class="text-warning ">ACTION, ADVENTURE, FANTASY</p>
-                                <h2 class="display-4">End of the World: Part II</h2>
+                                <p class="text-warning ">DCD</p>
+                                <h2 class="display-4">DCDGEAR</h2>
                                 <p>
                                     Claritas est etiam processus dynamicus, qui sequitur mutati onem consuetudium lectorum. Mirum
                                     est notare quam littera gothica, quam n unc putamus parum.
                                 </p>
                                 <div>
                                     <span class="border rounded-circle p-2">PG</span>
-                                    <button class="btn_trailer"> <i class="fa fa-play mr-2"></i>PLAY TRAILER</button>
+                                    <button class="btn_trailer"> <i class="fa fa-play mr-2"></i>About</button>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                 }
 
             }
-           
+
         </div>
     </div>
 </section>
@@ -95,7 +95,7 @@
                                 <img class="img-fluid" src="~/Assets/Thumbnail/@item.Image.Split(',')[0]" alt="">
                                 <div class="newIn__overlay"></div>
                                 <div class="newIn__detail">
-                                    <a href="@url">CHI TIET</a>
+                                    <a href="@url">@item.Name</a>
                                     <p>Release: @item.CreateDate.Value.ToString("dd/MM/yyyy")</p>
                                 </div>
                             </div>
@@ -167,9 +167,10 @@
         <div class="slider owl-carousel">
             @foreach (var item in listProductsNew)
             {
+            <form action="/chi-tiet/@item.SeoTitle-@item.ID">
                 <div class="card">
                     <div class="img">
-                        <img src="/Assets/Thumbnail/@item.Image.Split(',')[0]" alt="">
+                        <a href="/chi-tiet/@item.SeoTitle-@item.ID"><img src="/Assets/Thumbnail/@item.Image.Split(',')[0]" alt=""></a>
                     </div>
                     <div class="content">
                         <div class="title">@item.Name</div>
@@ -180,6 +181,7 @@
                         </div>
                     </div>
                 </div>
+            </form>
             }
         </div>
     </div>
@@ -193,11 +195,9 @@
                 </div>
                 <div class="col-2">
                     <img src="/Assets/Client/img/logo2.png" alt="anh">
-
                 </div>
                 <div class="col-2">
-                    <img src="/Assets/Client/img/logo3.png" alt="anh">
-
+                    <a href="/san-pham/laptop-msi-1"><img src="/Assets/Client/img/logo3.png" alt="anh"></a>
                 </div>
                 <div class="col-2">
                     <img src="/Assets/Client/img/logo4.png" alt="anh">
@@ -206,7 +206,8 @@
                     <img src="/Assets/Client/img/logo5.png" alt="anh">
                 </div>
                 <div class="col-2">
-                    <img src="/Assets/Client/img/logo6.png" alt="anh">
+                    <a href="/san-pham/laptop-dell-4"><img src="/Assets/Client/img/logo6.png" alt="anh"></a>
+
                 </div>
             </div>
         </div>
