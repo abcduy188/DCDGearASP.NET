@@ -7,6 +7,11 @@
 @* slider là productItem slide là productChill *@
 <section class="ChiTiet">
     <div class="container">
+        <div class="duongDan">
+            <a style="text-decoration:none" href="/">Trang Chủ</a>
+            <a>>></a>
+            <a style="text-decoration: none;color: #fe3e65" href="#">Chi tiết @Model.Name</a>
+        </div>
         <h3 style="color:red"><b>@Model.Name </b></h3>
         <h4> @Model.Description</h4>
         <div class="row">
@@ -56,12 +61,12 @@
                 </section>
             </div>
             <div class="col-md-3">
-                <div class="thongTin"><strong class="price">@(Model.PromotionPrice.HasValue? Model.PromotionPrice.Value.ToString("N0"):"Liên hệ")</strong> <strike> @Model.Price.Value.ToString("N0") đ</strike></div>
-                <div class="thongTin">Tình Trạng: <strong  style="color:lawngreen">Còn Hàng</strong></div>
+                <div class="thongTin"><strong class="price">@(Model.PromotionPrice.HasValue? Model.PromotionPrice.Value.ToString("N0"):"Liên hệ")</strong> <strike> @Model.Price.Value.ToString("N0") VND</strike></div>
+                <div class="thongTin">Tình Trạng: <strong style="color:lawngreen">Còn Hàng</strong></div>
                 <div class="thongTin">Bảo Hành: <strong>36 tháng</strong></div>
                 <div class="thongTin">Tình Trạng : <strong>Mới 100%</strong></div>
                 <div class="btn">
-                    <button type="button" name="add-to-cart" value="38363" class="buy"><a href="/chi-tiet/@Model.SeoTitle-@Model.ID">Thêm vào giỏ hàng</a></button>
+                    <button type="button" name="add-to-cart" value="38363" class="buy"><a href="@Url.Action("AddCart","Cart",new {@ID =@Model.ID , @strURL= Request.Url.ToString() })">Thêm vào giỏ hàng</a></button>
                 </div>
 
             </div>
@@ -172,17 +177,15 @@
                 <div style="padding-top:300px">
                     @if (Model.LinkVideo == null)
                     {
-
-
                         <iframe width="500" height="300"
-                                src="https://www.youtube.com/embed/uZvN3F2wWf0" frameborder="0"
+                                src=" https://www.youtube.com//embed/lduffUEP7tg?autoplay=1" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>
                     }
                     else
                     {
                         <iframe width="500" height="300"
-                                src="@Model.LinkVideo" frameborder="0"
+                                src="@Model.LinkVideo?autoplay=1" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>
                     }
@@ -211,7 +214,7 @@
                     <div class="content">
                         <div class="title">@item.Name</div>
                         <div class="sub-title"></div>
-                        <strike>@item.Price.Value.ToString("N0")</strike>
+                        <strike>@item.Price.Value.ToString("N0") VND</strike>
                         <strong class="price">@(item.PromotionPrice.HasValue? item.PromotionPrice.Value.ToString("N0"):"Liên hệ")</strong>
                     </div>
                 </div>

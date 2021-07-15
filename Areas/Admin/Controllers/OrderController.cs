@@ -1,5 +1,5 @@
-﻿
-using DCDGear.Models;
+﻿using DCDGear.Models;
+using DCDGear.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +8,15 @@ using System.Web.Mvc;
 
 namespace DCDGear.Areas.Admin.Controllers
 {
-    public class HomeController : BaseController
+    public class OrderController : Controller
     {
-        // GET: Admin/Home
+        // GET: Admin/Order
         private DCDGearDbContext db = new DCDGearDbContext();
         public ActionResult Index()
         {
-            return View(db.Products.ToList());
+            var model = new OrderDetailModel();
+            var list = model.ListAll();
+            return View(list);
         }
     }
 }

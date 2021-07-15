@@ -24,9 +24,10 @@
         <div id="layoutSidenav_content">
             @if (TempData["AlertMessage"] != null)
             {
-<div id="alertM" class="alert @TempData["AlertType"] hide">
-    @TempData["AlertMessage"]
-</div>      }
+                    <div id="alertM" class="alert @TempData["AlertType"] hide">
+                        @TempData["AlertMessage"]
+                    </div>     
+             }
             @RenderBody()
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">

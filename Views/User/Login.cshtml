@@ -21,12 +21,12 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                 <div class="login">
-                    <label>Tên đăng nhập</label>
+                    <label><b>Tên đăng nhập</b></label>
                     @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", required = "required" })
                     @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                 </div>
                 <div class="password">
-                    <label>Tên đăng nhập</label>
+                    <label><b>Tên đăng nhập</b></label>
                     @Html.PasswordFor(model => model.PassWord, new { @class = "form-control", required = "required" })
                     @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "text-danger" })
                 </div>
@@ -52,9 +52,9 @@
                 </div>
             </div>
             <div class="register">
-                <a style="padding-right:20px;text-decoration:none" href="#">Đăng Ký</a>
+                <a style="padding-right:20px;text-decoration:none" href="/dang-ki">Đăng Ký</a>
                 <a>|</a>
-                <a style="padding-left:20px; text-decoration:none" href="#">Đăng Nhập</a>
+                <a style="padding-left:20px; text-decoration:none" href="/quen-mat-khau">Đăng Nhập</a>
             </div>
         </div>
 

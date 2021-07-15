@@ -1,0 +1,28 @@
+﻿@model DCDGear.Models.New
+@{
+    ViewBag.Title = "ChiTietTinTuc";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="duongDan">
+        <a style="text-decoration:none" href="/">Trang Chủ</a>
+        <a>>></a>
+        <a style="text-decoration:none" href="#">Tin Tức</a>
+        <a>>></a>
+        <a style="text-decoration:none" href="#">Công Nghệ</a>
+    </div>
+    <div class="headTinTuc">
+        <h2>@Model.Name</h2>
+        <div style="padding-bottom:20px">
+            @Model.CreateDate.Value.ToString("HH:mm, dd/MM/yyyy")
+        </div>
+        <p>@Model.Description</p>
+        <div style="padding-bottom:20px">
+            <img src="~/Assets/Thumbnail/@Model.Image" style="width:1100px" />
+        </div>
+        <div>
+            @Html.Raw(Model.Detail)
+        </div>
+    </div>
+</div>

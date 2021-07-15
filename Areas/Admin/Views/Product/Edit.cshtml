@@ -8,14 +8,7 @@
 {
     <script>
 
-        $('#btnSelectImage').on('click', function (e) {
-            e.preventDefault();
-            var finder = new CKFinder();
-            finder.selectActionFunction = function (url) {
-                $('#txtImage').val(url)
-            };
-            finder.popup();
-        })
+       
         var editor = CKEDITOR.replace('txtDetail', {
             customConfig: '/Assets/admin/ckeditor/config.js',
         });

@@ -35,9 +35,9 @@ namespace DCDGear.Controllers
         public ActionResult Category(long CateID)
         {
             
-            var product = db.Products.ToList().Where(d => d.CategoryID == CateID); //lấy ra danh sách sản phẩm theo danh mục
-            ProductCategory cate = db.ProductCategories.Find(CateID); //lấy ra danh mục có id = cateID
-            var child = db.ProductCategories.Where(d => d.ParentID == cate.ID).ToList(); // lấy ra danh sách danh mục con của cate
+            var product = db.Products.ToList().Where(d => d.CategoryID == CateID); 
+            ProductCategory cate = db.ProductCategories.Find(CateID); 
+            var child = db.ProductCategories.Where(d => d.ParentID == cate.ID).ToList(); 
             if (child.Count() != 0)
             {
                 foreach (var item in child)

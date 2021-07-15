@@ -1,5 +1,4 @@
 ﻿using DCDGear.Common;
-using DCDGear.DAO;
 using DCDGear.Models;
 using DCDGear.ViewModel;
 using System;

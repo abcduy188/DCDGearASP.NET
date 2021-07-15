@@ -31,6 +31,18 @@ namespace DCDGear
            namespaces: new[] { "DCDGear.Controllers" }
         );
             routes.MapRoute(
+            name: "DetailNew",
+            url: "chi-tiet-tin-tuc/{SeoTitle}-{id}",
+            defaults: new { controller = "New", action = "DetailNew", id = UrlParameter.Optional },
+           namespaces: new[] { "DCDGear.Controllers" }
+        );
+            routes.MapRoute(
+               name: "CategoryNew",
+               url: "tin-tuc/{SeoTitle}-{id}",
+               defaults: new { controller = "New", action = "Category", id = UrlParameter.Optional },
+              namespaces: new[] { "DCDGear.Controllers" }
+           );
+            routes.MapRoute(
               name: "DetailProduct",
               url: "chi-tiet/{SeoTitle}-{id}",
               defaults: new { controller = "Product", action = "Detail", id = UrlParameter.Optional },

@@ -10,6 +10,7 @@ namespace DCDGear.Areas.Admin.Controllers
 {
     public class BaseController : Controller
     {
+        //Action filter  ActionFilterAttribute
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var session = (UserLogin)Session["DUY"];
@@ -19,7 +20,7 @@ namespace DCDGear.Areas.Admin.Controllers
             }
             base.OnActionExecuting(filterContext);
         }
-        //alert
+        
         protected void SetAlert(string message, string type)
         {   //temdata = viewbag
             TempData["AlertMessage"] = message;

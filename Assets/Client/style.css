@@ -318,7 +318,10 @@ th td {
     .register a {
         color: black;
     }
-
+.duongDan{
+    padding-bottom: 10px;
+    padding-left:30px;
+}
 .duongDan > a {
     color: black;
 }
@@ -352,3 +355,17 @@ th td {
             text-decoration: none;
             color: white;
         }
+.footer {
+    width: 100%;
+    height: 250px;
+    background: #fe3e65;
+    padding-top: 20px;
+}
+
+.lienHe p {
+    color: white;
+}
+
+.lienHe h3 {
+    color: white;
+}

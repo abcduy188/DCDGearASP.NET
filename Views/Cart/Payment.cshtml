@@ -1,0 +1,98 @@
+﻿@model List<DCDGear.ViewModel.Cart>
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="account-in">
+    <div class="container">
+        <div class="check_box">
+            @if (Model.Count > 0)
+            {
+                <table align="center" border="1" class="table">
+                    <tr style="text-align:center;font-weight:bold">
+                        <td>Mã sản phẩm</td>
+                        <td>Tên sản phẩm</td>
+                        <td>Ảnh </td>
+                        <td>Số lượng</td>
+                        <td>Đơn giá</td>
+                        <td>Thành Tiền</td>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr style="text-align:center;font-weight:bold">
+                            <td>@item.ID</td>
+                            <td>@item.Name</td>
+                            <td><img src="/Assets/Thumbnail/@item.Image.Split(',')[0]" style="width:100px" /></td>
+                            @using (Html.BeginForm("CapnhatCart", "Cart", new { @ID = item.ID }))
+                            {
+                                <td>
+                                    <input type="number" value="@item.Quantity" min="1" name="txtSoluong" />
+                                </td>
+                                <td>@String.Format("{0:0,0}", item.Price)</td>
+                                <td>@String.Format("{0:0,0}", item.TotalItem)</td>
+                                @*<td><a href="@Url.Action("Details","Book",new {masach=item.ID})">Chi Tiết</a></td>*@
+                                <td>@Html.ActionLink("Xóa", "XoaCart", new { @ID = item.ID })</td>
+                                <td><input type="submit" value="Cập Nhật" /></td>
+                            }
+                        </tr>
+                    }
+                    <tr style="text-align:right;font-weight:bold;color:red">
+                        <td colspan="4">
+                            Số lượng sản phẩm: @ViewBag.Tongsoluong
+                        </td>
+                        <td colspan="5">
+                            Tổng tiền : @String.Format("{0:0,0}", ViewBag.Tongtien) VNĐ
+                        </td>
+                    </tr>
+                </table>
+
+            }
+            else
+            {
+                <div class="col-md-9 cart-items">
+                    <h1>Giỏ hàng trống</h1>
+                </div>
+            }
+
+            <div class="clearfix"></div>
+            <div class="col-md-9 cart-items">
+                @using (Html.BeginForm("Payment", "Cart", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <label>Nguoi nhan:</label>
+                        <input name="shipName" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>SDT:</label>
+                        <input name="shipPhone" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Dia chi:</label>
+                        <input name="shipAddress" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email: </label>
+                        <input name="shipEmail" class="form-control" />
+                    </div>
+                    <div>
+                        @{
+                            var sess = (DCDGear.Common.UserLogin)Session["DUY"];
+                            if (sess != null)
+                            {
+                                <button type="submit" class="btn">Thanh toan</button>
+                            }
+                            else
+                            {
+                                <span>Ban phai dang nhap truoc khi thanh toan</span>
+                                <a href="/dang-nhap">dang nhap ngay dde thanh toan</a>
+                            }
+                        }
+                    </div>
+
+                }
+
+            </div>
+        </div>
+
+    </div>
+</div>

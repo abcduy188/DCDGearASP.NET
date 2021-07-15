@@ -6,7 +6,8 @@ using System.Web;
 
 namespace DCDGear.Common
 {
-    [Serializable]
+    [Serializable] 
+    //lưu trữ dữ liệu
     public class UserLogin
     {
         public long UserID { set; get; } //các hàm properties

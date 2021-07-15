@@ -15,11 +15,13 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=60efd46b104ca3001988b88a&product=inline-share-buttons" async="async"></script>
     <title>@ViewBag.Title</title>
     <!--favicon-->
     <link rel="icon"
           href="~/Assets/Thumbnail/LogoDCDGearicon.ico"
           type="image/x-icon'>">
+  
 </head>
 <body>
     <header>
@@ -33,7 +35,7 @@
                     <button>Search</button>
                 </div>
                 <div class="col-3">
-                    <a><i class="fas fa-shopping-basket"></i></a>
+                    @{ Html.RenderAction("CartPartial", "Cart");}
                 </div>
             </div>
         </div>
@@ -48,7 +50,7 @@
                 <li>
                     <a href="#">Sản Phẩm<i class="fa fa-chevron-down"></i></a>
                     <!-- menu con sổ xuống cấp 1 -->
-                    <ul >
+                    <ul>
                         @{Html.RenderAction("ProductCategory", "Product");}
                     </ul>
                 </li>
@@ -87,6 +89,39 @@
     <div>
         @RenderBody()
     </div>
+    
+    <div style="padding-top:40px">
+        
+        <footer class="footer">
+           
+            <div class="container">
+                <div class="sharethis--buttons"></div>
+                <div class="row">
+                    <div class="col-4" style="padding-top:20px">
+                        <div class="lienHe">
+                            <h3>Liên Hệ</h3>
+                            <p><strong>Địa chỉ</strong> : Khu Công Nghệ Cao Hutech</p>
+                            <p><strong>SDT</strong> :0379797979</p>
+                            <p><strong>Email</strong> :Hutech@gmail.com </p>
+                            <div class="sharethis-inline-share-buttons"></div>
+                        </div>
+                    </div>
+                    <div class="col-4" style="padding-top:20px">
+                        <div class="lienHe">
+                            <h3>Chủ Chi Nhánh</h3>
+                            <p><strong>TP. Hồ Chí Minh</strong> : Mai Xuân Cường</p>
+                            <p><strong>TP. Hà Nội</strong> :Trần Khánh Duy</p>
+                            <p><strong>TP. Đà Nẵng</strong> :Quàng Văn Dương</p>
+                        </div>
+                    </div>
+                    <div class="col-4" style="padding-top:20px">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.420663990599!2d106.7829140147496!3d10.855574792267817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175276e7ea103df%3A0xb6cf10bb7d719327!2sHUTECH%20University%20-%20E%20Campus%20(SHTP)!5e0!3m2!1svi!2s!4v1626196624275!5m2!1svi!2s" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 

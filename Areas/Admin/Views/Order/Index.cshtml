@@ -1,0 +1,68 @@
+﻿@model List<DCDGear.ViewModel.OrderDetailModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">PRODUCT</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+            <li class="breadcrumb-item active">Danh sach</li>
+        </ol>
+        <div class="card mb-4">
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <a href="/admin/new/create" class="btn btn-blue btn-flat" style="background-color:#1D89E2; color: #ffffff"><i class="far fa-plus"></i>&nbsp;Thêm mới</a>
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">Tên Nguoi mua hang</th>
+                            <th scope="col">Ten san pham</th>
+                            <th scope="col">So luong</th>
+                            <th scope="col">ten nguoi nhan</th>
+                            <th scope="col">Dia chi nguoi nhan</th>
+                            <th scope="col">email nguoi nhan</th>
+                            <th scope="col">sdt ng nhan</th>
+                            <th scope="col">Trạng thái</th>
+                            <th scope="col">thanh tien</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="row_@item.ID">
+                                <td>@item.OrderUser</td>
+                                <td>@item.ProductOrder</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.ShipName</td>
+                                <td>@item.ShipAddress</td>
+                                <td>@item.ShipEmail</td>
+                                <td>@item.ShipPhone</td>
+
+                                @{
+                                    if (item.Status == 1)
+                                    {
+                                        <td>Đang chờ giao hàng</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Đã giao hàng</td>
+                                    }
+                                }
+                                <td>@item.Price.Value.ToString("N0")</td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+

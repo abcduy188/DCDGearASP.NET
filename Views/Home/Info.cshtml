@@ -8,7 +8,7 @@
     <div class="duongDan">
         <a style="text-decoration:none" href="/">Trang Chủ</a>
         <a>>></a>
-        <a style="text-decoration:none" href="/dang-nhap">Thành viên</a>
+        <a style="text-decoration: none;color: #fe3e65" href="#">Chi tiết @Model.Name</a>
     </div>
     <div class="row">
         <div class="col-4"></div>
@@ -18,7 +18,7 @@
                 <hr />
                 <dl class="dl-horizontal">
                     <dt>
-                        @Html.DisplayNameFor(model => model.UserName)
+                        Tên đăng nhập:
                     </dt>
 
                     <dd>
@@ -26,11 +26,15 @@
                     </dd>
 
                     <dt>
-                        @Html.DisplayNameFor(model => model.PassWord)
+                        Mật Khẩu:
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.PassWord)
+                        @{ 
+                            var md5 = DCDGear.Common.Encryptor.MD5Hash(Model.PassWord);
+                            @md5
+                        }
+                      
                     </dd>
 
                     <dt>

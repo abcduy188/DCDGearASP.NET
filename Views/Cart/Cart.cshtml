@@ -1,0 +1,52 @@
+﻿@using DCDGear.ViewModel
+@model List<Cart>
+@{
+    ViewBag.Title = "ListCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 style="text-align:center">THÔNG TIN GIỎ HÀNG</h2>
+<table align="center" border="1" class="table">
+    <tr style="text-align:center;font-weight:bold">
+        <td>Mã sản phẩm</td>
+        <td>Tên sản phẩm</td>
+        <td>Ảnh </td>
+        <td>Số lượng</td>
+        <td>Đơn giá</td>
+        <td>Thành Tiền</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr style="text-align:center;font-weight:bold">
+            <td>@item.ID</td>
+            <td>@item.Name</td>
+            <td><img src="/Assets/Thumbnail/@item.Image.Split(',')[0]" style="width:100px" /></td>
+            @using (Html.BeginForm("CapnhatCart", "Cart", new { @ID = item.ID }))
+            {
+                <td>
+                    <input type="number" value="@item.Quantity" min="1" name="txtSoluong" />
+                </td>
+                <td>@String.Format("{0:0,0}", item.Price)</td>
+                <td>@String.Format("{0:0,0}", item.TotalItem)</td>
+                @*<td><a href="@Url.Action("Details","Book",new {masach=item.ID})">Chi Tiết</a></td>*@
+                <td>@Html.ActionLink("Xóa", "XoaCart", new { @ID = item.ID })</td>
+                <td><input type="submit" value="Cập Nhật" /></td>
+            }
+        </tr>
+    }
+    <tr style="text-align:right;font-weight:bold;color:red">
+        <td colspan="4">
+            Số lượng sản phẩm: @ViewBag.Tongsoluong
+        </td>
+        <td colspan="5">
+            Tổng tiền : @String.Format("{0:0,0}", ViewBag.Tongtien) VNĐ
+        </td>
+    </tr>
+    <tr style="font-weight:bold;text-align:right;color:blue">
+        <td colspan="9">
+            @Html.ActionLink("Xóa Giỏ Hàng", "XoatatcaCart")
+        </td>
+        <td colspan="9">
+            <a href="/Cart/Payment">Thanh toán</a>
+        </td>
+    </tr>
+</table>

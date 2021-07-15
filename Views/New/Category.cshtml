@@ -1,0 +1,32 @@
+﻿@model List<DCDGear.Models.New>
+@{
+    ViewBag.Title = "TinTuc";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="duongDan">
+        <a style="text-decoration:none" href="#">Trang Chủ</a>
+        <a>>></a>
+        <a style="text-decoration:none" href="#">Tin Tức</a>
+    </div>
+    <div class="row" style="padding-top:20px">
+        @foreach (var item in Model)
+        {
+            <div class="col-4">
+                <img src="/Assets/Thumbnail/@item.Image" style="width:350px" />
+                <div class="tinTuc">
+                    <div class="titleTinTuc"><strong>@item.Name</strong></div>
+                    <p class="newsText">
+                       @item.Description
+                    </p>
+                    <a href="/chi-tiet-tin-tuc/@item.SeoTitle-@item.ID">
+                        <p>Xem Thêm</p>
+                    </a>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</div>

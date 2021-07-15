@@ -18,9 +18,15 @@ namespace DCDGear.Controllers
             return PartialView(model);
 
         }
-        public ActionResult Index()
+        public ActionResult Category(long id)
         {
-            return View();
+            List<New> news = db.News.Where(d => d.CategoryID == id).ToList();
+            return View(news);
+        }
+        public ActionResult DetailNew(long id)
+        {
+            New news = db.News.Find(id);
+            return View(news);
         }
     }
 }

@@ -127,8 +127,8 @@
                     </div>
                     <div class="content">
                         <div class="title">@item.Name</div>
-                        <div class="sub-title"> @(item.PromotionPrice.HasValue? item.PromotionPrice.Value.ToString("N0"):""+item.Price.Value.ToString("N0"))</div>
-                        <strike>@item.Price.Value.ToString("N0")D</strike>
+                        <div class="sub-title"> @(item.PromotionPrice.HasValue? item.PromotionPrice.Value.ToString("N0"):"") VND</div>
+                        <strike>@item.Price.Value.ToString("N0") VND</strike>
                         <div class="btn">
                             <a href="@url" class="button">Read More</a>
 
@@ -228,7 +228,7 @@
                         <p class="newsText">
                             @item.Description
                         </p>
-                        <a href="/tin-tuc/@item.SeoTitle-@item.ID ">
+                        <a href="/chi-tiet-tin-tuc/@item.SeoTitle-@item.ID ">
                             <p>Xem Thêm</p>
                         </a>
                     </div>

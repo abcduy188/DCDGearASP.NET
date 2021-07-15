@@ -18,7 +18,7 @@ namespace DCDGear.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(LoginModel model)
+        public ActionResult Login(LoginModel model, string strURL = null)
         {
             if (ModelState.IsValid)
             {
@@ -42,7 +42,15 @@ namespace DCDGear.Controllers
                             userSession.UserID = result.ID;
                             userSession.Name = result.Name;
                             Session.Add("DUY", userSession);
-                            return Redirect("/");
+                            if(strURL == null)
+                            {
+                                return Redirect("/");
+                            }
+                            else
+                            {
+                                return Redirect(strURL);
+                            }
+                            
                         }
                         else
                         {

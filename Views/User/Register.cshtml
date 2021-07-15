@@ -8,9 +8,9 @@
 }
 <div class="container">
     <div class="duongDan">
-        <a style="text-decoration:none" href="#">Trang Chủ</a>
+        <a style="text-decoration:none" href="/">Trang Chủ</a>
         <a>>></a>
-        <a style="text-decoration:none" href="#">Đăng Ký</a>
+        <a style="text-decoration: none;color: #fe3e65" href="#">Đăng Ký</a>
     </div>
     <div class="row">
         @using (Html.BeginForm("Register","User",FormMethod.Post, new { @style ="padding-left: 300px" }))
@@ -20,48 +20,49 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="col-6">
                 <div class="tenTruyCap">
-                    <label>Tên đăng nhập</label>
+                    <label><b>Tên đăng nhập <p style="color:red; float:right">*</p></b></label>
                     @Html.TextBoxFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                 </div>
                 <div class="matKhau">
-                    <label>Mật khẩu</label>
+                    <label><b>Mật khẩu <p style="color:red; float:right">*</p></b></label>
                     @Html.PasswordFor(model => model.PassWord, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "text-danger" })
                 </div>
                 <div class="xacNhanMatKhau">
-                    <label>Nhập lại mật khẩu</label>
+                    <label><b>Nhập lại mật khẩu <p style="color:red; float:right">*</p></b></label>
                     @Html.PasswordFor(model => model.ConfirmPassWord, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.ConfirmPassWord, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-6">
                 <div class="hoTen">
-                    <label>Họ và tên</label>
+                    <label><b>Họ và tên <p style="color:red; float:right">*</p></b></label>
                     @Html.TextBoxFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
-                <div class="dienThoai">
-                    <label>Số điện thoại</label>
-                    @Html.TextBoxFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-                </div>
                 <div class="Email">
-                    <label>Email</label>
+                    <label><b>Email<p style="color:red; float:right">*</p></b></label>
                     @Html.TextBoxFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                 </div>
+                <div class="dienThoai">
+                    <label><b>Số điện thoại</b></label>
+                    @Html.TextBoxFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                </div>
+
             </div>
            
-            <div class="col-4">
+            <div class="col-6">
                 <div class="row">
-                    <div class="col-6">
-                        <div class="btn-dangKy">
-                            <button type="submit">Đăng Ký</button>
+                    <div class="col-6" style="padding-left:100px">
+                        <div class="btn-dangKy" >
+                            <button type="submit" >Đăng Ký</button>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="btn-dangKy">
+                    <div class="col-6" style="padding-left:100px">
+                        <div class="btn-dangKy" >
                             <button type="reset" >Làm Lại</button>
                         </div>
                     </div>

@@ -23,6 +23,7 @@ namespace DCDGear.ViewModel
         [Required(ErrorMessage = "Thông tin bắt buộc!!")]
         public string ConfirmPassWord { set; get; }
         [Display(Name = "Email")]
+        [EmailAddress(ErrorMessage = "Email có dạng abc@abc.com")]
         [Required(ErrorMessage = "Thông tin bắt buộc!!")]
         public string Email { set; get; }
         [Display(Name = "Họ tên")]
@@ -30,6 +31,8 @@ namespace DCDGear.ViewModel
         public string Name { set; get; }
 
         [Display(Name = "Số điện thoại")]
+        [StringLength(11, MinimumLength = 10, ErrorMessage = "Số điện thoại có độ dài 10 hoặc 11 số")]
+        [Phone(ErrorMessage ="Số điện thoại có dạng số 0-9")]
         public string Phone { set; get; }
 
     }

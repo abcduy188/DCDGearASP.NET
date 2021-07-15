@@ -8,7 +8,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DCDGear.Common;
-using DCDGear.DAO;
 using DCDGear.Models;
 
 namespace DCDGear.Areas.Admin.Controllers

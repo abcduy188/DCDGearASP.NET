@@ -6,6 +6,11 @@
 <!-- <div class="container"> -->
 
 <div class="container">
+    <div class="duongDan">
+        <a style="text-decoration:none" href="/">Trang Chủ</a>
+        <a>>></a>
+        <a style="text-decoration: none;color: #fe3e65" href="#">Sản phẩm</a>
+    </div>
     <div class="row">
         <div class="col-3">
 
@@ -25,7 +30,7 @@
             <h1 class="newProductTitle">Sản Phẩm</h1>
             <div class="slider">
                 <div class="row">
-                    @if (Model.Count()>0)
+                    @if (Model.Count() > 0)
                     {
                         foreach (var item in Model)
                         {
@@ -38,8 +43,8 @@
                                     </a>
                                     <div class="content">
                                         <div class="title">@item.Name</div>
-                                        <div class="sub-title">@(item.PromotionPrice.HasValue? item.PromotionPrice.Value.ToString("N0"):"Liên hệ")</div>
-                                        <strike>@item.Price.Value.ToString("N0")</strike>
+                                        <div class="sub-title">@(item.PromotionPrice.HasValue? item.PromotionPrice.Value.ToString("N0"):"Liên hệ") VND</div>
+                                        <strike>@item.Price.Value.ToString("N0") VND</strike>
                                     </div>
                                 </div>
                             </div>

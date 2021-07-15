@@ -38,7 +38,5 @@ namespace DCDGear.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
-
-        public System.Data.Entity.DbSet<DCDGear.ViewModel.RegisterModel> RegisterModels { get; set; }
     }
 }
