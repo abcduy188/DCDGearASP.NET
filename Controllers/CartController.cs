@@ -34,6 +34,7 @@ namespace DCDGear.Controllers
             if (item == null)
             {
                 item = new Cart(ID);
+                item.strURL = strURL;
                 listCart.Add(item);
                 return Redirect(strURL);
             }
@@ -160,7 +161,7 @@ namespace DCDGear.Controllers
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
             }
             List<Cart> listCart = ListCart();
             listCart.Clear();

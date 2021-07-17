@@ -369,3 +369,30 @@ th td {
 .lienHe h3 {
     color: white;
 }
+.ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+ul.pagination li {
+    display: inline;
+}
+
+    ul.pagination li a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+    }
+
+        ul.pagination li.active {
+            background-color: #fe3e65;
+            color: white;
+        }
+
+        ul.pagination li a:hover:not(.active) {
+            color: white;
+            background: black;
+        }

@@ -49,6 +49,12 @@ namespace DCDGear
              namespaces: new[] { "DCDGear.Controllers" }
           );
             routes.MapRoute(
+              name: "Search",
+              url: "tim-kiem",
+              defaults: new { controller = "Product", action = "Search", id = UrlParameter.Optional },
+             namespaces: new[] { "DCDGear.Controllers" }
+          );
+            routes.MapRoute(
                name: "Category",
                url: "san-pham/{SeoTitle}-{CateID}",
                defaults: new { controller = "Product", action = "Category", id = UrlParameter.Optional },

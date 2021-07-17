@@ -1,4 +1,6 @@
-﻿@model IEnumerable<DCDGear.Models.Product>
+﻿@*@model IEnumerable<DCDGear.Models.Product>*@
+@model PagedList.IPagedList<DCDGear.Models.Product>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Sản phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -54,6 +56,11 @@
                     {
                         <div class="alert alert-danger" style="padding-left:30px">Khong co san pham</div>
                     }
+                </div>
+            </div>
+            <div id="container" style="margin-left: 20px; padding-top:20px">
+                <div class="pagination" style="margin-left: 400px">
+                    @Html.PagedListPager(Model, page => Url.Action("Category", new { page }))
                 </div>
             </div>
         </div>

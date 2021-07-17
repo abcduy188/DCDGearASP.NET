@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using PagedList; 
 namespace DCDGear.Controllers
 {
     public class ProductController : Controller
@@ -26,27 +26,28 @@ namespace DCDGear.Controllers
 
         }
 
-        //public ActionResult Category(long CateID)
+        //public ActionResult Category(long CateID, int page = 1, int pageSize = 1)
         //{
-        //    var product = db.Products.Where(d => d.CategoryID == CateID).ToList();
-
+        //    //var product = db.Products.Where(d => d.CategoryID == CateID).ToList();
+        //    IEnumerable<Product> product = db.Products.Where(d => d.CategoryID == CateID).OrderBy(d=>d.Name).ToPagedList(page, pageSize);
         //    return View(product);
         //}
-        public ActionResult Category(long CateID)
+        public ActionResult Category(long CateID, int page = 1, int pageSize = 2)
         {
-            
-            var product = db.Products.ToList().Where(d => d.CategoryID == CateID); 
-            ProductCategory cate = db.ProductCategories.Find(CateID); 
-            var child = db.ProductCategories.Where(d => d.ParentID == cate.ID).ToList(); 
+
+            IEnumerable<Product> product = db.Products.Where(d => d.CategoryID == CateID).OrderBy(d => d.Name); // lấy danh sách sp theo category
+            ProductCategory cate = db.ProductCategories.Find(CateID); //lấy thông tin cate theo id
+            var child = db.ProductCategories.Where(d => d.ParentID == cate.ID).OrderBy(d => d.Name).ToList(); //lấy ra list cate child theo cate
             if (child.Count() != 0)
             {
                 foreach (var item in child)
                 {
-                    var list = db.Products.Where(d => d.CategoryID == item.ID).ToList();
-                    product = product.Concat(list);
+                    var list = db.Products.Where(d => d.CategoryID == item.ID).OrderBy(d => d.Name).ToList(); //lấy danh sách sp theo cate child
+                    product = product.Concat(list); //nỗi vào danh sách sản phẩm đầu tiên
                 }
             }
-            return View(product);
+            var result = product.ToPagedList(page, pageSize); // chuyển danh sách sản phẩm theo page list || nếu dùng pagelist trực tiếp sẽ lỗi
+            return View(result);
         }
         public ActionResult Detail(long id)
         {

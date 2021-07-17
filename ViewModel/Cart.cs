@@ -15,6 +15,7 @@ namespace DCDGear.ViewModel
         public string Image { get; set; }
         public decimal? Price { get; set; }
         public int Quantity { get; set; }
+        public string strURL { set; get; }
         public decimal? TotalItem
         {
             get { return Quantity * Price; }
@@ -34,6 +35,7 @@ namespace DCDGear.ViewModel
                 Price = product.Price;
             }
             Quantity = 1;
+            strURL = null;
         }
     }
 }
