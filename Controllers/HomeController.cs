@@ -20,6 +20,7 @@ namespace DCDGear.Controllers
             ViewBag.ListRepresentative = db.Products.Where(d => d.Code=="01" && d.Status==true).OrderByDescending(d => d.CreateDate).Take(4).ToList();
             return View(banner);
         }
+      
         public ActionResult Info()
         {
             var sess = (UserLogin)Session["DUY"];

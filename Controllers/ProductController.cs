@@ -18,6 +18,17 @@ namespace DCDGear.Controllers
             return PartialView(model);
 
         }
+        public ActionResult Search(string KeyWord, int page = 1, int pageSize = 3)
+        {
+            IQueryable<Product> product = db.Products;
+            if(!string.IsNullOrEmpty(KeyWord))
+            {
+                product = db.Products.Where(d => d.Name.Contains(KeyWord) || d.Description.Contains(KeyWord));
+            }
+            ViewBag.KeyWord = KeyWord;
+            return View(product.OrderBy(d => d.Name).ToPagedList(page, pageSize));
+
+        }
         [ChildActionOnly]
         public PartialViewResult CategoryList()
         {
@@ -46,6 +57,7 @@ namespace DCDGear.Controllers
                     product = product.Concat(list); //nỗi vào danh sách sản phẩm đầu tiên
                 }
             }
+              
             var result = product.ToPagedList(page, pageSize); // chuyển danh sách sản phẩm theo page list || nếu dùng pagelist trực tiếp sẽ lỗi
             return View(result);
         }

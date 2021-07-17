@@ -10,6 +10,8 @@
         <div class="duongDan">
             <a style="text-decoration:none" href="/">Trang Chủ</a>
             <a>>></a>
+            <a style="text-decoration: none;" href="/san-pham/@Model.ProductCategory.SeoTitle-@Model.ProductCategory.ID">LapTop @Model.ProductCategory.Name</a>
+            <a>>></a>
             <a style="text-decoration: none;color: #fe3e65" href="#">Chi tiết @Model.Name</a>
         </div>
         <h3 style="color:red"><b>@Model.Name </b></h3>
@@ -61,8 +63,18 @@
                 </section>
             </div>
             <div class="col-md-3">
-                <div class="thongTin"><strong class="price">@(Model.PromotionPrice.HasValue? Model.PromotionPrice.Value.ToString("N0"):"Liên hệ")</strong> <strike> @Model.Price.Value.ToString("N0") VND</strike></div>
-                <div class="thongTin">Tình Trạng: <strong style="color:lawngreen">Còn Hàng</strong></div>
+                <div class="thongTin"><strong class="price">@(Model.PromotionPrice.HasValue? Model.PromotionPrice.Value.ToString("N0"):"Liên hệ") VND</strong> <strike> @Model.Price.Value.ToString("N0") VND</strike></div>
+                @{
+                    if (Model.Quantity > 0)
+                    {
+                        <div class="thongTin">Tình Trạng: <strong style="color:lawngreen">Còn Hàng</strong></div>
+                    }
+                    else
+                    {
+                        <div class="thongTin">Tình Trạng: <strong style="color:red">Hêt hàng</strong></div>
+                    }
+                }
+
                 <div class="thongTin">Bảo Hành: <strong>36 tháng</strong></div>
                 <div class="thongTin">Tình Trạng : <strong>Mới 100%</strong></div>
                 <div class="btn">
@@ -214,8 +226,19 @@
                     <div class="content">
                         <div class="title">@item.Name</div>
                         <div class="sub-title"></div>
-                        <strike>@item.Price.Value.ToString("N0") VND</strike>
-                        <strong class="price">@(item.PromotionPrice.HasValue? item.PromotionPrice.Value.ToString("N0"):"Liên hệ")</strong>
+                        @{
+                            if (item.PromotionPrice != null)
+                            {
+                                <strike>@item.Price.Value.ToString("N0") VND</strike>
+                                <strong class="price">@item.PromotionPrice.Value.ToString("N0")VND</strong>
+                            }
+                            else
+                            {
+
+                                <strong class="price">@item.Price.Value.ToString("N0") VND</strong>
+                            }
+                        }
+
                     </div>
                 </div>
             }
