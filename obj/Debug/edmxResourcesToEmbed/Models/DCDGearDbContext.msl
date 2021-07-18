@@ -172,6 +172,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="DCDGearModel.User">
         <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="PassWord" ColumnName="PassWord" />

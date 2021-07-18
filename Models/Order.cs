@@ -14,13 +14,23 @@ namespace DCDGear.Models
     
     public partial class Order
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Order()
+        {
+            this.OrderDetails = new HashSet<OrderDetail>();
+        }
+    
         public long ID { get; set; }
         public Nullable<long> UserID { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
-        public Nullable<int> Status { get; set; }
+        public int Status { get; set; }
         public string ShipName { get; set; }
         public string ShipPhone { get; set; }
         public string ShipAddress { get; set; }
         public string ShipEmail { get; set; }
+    
+        public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

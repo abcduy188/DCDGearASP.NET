@@ -154,6 +154,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Common\Encryptor.cs" />
+    <Compile Include="Common\Mail.cs" />
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="ViewModel\LoginModel.cs" />
     <Compile Include="ViewModel\OrderDetailModel.cs" />
     <Compile Include="ViewModel\RegisterModel.cs" />
+    <Compile Include="ViewModel\UserModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
@@ -1367,6 +1369,7 @@
     <Content Include="Assets\Client\img\new1.png" />
     <Content Include="Assets\Client\img\new2.png" />
     <Content Include="Assets\Client\img\new3.jpg" />
+    <Content Include="Assets\Client\Mail\ConfirmMail.html" />
     <Content Include="Assets\Client\style.css" />
     <Content Include="Assets\login\css\main.css" />
     <Content Include="Assets\login\css\util.css" />
@@ -1600,6 +1603,11 @@
     <Content Include="Views\Cart\Payment.cshtml" />
     <Content Include="Views\Cart\Success.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
+    <Content Include="Views\User\ConfirmRegister.cshtml" />
+    <Content Include="Views\Home\ChangePassWord.cshtml" />
+    <Content Include="Views\User\ForgotPassWord.cshtml" />
+    <Content Include="Views\User\EnterCode.cshtml" />
+    <Content Include="Views\User\ChangePass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

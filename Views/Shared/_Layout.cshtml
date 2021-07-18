@@ -92,6 +92,12 @@
         </nav>
     </section>
     <div>
+        @if (TempData["AlertMessage"] != null)
+        {
+            <div id="alertM" class="alert @TempData["AlertType"] hide">
+                @TempData["AlertMessage"]
+            </div>
+            }
         @RenderBody()
     </div>
 
@@ -139,31 +145,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
             crossorigin="anonymous"></script>
-<script>
-    $(function () {
-        $("#txtKeyWord").autocomplete({
-            minLength: 0,
-            source: projects,
-            focus: function (event, ui) {
-                $("#project").val(ui.item.label);
-                return false;
-            },
-            select: function (event, ui) {
-                $("#project").val(ui.item.label);
-                $("#project-id").val(ui.item.value);
-                $("#project-description").html(ui.item.desc);
-                $("#project-icon").attr("src", "images/" + ui.item.icon);
-
-                return false;
-            }
-        })
-            .autocomplete("instance")._renderItem = function (ul, item) {
-                return $("<li>")
-                    .append("<div>" + item.label + "<br>" + item.desc + "</div>")
-                    .appendTo(ul);
-            };
-    });
-</script>
+    <script>
+        $(document).ready(function () {
+            //custom alert
+            $('#alertM').removeClass('hide');
+            $('#alertM').delay(1000).slideUp(500);
+        });
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

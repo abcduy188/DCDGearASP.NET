@@ -13,7 +13,13 @@ namespace DCDGear
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
-               name: "InfoUser",
+             name: "InfoUser",
+             url: "doi-mat-khau-{id}",
+             defaults: new { controller = "Home", action = "ChangePassWord", id = UrlParameter.Optional },
+            namespaces: new[] { "DCDGear.Controllers" }
+         );
+            routes.MapRoute(
+               name: "ChangePAss",
                url: "thong-tin-ca-nhan-{id}",
                defaults: new { controller = "Home", action = "Info", id = UrlParameter.Optional },
               namespaces: new[] { "DCDGear.Controllers" }

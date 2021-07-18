@@ -1,5 +1,6 @@
 ﻿using DCDGear.Common;
 using DCDGear.Models;
+using DCDGear.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,41 @@ namespace DCDGear.Controllers
             {
                 return Redirect("/dang-nhap");
             }
-            
+        }
+        public ActionResult ChangePassWord()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePassWord(UserModel model)
+        {
+            var user = new User();
+            var sess = Session["DUY"] as UserLogin;
+            user = db.Users.Single(d => d.UserName == sess.UserName);
+            if(ModelState.IsValid)
+            { 
+                if(sess!=null)
+                {
+                    if (user.PassWord != Encryptor.MD5Hash(model.OldPassWord))
+                    {
+                        ModelState.AddModelError("", "Mật khẩu cũ không đúng");
+                    }
+                    else
+                    {
+                        user.PassWord = Encryptor.MD5Hash(model.NewPassWord);
+                        user.ModifiedDate = DateTime.Now;
+                        db.SaveChanges();
+                        ViewBag.Success = "Mật khẩu đã được cập nhật";
+                        return Redirect("/thong-tin-ca-nhan-" + user.ID);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Bạn phải đăng nhập trước ");
+                }    
+                
+            }
+            return View();
         }
     }
 }

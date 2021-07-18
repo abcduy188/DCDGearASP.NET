@@ -13,5 +13,6 @@ namespace DCDGear.Common
         public long UserID { set; get; } //các hàm properties
         public string UserName { set; get; }
         public string Name { set; get; }
+        public bool Status { set; get; }
     }
 }

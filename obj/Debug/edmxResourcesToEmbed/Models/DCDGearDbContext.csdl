@@ -90,11 +90,13 @@
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="UserID" Type="Int64" />
     <Property Name="CreateDate" Type="DateTime" Precision="3" />
-    <Property Name="Status" Type="Int32" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
     <Property Name="ShipName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ShipPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ShipAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="ShipEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="DCDGearModel.FK_Order_User" FromRole="Order" ToRole="User" />
+    <NavigationProperty Name="OrderDetails" Relationship="DCDGearModel.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -105,6 +107,8 @@
     <Property Name="OrderID" Type="Int64" Nullable="false" />
     <Property Name="Quantity" Type="Int32" />
     <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="Order" Relationship="DCDGearModel.FK_OrderDetail_Order" FromRole="OrderDetail" ToRole="Order" />
+    <NavigationProperty Name="Product" Relationship="DCDGearModel.FK_OrderDetail_Product" FromRole="OrderDetail" ToRole="Product" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -139,6 +143,7 @@
     <Property Name="Size" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="Weight" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="ProductCategory" Relationship="Self.FK_Product_ProductCategory" FromRole="Product" ToRole="ProductCategory" />
+    <NavigationProperty Name="OrderDetails" Relationship="DCDGearModel.FK_OrderDetail_Product" FromRole="Product" ToRole="OrderDetail" />
   </EntityType>
   <EntityType Name="ProductCategory">
     <Key>
@@ -181,6 +186,8 @@
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="UserGroup" Relationship="Self.FK_User_UserGroup" FromRole="User" ToRole="UserGroup" />
+    <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Orders" Relationship="DCDGearModel.FK_Order_User" FromRole="User" ToRole="Order" />
   </EntityType>
   <EntityType Name="UserGroup">
     <Key>
@@ -261,5 +268,53 @@
       <End Role="Role" EntitySet="Roles" />
       <End Role="UserGroup" EntitySet="UserGroups" />
     </AssociationSet>
+    <AssociationSet Name="FK_Order_User" Association="DCDGearModel.FK_Order_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Order" Association="DCDGearModel.FK_OrderDetail_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Product" Association="DCDGearModel.FK_OrderDetail_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_Order_User">
+    <End Type="DCDGearModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="DCDGearModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Order">
+    <End Type="DCDGearModel.Order" Role="Order" Multiplicity="1" />
+    <End Type="DCDGearModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Product">
+    <End Type="DCDGearModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="DCDGearModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

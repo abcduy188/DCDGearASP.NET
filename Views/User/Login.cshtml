@@ -13,6 +13,7 @@
         <div class="col-4"></div>
         <div class="col-4">
             @ViewBag.Success
+            <a href="@ViewBag.Active">Kích hoạt tài khoản</a>
             @using (Html.BeginForm("Login", "User", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
@@ -54,7 +55,7 @@
             <div class="register">
                 <a style="padding-right:20px;text-decoration:none" href="/dang-ki">Đăng Ký</a>
                 <a>|</a>
-                <a style="padding-left:20px; text-decoration:none" href="/quen-mat-khau">Đăng Nhập</a>
+                <a style="padding-left:20px; text-decoration:none" href="/User/forgotpassword">Quên mật khẩu</a>
             </div>
         </div>
 
