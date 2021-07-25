@@ -47,6 +47,10 @@
     <EntitySetMapping Name="Contacts">
       <EntityTypeMapping TypeName="DCDGearModel.Contact">
         <MappingFragment StoreEntitySet="Contact">
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Content" ColumnName="Content" />
           <ScalarProperty Name="Status" ColumnName="Status" />
@@ -91,6 +95,7 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="DCDGearModel.Order">
         <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />

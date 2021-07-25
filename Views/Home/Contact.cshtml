@@ -1,0 +1,55 @@
+﻿@model DCDGear.Models.FeedBack
+@{
+    ViewBag.Title = "LienHe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="duongDan">
+        <a style="text-decoration:none" href="/">Trang Chủ</a>
+        <a>>></a>
+        <a style="text-decoration:none" href="/dang-nhap">Liên Hệ</a>
+    </div>
+    <h1 class="newIn__title">Liên hệ với chúng tôi</h1>
+    @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="contactUs">
+            @Html.TextBoxFor(model => model.Name, new { @placeholder = "Tên" })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="contactUs">
+
+            @Html.TextBoxFor(model => model.Email, new { @placeholder = "Email" })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+        <div class="contactUs">
+
+            @Html.TextBoxFor(model => model.Phone, new { @placeholder = "Điện thoại" })
+            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+        </div>
+        <div class="contactUs">
+
+            @Html.TextBoxFor(model => model.Address, new { @placeholder = "Địa chỉ" })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+        <div style="padding-top:20px">
+            @Html.TextAreaFor(model => model.Content, new { @placeholder = "Nội dung", style = "width:1000px;height:170px;", @id = "txtDetail" })
+            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+        </div>
+        <div style="padding-top:20px;padding-left:100px" class="btn-dangnhap">
+            <button type="submit">Gửi Liên Hệ</button>
+            <button type="submit">Làm Lại</button>
+        </div>
+    }
+</div>
+@section scripts{
+    <script>
+        var editor = CKEDITOR.replace('txtDetail', {
+            customConfig: '/Assets/admin/ckeditor/config.js',
+        });
+    </script>
+}
+

@@ -68,18 +68,24 @@
                     if (Model.Quantity > 0)
                     {
                         <div class="thongTin">Tình Trạng: <strong style="color:lawngreen">Còn Hàng</strong></div>
+                        <div class="thongTin">Bảo Hành: <strong>36 tháng</strong></div>
+                        <div class="thongTin">Tình Trạng : <strong>Mới 100%</strong></div>
+                        <div class="btn">
+                            <button type="button" name="add-to-cart" value="38363" class="buy"><a href="@Url.Action("AddCart","Cart",new {@ID =@Model.ID , @strURL= Request.Url.ToString() })">Thêm vào giỏ hàng</a></button>
+                        </div>
                     }
                     else
                     {
                         <div class="thongTin">Tình Trạng: <strong style="color:red">Hêt hàng</strong></div>
+                        <div class="thongTin">Bảo Hành: <strong>36 tháng</strong></div>
+                        <div class="thongTin">Tình Trạng : <strong>Mới 100%</strong></div>
+                        <div class="btn">
+                            <button type="button" name="add-to-cart" value="38363" class="buy"><a href="/lien-he">Liên hệ</a></button>
+                        </div>
                     }
                 }
 
-                <div class="thongTin">Bảo Hành: <strong>36 tháng</strong></div>
-                <div class="thongTin">Tình Trạng : <strong>Mới 100%</strong></div>
-                <div class="btn">
-                    <button type="button" name="add-to-cart" value="38363" class="buy"><a href="@Url.Action("AddCart","Cart",new {@ID =@Model.ID , @strURL= Request.Url.ToString() })">Thêm vào giỏ hàng</a></button>
-                </div>
+
 
             </div>
             <div class="col-md-5">

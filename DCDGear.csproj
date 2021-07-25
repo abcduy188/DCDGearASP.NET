@@ -146,6 +146,7 @@
     <Compile Include="Areas\Admin\Controllers\BannerController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ContactController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\NewController.cs" />
@@ -250,6 +251,9 @@
     <Content Include="Areas\Admin\Views\Banner\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Contact\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Contact\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Contact\Delete.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_Header.cshtml" />
     <Content Include="Assets\Admin\assets\demo\chart-area-demo.js" />
     <Content Include="Assets\Admin\assets\demo\chart-bar-demo.js" />
@@ -1369,7 +1373,7 @@
     <Content Include="Assets\Client\img\new1.png" />
     <Content Include="Assets\Client\img\new2.png" />
     <Content Include="Assets\Client\img\new3.jpg" />
-    <Content Include="Assets\Client\Mail\ConfirmMail.html" />
+    <Content Include="Mail\ConfirmMail.html" />
     <Content Include="Assets\Client\style.css" />
     <Content Include="Assets\login\css\main.css" />
     <Content Include="Assets\login\css\util.css" />
@@ -1431,6 +1435,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Mail\OrderMail.html" />
     <Content Include="Models\DCDGearDbContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DCDGearDbContext.edmx</DependentUpon>
@@ -1608,6 +1613,8 @@
     <Content Include="Views\User\ForgotPassWord.cshtml" />
     <Content Include="Views\User\EnterCode.cshtml" />
     <Content Include="Views\User\ChangePass.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

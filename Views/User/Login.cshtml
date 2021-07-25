@@ -12,8 +12,10 @@
     <div class="row">
         <div class="col-4"></div>
         <div class="col-4">
-            @ViewBag.Success
-            <a href="@ViewBag.Active">Kích hoạt tài khoản</a>
+            <div>
+                @ViewBag.Success
+            </div>
+            
             @using (Html.BeginForm("Login", "User", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()

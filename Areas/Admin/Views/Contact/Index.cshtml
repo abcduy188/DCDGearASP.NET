@@ -1,0 +1,62 @@
+﻿@model List<DCDGear.Models.FeedBack>
+@{
+    ViewBag.Title = "Sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">PRODUCT</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+            <li class="breadcrumb-item active">Danh sach</li>
+        </ol>
+        <div class="card mb-4">
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <a href="/admin/product/create" class="btn btn-blue btn-flat" style="background-color:#1D89E2; color: #ffffff"><i class="far fa-plus"></i>&nbsp;Thêm mới</a>
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+
+                            <th scope="col" style="width: 40%;">Tên </th>
+                            <th scope="col" style="width: 15%;">Email</th>
+                            <th scope="col" style="width: 15%;">Ngày gửi</th>
+                            <th scope="col" style="width: 15%;">Trạng thái</th>
+                            <th scope="col" style="width: 15%;">Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr id="row_@item.ID">
+                            <td style="width: 30%;">@item.Name</td>
+                            <td style="width: 15%;">@item.Email</td>
+                            <td style="width: 10%;">@item.CreateDate</td>
+                            @{
+                                if (item.Status == true)
+                                {
+                                    <td style="width: 10%;">Chưa xem</td>
+                                }
+                                else
+                                {
+                                    <td style="width: 10%;">Đã xem</td>
+                                }
+                            }
+
+                        <td>
+                            <a href="/Admin/contact/detail/@item.ID">Chi tiết</a>  ||
+                            <a href="/Admin/contact/delete/@item.ID">Xóa</a>
+                        </td>
+                        </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+

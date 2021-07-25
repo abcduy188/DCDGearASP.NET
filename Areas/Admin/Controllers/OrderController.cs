@@ -18,5 +18,14 @@ namespace DCDGear.Areas.Admin.Controllers
             var list = model.ListAll();
             return View(list);
         }
+        [HttpPost]
+        public ActionResult Update(long id)
+        {
+            var model = new OrderDetailModel();
+            var order = db.Orders.Find(id);
+            order.Status = 0;
+            db.SaveChanges();
+            return Redirect("Index");
+        }
     }
 }

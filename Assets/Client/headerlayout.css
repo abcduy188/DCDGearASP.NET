@@ -97,7 +97,7 @@ nav {
     transition: all 0.5s;
     width: 400px;
     height: 40px;
-    text-align:center
+    margin-left: 10px
 }
 
 .search {

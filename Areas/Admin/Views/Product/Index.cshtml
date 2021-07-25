@@ -21,7 +21,7 @@
                     <thead>
                         <tr>
 
-                            <th scope="col" style="width: 40%;">Tên tin tức</th>
+                            <th scope="col" style="width: 40%;">Tên sản phẩm</th>
                             <th scope="col" style="width: 15%;">Hình ảnh</th>
                             <th scope="col" style="width: 15%;">Danh mục</th>
                             <th scope="col" style="width: 15%;">Giá</th>
@@ -52,10 +52,17 @@
                                 </td>
                                 <td style="width: 15%;">@item.ProductCategory.Name</td>
                                 <td style="width: 10%;">@item.Price.Value.ToString("N0")Đ</td>
-                                <td style="width: 10%;">
+                                <td>
+                                    <a href="#" data-id="@item.ID" class="btn-images">Quản lí ảnh</a>
                                     <a href="/Admin/Product/Edit/@item.ID">Edit</a>  ||
-                                    <a href="/Admin/Product/Delete/@item.ID">Xóa</a>
-
+                                    <i class="zmdi zmdi - delete">
+                                        @Ajax.ActionLink("Xoa", "Delete", new { @id = item.ID }, new AjaxOptions
+        {
+         Confirm = "Are you sure?",
+         OnComplete = "$('#row_" + @item.ID + "').remove()",
+         HttpMethod = "Delete"
+        })
+                                    </i>
                                 </td>
                             </tr>
                         }

@@ -50,6 +50,10 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" />
+          <Property Name="Address" Type="nvarchar" MaxLength="250" />
           <Property Name="Content" Type="ntext" />
           <Property Name="Status" Type="bit" />
         </EntityType>
@@ -57,7 +61,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="250" />
           <Property Name="Phone" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="250" />
@@ -106,6 +110,7 @@
           <Property Name="ShipPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="ShipAddress" Type="nvarchar" MaxLength="250" />
           <Property Name="ShipEmail" Type="nvarchar" MaxLength="250" />
+          <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -393,6 +398,10 @@
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="FeedBack">
           <Key>
@@ -442,6 +451,7 @@
           <Property Name="ShipEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User" Relationship="DCDGearModel.FK_Order_User" FromRole="Order" ToRole="User" />
           <NavigationProperty Name="OrderDetails" Relationship="DCDGearModel.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -714,6 +724,10 @@
           <EntitySetMapping Name="Contacts">
             <EntityTypeMapping TypeName="DCDGearModel.Contact">
               <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
@@ -758,6 +772,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="DCDGearModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />

@@ -12,6 +12,7 @@ namespace DCDGear.Common
     {
         public void SendMail(string toEmailAddress, string subject, string content)
         {
+            //lấy value từ appsetting
             var fromEmailAddress = ConfigurationManager.AppSettings["FromEmailAddress"].ToString();
             var fromEmailDisplayName = ConfigurationManager.AppSettings["FromEmailDisplayName"].ToString();
             var fromEmailPassword = ConfigurationManager.AppSettings["FromEmailPassword"].ToString();
@@ -20,13 +21,15 @@ namespace DCDGear.Common
 
             bool enabledSsl = bool.Parse(ConfigurationManager.AppSettings["EnabledSSL"].ToString());
 
-            string body = content;
-            MailMessage message = new MailMessage(new MailAddress(fromEmailAddress, fromEmailDisplayName), new MailAddress(toEmailAddress));
-            message.Subject = subject;
-            message.IsBodyHtml = true; //content cho phép html
-            message.Body = body;
 
-            var client = new SmtpClient();
+            //new 
+            MailMessage message = new MailMessage(new MailAddress(fromEmailAddress, fromEmailDisplayName), new MailAddress(toEmailAddress));
+            message.Subject = subject; 
+            message.IsBodyHtml = true; //content cho phép html
+            message.Body = content;
+
+            var client = new SmtpClient(); //khởi tạo smtpClient
+            //gán thông tin authen 
             client.Credentials = new NetworkCredential(fromEmailAddress, fromEmailPassword);
             client.Host = smtpHost;
             client.EnableSsl = enabledSsl;

@@ -160,6 +160,10 @@
     color: white;
     border-radius: 10px;
 }
+    .buy:hover {
+        background: rgba(0, 0, 0, 1);
+        color: white;
+    }
 /*tbody {
     display: table-row-group;
     vertical-align: middle;
@@ -396,3 +400,11 @@ ul.pagination li {
             color: white;
             background: black;
         }
+.contactUs {
+    padding-top: 20px;
+}
+
+    .contactUs input {
+        width: 1000px;
+        height: 50px;
+    }

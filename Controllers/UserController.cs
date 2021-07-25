@@ -18,11 +18,40 @@ namespace DCDGear.Controllers
         private DCDGearDbContext db = new DCDGearDbContext();
         public ActionResult Login()
         {
-            Random();
+            return View();
+        }
+        public ActionResult Register()
+        {
+            return View();
+        }
+        public ActionResult ConfirmRegister()
+        {
+            return View();
+        }
+        public ActionResult Logout()
+        {
+            Session.Remove("DUY");
+            return Redirect("/");
+        }
+        public ActionResult ForgotPassWord()
+        {
+            return View();
+        }
+        public ActionResult EnterCode()
+        {
+            return View();
+        }
+        public ActionResult ChangePass()
+        {
+            var sess = Session["Confirm"] as UserLogin;
+            if (sess == null)
+            {
+                return Redirect("/dang-nhap");
+            }
             return View();
         }
         [HttpPost]
-        public ActionResult Login(LoginModel model, string strURL)
+        public ActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid)
             {
@@ -33,43 +62,32 @@ namespace DCDGear.Controllers
                 }
                 else
                 {
-                    if (result.Status == false)
+                    if (result.PassWord == Encryptor.MD5Hash(model.PassWord))
                     {
-                        ModelState.AddModelError("", "Tài khoản chưa kích hoạt! Vui lòng kích hoạt tài khoản");
-                        ViewBag.Active = "/User/ComfirmRegister";
-                    }
-                    else
-                    {
-                        if (result.PassWord == Encryptor.MD5Hash(model.PassWord))
-                        {
-                            var userSession = new UserLogin();
-                            userSession.UserName = result.UserName;
-                            userSession.UserID = result.ID;
-                            userSession.Name = result.Name;
-                            Session.Add("DUY", userSession);
-                            if (strURL == null)
-                            {
-                                return Redirect("/");
-                            }
-                            else
-                            {
-                                return Redirect(strURL);
-                            }
-
+                        var userSession = new UserLogin();
+                        userSession.UserName = result.UserName;
+                        userSession.UserID = result.ID;
+                        userSession.Name = result.Name;
+                        Session.Add("DUY", userSession);
+                        if (result.Status == true)
+                        {                  
+                            return Redirect("/");
                         }
                         else
                         {
-                            ModelState.AddModelError("", "Mật khẩu sai!");
+                            Session.Add("Confirm", userSession);
+                            return RedirectToAction("ConfirmRegister", "User");
                         }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Mật khẩu sai!");
                     }
                 }
             }
             return View("Login");
         }
-        public ActionResult Register()
-        {
-            return View();
-        }
+
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
@@ -95,46 +113,117 @@ namespace DCDGear.Controllers
             }
             return View();
         }
-        public ActionResult Logout()
-        {
-            Session.Remove("DUY");
-            return Redirect("/");
-        }
-        public ActionResult ConfirmRegister()
-        {
-            return View();
-        }
+
         [HttpPost]
         public ActionResult ConfirmRegister(string Code, string UserName)
+        {
+            if (ModelState.IsValid)
+            {
+                var sess = Session["Confirm"] as UserLogin; // = (UserLogin)Session["Confirm"]
+                var user = new User();
+                if (sess != null)
+                {
+                    user = db.Users.Single(d => d.UserName == sess.UserName);
+                }
+                else
+                {
+                    user = db.Users.Single(d => d.UserName == UserName);
+                }
+                if (Code == user.Code)
+                {
+                    user.Status = true;
+                    user.Code = Encryptor.MD5Hash(user.Code);
+                    db.SaveChanges();
+                    ViewBag.Success = "Kích hoạt thành công";
+                    return Redirect("/dang-nhap");
+
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Kích hoạt khoong thành công");
+                }
+            }
+
+            return RedirectToAction("ConfirmRegister", "User");
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassWord(RegisterModel model)
+        {
+            var user = new User();
+            user = db.Users.SingleOrDefault(d => d.Email == model.Email);
+            if (user != null)
+            {
+                var userSession = new UserLogin();
+                userSession.UserName = user.UserName;
+                Session.Add("Confirm", userSession);
+                string code = Random();
+                Mail(user.Name, code, user.Email);
+                user.Code = code;
+                db.SaveChanges();
+                return RedirectToAction("EnterCode", "User");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Email không trùng khớp");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EnterCode(string Code, string UserName)
         {
             var sess = Session["Confirm"] as UserLogin; // = (UserLogin)Session["Confirm"]
             var user = new User();
             if (sess != null)
             {
                 user = db.Users.Single(d => d.UserName == sess.UserName);
+                if (Code == user.Code)
+                {
+                    return RedirectToAction("ChangePass", "User");
+                }
+                else
+                {
+                    ViewBag.Success = "Kích hoạt khoong thành công";
+                }
             }
-            else
-            {
-                user = db.Users.Single(d => d.UserName == UserName);
-            }
-            if (Code == user.Code)
-            {
-                user.Status = true;
-                db.SaveChanges();
-                ViewBag.Success = "Kích hoạt thành công";
-                return Redirect("/dang-nhap");
+            return RedirectToAction("EnterCode", "User");
+        }
 
-            }
-            else
+        [HttpPost]
+        public ActionResult ChangePass(RegisterModel model)
+        {
+            var user = new User();
+            var sess = Session["Confirm"] as UserLogin; // = (UserLogin)Session["Confirm"]
+            if (sess != null)
             {
-                ViewBag.Success = "Kích hoạt khoong thành công";
+                user = db.Users.Single(d => d.UserName == sess.UserName);
+                user.PassWord = Encryptor.MD5Hash(model.PassWord);
+                user.Code = null;
+                db.SaveChanges();
+                return Redirect("/dang-nhap");
             }
-            return RedirectToAction("ConfirmRegister", "User");
+            return View();
+        }
+        public ActionResult ResendMail(string strURL)
+        { 
+            var user = new User();
+            var sess = Session["Confirm"] as UserLogin; // = (UserLogin)Session["Confirm"]
+            if (sess != null)
+            {
+                user = db.Users.Single(d => d.UserName == sess.UserName);
+                string code = Random();
+                Mail(sess.Name, code, user.Email);
+                user.Code = code;
+                db.SaveChanges();
+                return Redirect(strURL);
+            }
+            return View();
         }
         public string Random()
         {
             Random rand = new Random();
-            var numIterations = rand.Next(0, 1000000);
+            var numIterations = rand.Next(0, 999999);
             string x = numIterations.ToString("000000");
             return x;
         }
@@ -159,82 +248,15 @@ namespace DCDGear.Controllers
         }
         public void Mail(string toEmail, string Content, string AddressEmail)
         {
-            #region Mail
+
             //gửi mail cho khách hàng 
-            string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Client/Mail/ConfirmMail.html"));
+            string content = System.IO.File.ReadAllText(Server.MapPath("~/Mail/ConfirmMail.html"));
 
             content = content.Replace("{{CustomerName}}", toEmail);
             content = content.Replace("{{Code}}", Content);
 
-            new Mail().SendMail(AddressEmail, "Confirm Email form DCDGear", content); //cho nguoi gui
-            #endregion
+            new Mail().SendMail(AddressEmail, "Confirm Email form DCDGear", content);
         }
-        public ActionResult ForgotPassWord()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult ForgotPassWord(RegisterModel model)
-        {   
-            var user = new User();
-            user = db.Users.Single(d => d.Email == model.Email);
-            var userSession = new UserLogin();
-            userSession.UserName = user.UserName;
-            Session.Add("Confirm", userSession);
-            if (user != null)
-            {   
-                string code = Random();
-                Mail(user.Name, code, user.Email);
-                user.Code = code;
-                db.SaveChanges();
-                return RedirectToAction("EnterCode","User");
-            }
-            return View();
-        }
-        public ActionResult EnterCode()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult EnterCode(string Code, string UserName)
-        {
-            var sess = Session["Confirm"] as UserLogin; // = (UserLogin)Session["Confirm"]
-            var user = new User();
-            if (sess != null)
-            {
-                user = db.Users.Single(d => d.UserName == sess.UserName);
-            }
-            else
-            {
-                user = db.Users.Single(d => d.UserName == UserName);
-            }
-            if (Code == user.Code)
-            {
-                return RedirectToAction("ChangePass", "User");
-            }
-            else
-            {
-                ViewBag.Success = "Kích hoạt khoong thành công";
-            }
-            return RedirectToAction("ConfirmRegister", "User");
-        }
-        public ActionResult ChangePass()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult ChangePass(RegisterModel model)
-        {
-            var user = new User();
-            var sess = Session["Confirm"] as UserLogin; // = (UserLogin)Session["Confirm"]
-            if (sess != null)
-            {
-                user = db.Users.Single(d => d.UserName == sess.UserName);
-                user.PassWord = model.PassWord;
-                db.SaveChanges();
-                return Redirect("/dang-nhap");
-            }
-            return View();
-        }
+
     }
 }

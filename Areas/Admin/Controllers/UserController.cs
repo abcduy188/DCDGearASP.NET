@@ -23,6 +23,15 @@ namespace DCDGear.Areas.Admin.Controllers
             ViewBag.GroupID = new SelectList(db.UserGroups.ToList(), "ID", "Name");
             return View();
         }
+      
+        [HttpGet]
+        public ActionResult Edit(long id)
+        {
+
+            var user = db.Users.Find(id);
+            ViewBag.GroupID = new SelectList(db.UserGroups.ToList(), "ID", "Name", user.GroupID);
+            return View(user);
+        }
         [HttpPost]
         public ActionResult Create(User user)
         {
@@ -55,14 +64,6 @@ namespace DCDGear.Areas.Admin.Controllers
                 }
             }
             return View("Index");
-        }
-        [HttpGet]
-        public ActionResult Edit(long id)
-        {
-
-            var user = db.Users.Find(id);
-            ViewBag.GroupID = new SelectList(db.UserGroups.ToList(), "ID", "Name", user.GroupID);
-            return View(user);
         }
         [HttpPost]
         public ActionResult Edit(User entity)
@@ -116,7 +117,7 @@ namespace DCDGear.Areas.Admin.Controllers
             return View("Index");
         }
 
-        [HttpDelete]
+        [HttpPost]
         public ActionResult Delete(long id)
         {
             var user = db.Users.Find(id);

@@ -3,39 +3,46 @@
     ViewBag.Title = "ChangePass";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-    @using (Html.BeginForm("ChangePass", "User", FormMethod.Post, new { @style = "padding-left: 300px" }))
-    {
-        @Html.AntiForgeryToken()
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="col-6">
-            <div class="matKhau">
-                <label><b>Mật khẩu <p style="color:red; float:right">*</p></b></label>
-                @Html.PasswordFor(model => model.PassWord, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "text-danger" })
-            </div>
-            <div class="xacNhanMatKhau">
-                <label><b>Nhập lại mật khẩu <p style="color:red; float:right">*</p></b></label>
-                @Html.PasswordFor(model => model.ConfirmPassWord, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ConfirmPassWord, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="col-6">
-            <div class="row">
-                <div class="col-6" style="padding-left:100px">
-                    <div class="btn-dangKy">
-                        <button type="submit">Đăng Ký</button>
-                    </div>
+<div class="container">
+    <div class="duongDan">
+        <a style="text-decoration:none" href="/">Trang Chủ</a>
+        <a>>></a>
+        <a style="text-decoration: none;color: #fe3e65" href="#">Đăng Ký</a>
+    </div>
+    <div class="row">
+        @using (Html.BeginForm("ChangePass", "User", FormMethod.Post, new { @style = "padding-left: 300px" }))
+        {
+            @Html.AntiForgeryToken()
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="col-6">
+                <div class="matKhau">
+                    <label><b>Mật khẩu <p style="color:red; float:right">*</p></b></label>
+                    @Html.PasswordFor(model => model.PassWord, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "text-danger" })
                 </div>
-                <div class="col-6" style="padding-left:100px">
-                    <div class="btn-dangKy">
-                        <button type="reset">Làm Lại</button>
-                    </div>
+                <div class="xacNhanMatKhau">
+                    <label><b>Nhập lại mật khẩu <p style="color:red; float:right">*</p></b></label>
+                    @Html.PasswordFor(model => model.ConfirmPassWord, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassWord, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-        </div>
-    }
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6" style="padding-left:100px">
+                        <div class="btn-dangKy">
+                            <button type="submit">Đăng Ký</button>
+                        </div>
+                    </div>
+                    <div class="col-6" style="padding-left:100px">
+                        <div class="btn-dangKy">
+                            <button type="reset">Làm Lại</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
 </div>

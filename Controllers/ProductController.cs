@@ -18,7 +18,7 @@ namespace DCDGear.Controllers
             return PartialView(model);
 
         }
-        public ActionResult Search(string KeyWord, int page = 1, int pageSize = 3)
+        public ActionResult Search(string KeyWord, int? page, int pageSize = 3)
         {
             IQueryable<Product> product = db.Products;
             if(!string.IsNullOrEmpty(KeyWord))
@@ -26,7 +26,8 @@ namespace DCDGear.Controllers
                 product = db.Products.Where(d => d.Name.Contains(KeyWord) || d.Description.Contains(KeyWord));
             }
             ViewBag.KeyWord = KeyWord;
-            return View(product.OrderBy(d => d.Name).ToPagedList(page, pageSize));
+            int pageNum = (page ?? 1);
+            return View(product.OrderBy(d => d.Name).ToPagedList(pageNum, pageSize));
 
         }
         [ChildActionOnly]
@@ -36,13 +37,6 @@ namespace DCDGear.Controllers
             return PartialView(model);
 
         }
-
-        //public ActionResult Category(long CateID, int page = 1, int pageSize = 1)
-        //{
-        //    //var product = db.Products.Where(d => d.CategoryID == CateID).ToList();
-        //    IEnumerable<Product> product = db.Products.Where(d => d.CategoryID == CateID).OrderBy(d=>d.Name).ToPagedList(page, pageSize);
-        //    return View(product);
-        //}
         public ActionResult Category(long CateID, int page = 1, int pageSize = 2)
         {
 

@@ -21,7 +21,25 @@ namespace DCDGear.Controllers
             ViewBag.ListRepresentative = db.Products.Where(d => d.Code=="01" && d.Status==true).OrderByDescending(d => d.CreateDate).Take(4).ToList();
             return View(banner);
         }
-      
+        public ActionResult About()
+        {
+            return View();
+        }
+        public ActionResult Contact()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Contact(FeedBack contact)
+        {
+            contact.CreateDate = DateTime.Now;
+            contact.Status = true;
+            db.FeedBacks.Add(contact);
+            db.SaveChanges();
+            return Redirect("/");
+        }
         public ActionResult Info()
         {
             var sess = (UserLogin)Session["DUY"];

@@ -60,7 +60,7 @@
             </div>
             <div id="container" style="margin-left: 20px; padding-top:20px">
                 <div class="pagination" style="margin-left: 400px">
-                    @Html.PagedListPager(Model, page => Url.Action("Category", new { page }))
+                    @Html.PagedListPager(Model, page => Url.Action("Category", new { page })) @*LÀ 1 li*@
                 </div>
             </div>
         </div>

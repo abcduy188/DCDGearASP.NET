@@ -28,6 +28,7 @@ namespace DCDGear.Models
         public string ShipPhone { get; set; }
         public string ShipAddress { get; set; }
         public string ShipEmail { get; set; }
+        public Nullable<decimal> TotalPrice { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

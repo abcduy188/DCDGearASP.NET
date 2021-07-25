@@ -21,42 +21,53 @@
                     <thead>
                         <tr>
 
-                            <th scope="col">Tên Nguoi mua hang</th>
-                            <th scope="col">Ten san pham</th>
-                            <th scope="col">So luong</th>
-                            <th scope="col">ten nguoi nhan</th>
-                            <th scope="col">Dia chi nguoi nhan</th>
-                            <th scope="col">email nguoi nhan</th>
-                            <th scope="col">sdt ng nhan</th>
+                            <th scope="col">Người đặt hàng</th>
+                            <th scope="col">Sản phẩm đặt</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Tên người nhận</th>
+                            <th scope="col">Địa chỉ người nhận</th>
+                            <th scope="col">Email người nhận</th>
+                            <th scope="col">SDT người nhận</th>
                             <th scope="col">Trạng thái</th>
-                            <th scope="col">thanh tien</th>
+                            <th scope="col">Tổng tiền</th>
+                            <th scope="col">Tác vụ</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr id="row_@item.ID">
-                                <td>@item.OrderUser</td>
-                                <td>@item.ProductOrder</td>
-                                <td>@item.Quantity</td>
-                                <td>@item.ShipName</td>
-                                <td>@item.ShipAddress</td>
-                                <td>@item.ShipEmail</td>
-                                <td>@item.ShipPhone</td>
+                        <tr id="row_@item.ID">
+                            <td>@item.OrderUser</td>
+                            <td>@item.ProductOrder</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.ShipName</td>
+                            <td>@item.ShipAddress</td>
+                            <td>@item.ShipEmail</td>
+                            <td>@item.ShipPhone</td>
 
-                                @{
-                                    if (item.Status == 1)
-                                    {
-                                        <td>Đang chờ giao hàng</td>
-                                    }
-                                    else
-                                    {
-                                        <td>Đã giao hàng</td>
-                                    }
+                            @{
+                                if (item.Status == 1)
+                                {
+                                    <td style="color:green">Đang chờ xác nhận</td>
                                 }
-                                <td>@item.Price.Value.ToString("N0")</td>
-
-                            </tr>
+                                else
+                                {
+                                    <td>Đã giao hàng</td>
+                                }
+                            }
+                            <td>@item.Price.Value.ToString("N0")</td>
+                            <td>
+                                <a href="#" data-id="@item.ID" class="btn-images">Quản lí ảnh</a>
+                                <a href="/Admin/Product/Edit/@item.ID">Edit</a>  ||
+                                <i class="zmdi zmdi - delete">
+                                    @Ajax.ActionLink("Update", "Update", new { @id = item.ID }, new AjaxOptions
+    {
+     Confirm = "Are you sure?",
+     HttpMethod = "Post"
+    })
+                                </i>
+                            </td>
+                        </tr>
                         }
 
                     </tbody>

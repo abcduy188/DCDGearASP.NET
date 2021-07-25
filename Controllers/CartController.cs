@@ -3,6 +3,7 @@ using DCDGear.Models;
 using DCDGear.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -142,22 +143,24 @@ namespace DCDGear.Controllers
             {
                 var dao = db.Orders.Add(order);
                 db.SaveChanges();
-                var id = dao.ID;
                 var car = (List<Cart>)Session["Cart"];
-                var detailDAO = new OrderDetail();
-
+                decimal? totalprice = 0 ;
                 foreach (var item in car)
                 {
                     var orderDetail = new OrderDetail();
                     orderDetail.ProductID = item.ID;
-                    orderDetail.OrderID = id;
+                    orderDetail.OrderID = dao.ID;
                     orderDetail.Price = item.Price;
                     orderDetail.Quantity = item.Quantity;
-                    var detail = db.OrderDetails.Add(orderDetail);
+                    db.OrderDetails.Add(orderDetail);
                     Product product = db.Products.Single(d=>d.ID == item.ID);
                     product.Quantity = product.Quantity - orderDetail.Quantity;
+                    totalprice += orderDetail.Price;
                     db.SaveChanges();
                 }
+                dao.TotalPrice = totalprice;
+                db.SaveChanges();
+                Mail(shipName, shipPhone, shipAddress, shipEmail, totalprice);
             }
             catch (Exception e)
             {
@@ -170,6 +173,24 @@ namespace DCDGear.Controllers
         public ActionResult Success()
         {
             return View();
+        }
+        public void Mail(string shipName, string shipPhone, string shipAddress,string AddressEmail, decimal? totalPrice)
+        {
+
+            //gửi mail cho khách hàng 
+            string content = System.IO.File.ReadAllText(Server.MapPath("~/Mail/OrderMail.html"));
+
+            content = content.Replace("{{CustomerName}}", shipName);
+            content = content.Replace("{{Phone}}", shipPhone);
+            content = content.Replace("{{Email}}", AddressEmail);
+            content = content.Replace("{{Address}}", shipAddress);
+            content = content.Replace("{{Total}}", totalPrice.Value.ToString("N0"));
+            content = content.Replace("{{Status}}", "Chưa thanh toán, Đang chờ xác nhận");
+            var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString(); 
+
+            new Mail().SendMail(AddressEmail, "Đơn hàng mới từ DCDGear", content); 
+            new Mail().SendMail(toEmail, "Đơn hàng mới từ DCDGear", content);
+            //hết gửi mail
         }
     }
 }
