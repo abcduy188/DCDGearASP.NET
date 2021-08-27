@@ -9,7 +9,16 @@
         <a>>></a>
         <a style="text-decoration:none" href="/dang-nhap">Đăng nhập</a>
     </div>
-    @ViewBag.Success
+    <div>
+        @if (TempData["Active"] != null)
+        {
+            <div id="tempdata" class="alert alert-danger ">
+                <strong>
+                   Vui lòng kích hoạt tài khoản, Mã kích hoạt đã được gửi vào email của bạn
+                </strong>
+            </div>
+        }
+    </div>
     <form action="/User/ConfirmRegister" method="post">
         @{
             var sess = (DCDGear.Common.UserLogin)Session["Confirm"];
@@ -56,5 +65,5 @@
         }
 
     </form>
-    </div>
+</div>
 

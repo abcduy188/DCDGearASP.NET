@@ -13,7 +13,14 @@
         <div class="col-4"></div>
         <div class="col-4">
             <div>
-                @ViewBag.Success
+                @if (TempData["Success"] != null)
+                {
+                    <div id="tempdata" class="alert alert-success ">
+                        <strong>
+                            Cập nhật mật khẩu thânh công!! Vui lòng đăng nhập
+                        </strong>
+                    </div>
+                }
             </div>
             
             @using (Html.BeginForm("Login", "User", FormMethod.Post))

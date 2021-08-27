@@ -15,6 +15,12 @@
         <div class="col-4">
             <div style="align-content:center">
                 <h4>User</h4>
+                @if(TempData["Success"]!= null)
+            {
+                <div id="tempdata"class="alert alert-success">
+                    <strong>Đổi mật khẩu thành công</strong>
+                </div>
+            }
                 <hr />
                 <dl class="dl-horizontal">
                     <dt>

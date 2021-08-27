@@ -16,8 +16,9 @@ namespace DCDGear.Controllers
     {
         // GET: User
         private DCDGearDbContext db = new DCDGearDbContext();
-        public ActionResult Login()
+        public ActionResult Login(string strURL)
         {
+            Session.Add("url", strURL);
             return View();
         }
         public ActionResult Register()
@@ -30,7 +31,7 @@ namespace DCDGear.Controllers
         }
         public ActionResult Logout()
         {
-            Session.Remove("DUY");
+            Session.Remove("MEMBER");
             return Redirect("/");
         }
         public ActionResult ForgotPassWord()
@@ -41,13 +42,14 @@ namespace DCDGear.Controllers
         {
             return View();
         }
-        public ActionResult ChangePass()
+        public ActionResult ChangePass(string code)
         {
-            var sess = Session["Confirm"] as UserLogin;
-            if (sess == null)
-            {
-                return Redirect("/dang-nhap");
-            }
+            var user = db.Users.Single(d => d.Code == code);
+            var sess = new UserLogin();
+            sess.UserID = user.ID;
+            sess.UserName = user.UserName;
+            sess.Name = user.Name;
+            Session.Add("Confirm", sess);
             return View();
         }
         [HttpPost]
@@ -68,14 +70,24 @@ namespace DCDGear.Controllers
                         userSession.UserName = result.UserName;
                         userSession.UserID = result.ID;
                         userSession.Name = result.Name;
-                        Session.Add("DUY", userSession);
+                       
                         if (result.Status == true)
-                        {                  
-                            return Redirect("/");
+                        {
+                            Session.Add("MEMBER", userSession);
+                            if (Session["url"] != null)
+                            {
+                                return Redirect(Session["url"].ToString());
+                            }
+                            else
+                            {
+                                return Redirect("/");
+                            }
+                           
                         }
                         else
                         {
                             Session.Add("Confirm", userSession);
+                            TempData["Active"] = "Vui lòng kích hoạt";
                             return RedirectToAction("ConfirmRegister", "User");
                         }
                     }
@@ -134,13 +146,13 @@ namespace DCDGear.Controllers
                     user.Status = true;
                     user.Code = Encryptor.MD5Hash(user.Code);
                     db.SaveChanges();
-                    ViewBag.Success = "Kích hoạt thành công";
+                    TempData["Success"] = "Thành công";
                     return Redirect("/dang-nhap");
 
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Kích hoạt khoong thành công");
+                    TempData["Error"] = " ko Thành công";
                 }
             }
 
@@ -158,10 +170,11 @@ namespace DCDGear.Controllers
                 userSession.UserName = user.UserName;
                 Session.Add("Confirm", userSession);
                 string code = Random();
-                Mail(user.Name, code, user.Email);
+                code = Encryptor.MD5Hash(code);
+                MailREset(user.UserName, code, user.Email);
                 user.Code = code;
                 db.SaveChanges();
-                return RedirectToAction("EnterCode", "User");
+                ModelState.AddModelError("", "Chúng tôi đã gửi tin nhắn vào email của bạn! Vui lòng kiểm tra trong email");
             }
             else
             {
@@ -184,7 +197,7 @@ namespace DCDGear.Controllers
                 }
                 else
                 {
-                    ViewBag.Success = "Kích hoạt khoong thành công";
+                    ViewBag.Success = "Kích hoạt khong thành công";
                 }
             }
             return RedirectToAction("EnterCode", "User");
@@ -201,6 +214,7 @@ namespace DCDGear.Controllers
                 user.PassWord = Encryptor.MD5Hash(model.PassWord);
                 user.Code = null;
                 db.SaveChanges();
+                TempData["Success"] = "Đổi mật khẩu thành công";
                 return Redirect("/dang-nhap");
             }
             return View();
@@ -208,7 +222,7 @@ namespace DCDGear.Controllers
         public ActionResult ResendMail(string strURL)
         { 
             var user = new User();
-            var sess = Session["Confirm"] as UserLogin; // = (UserLogin)Session["Confirm"]
+            var sess = Session["Confirm"] as UserLogin; 
             if (sess != null)
             {
                 user = db.Users.Single(d => d.UserName == sess.UserName);
@@ -216,6 +230,7 @@ namespace DCDGear.Controllers
                 Mail(sess.Name, code, user.Email);
                 user.Code = code;
                 db.SaveChanges();
+                ViewData["Success"] = "Đã gửi code";
                 return Redirect(strURL);
             }
             return View();
@@ -255,7 +270,34 @@ namespace DCDGear.Controllers
             content = content.Replace("{{CustomerName}}", toEmail);
             content = content.Replace("{{Code}}", Content);
 
-            new Mail().SendMail(AddressEmail, "Confirm Email form DCDGear", content);
+            new Mail().SendMail(AddressEmail, "Xác nhận tài khoản từ DCDGear", content);
+        }
+        public void MailREset(string toEmail, string Content, string AddressEmail)
+        {
+
+            //gửi mail cho khách hàng 
+            string content = System.IO.File.ReadAllText(Server.MapPath("~/Mail/ResetPass.html"));
+
+            content = content.Replace("{{CustomerName}}", toEmail);
+            content = content.Replace("{{Code}}", Content);
+
+            new Mail().SendMail(AddressEmail, "Lấy lại mật khẩu từ DCDGear", content);
+        }
+        protected void SetAlert(string message, string type)
+        {   //temdata = viewbag
+            TempData["AlertMessage"] = message;
+            if (type == "success")
+            {
+                TempData["AlertType"] = "alert-success";
+            }
+            else if (type == "warning")
+            {
+                TempData["AlertType"] = "alert-warning";
+            }
+            else if (type == "error")
+            {
+                TempData["AlertType"] = "alert-danger";
+            }
         }
 
     }

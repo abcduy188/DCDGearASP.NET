@@ -13,6 +13,12 @@ namespace DCDGear
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
+            name: "ResetPass",
+            url: "reset-pass/{code}",
+            defaults: new { controller = "User", action = "ChangePass", id = UrlParameter.Optional },
+           namespaces: new[] { "DCDGear.Controllers" }
+        );
+            routes.MapRoute(
              name: "InfoUser",
              url: "doi-mat-khau-{id}",
              defaults: new { controller = "Home", action = "ChangePassWord", id = UrlParameter.Optional },
@@ -66,6 +72,18 @@ namespace DCDGear
                defaults: new { controller = "Product", action = "Category", id = UrlParameter.Optional },
               namespaces: new[] { "DCDGear.Controllers" }
            );
+            routes.MapRoute(
+            name: "VC",
+            url: "phuong-thuc-van-chuyen",
+            defaults: new { controller = "Home", action = "VanChuyen", id = UrlParameter.Optional },
+           namespaces: new[] { "DCDGear.Controllers" }
+        );
+            routes.MapRoute(
+            name: "CS",
+            url: "chinh-sach",
+            defaults: new { controller = "Home", action = "DoiTra", id = UrlParameter.Optional },
+           namespaces: new[] { "DCDGear.Controllers" }
+        );
             routes.MapRoute(
               name: "Contact",
               url: "lien-he",

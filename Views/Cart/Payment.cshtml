@@ -60,31 +60,31 @@
                 {
                     <div class="form-group">
                         <label>Nguoi nhan:</label>
-                        <input name="shipName" class="form-control" />
+                        <input name="shipName" class="form-control" required />
                     </div>
                     <div class="form-group">
                         <label>SDT:</label>
-                        <input name="shipPhone" class="form-control" />
+                        <input name="shipPhone" class="form-control" required />
                     </div>
                     <div class="form-group">
                         <label>Dia chi:</label>
-                        <input name="shipAddress" class="form-control" />
+                        <input name="shipAddress" class="form-control" required />
                     </div>
                     <div class="form-group">
                         <label>Email: </label>
-                        <input name="shipEmail" class="form-control"/>
+                        <input name="shipEmail" class="form-control" required/>
                     </div>
                     <div>
                         @{
-                            var sess = (DCDGear.Common.UserLogin)Session["DUY"];
+                            var sess = (DCDGear.Common.UserLogin)Session["MEMBER"];
                             if (sess != null)
                             {
-                                <button type="submit" class="btn">Thanh toan</button>
+                                <button type="submit" class="btn" style="color: white; background-color:blue">Thanh toan</button>
                             }
                             else
                             {
-                                <span>Ban phai dang nhap truoc khi thanh toan</span>
-                                <a href="/dang-nhap">dang nhap ngay dde thanh toan</a>
+                                <span>Bạn phải đăng nhập trước khi thanh toán</span>
+                                <a href="@Url.Action("Login","User",new {@strURL= Request.Url.ToString() })">Click vào đây để đăng nhập</a>
                             }
                         }
                     </div>

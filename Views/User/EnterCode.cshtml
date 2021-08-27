@@ -5,6 +5,12 @@
 }
 <form action="/User/EnterCode" method="post">
     @{
+        if (ViewData["Success"] != null)
+        {
+            <div id="tempdata" class="alert alert-success ">
+                Cập nhật mật khẩu thânh công
+            </div>
+        }
         var sess = (DCDGear.Common.UserLogin)Session["Confirm"];
         if (sess != null)
         {

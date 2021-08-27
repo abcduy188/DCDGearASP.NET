@@ -188,7 +188,7 @@
     <Property Name="CreateBy" Type="varchar" MaxLength="50" />
     <Property Name="ModifiedDate" Type="datetime" />
     <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
-    <Property Name="Code" Type="varchar" MaxLength="10" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="UserGroup">
     <Key>

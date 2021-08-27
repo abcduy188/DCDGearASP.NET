@@ -10,9 +10,6 @@ namespace DCDGear.ViewModel
     {
         [Key]
         public long ID { set; get; }
-        [Display(Name = "Tên đăng nhập")]
-        [Required(ErrorMessage = "Thông tin bắt buộc!!")]
-        public string UserName { set; get; }
         [Display(Name = "Mật khẩu cũ")]
         [Required(ErrorMessage = "Thông tin bắt buộc!!")]
 

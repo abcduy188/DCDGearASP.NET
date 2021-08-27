@@ -17,12 +17,12 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="contactUs">
-            @Html.TextBoxFor(model => model.Name, new { @placeholder = "Tên" })
+            @Html.TextBoxFor(model => model.Name, new { @placeholder = "Tên", required = "required" })
             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
         </div>
         <div class="contactUs">
 
-            @Html.TextBoxFor(model => model.Email, new { @placeholder = "Email" })
+            @Html.TextBoxFor(model => model.Email, new { @placeholder = "Email", required = "required" })
             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
         </div>
         <div class="contactUs">

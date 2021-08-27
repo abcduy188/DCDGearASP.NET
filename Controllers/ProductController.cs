@@ -61,5 +61,21 @@ namespace DCDGear.Controllers
             ViewBag.ListRele = db.Products.Where(d => d.CategoryID == product.CategoryID || d.ProductCategory.ParentID == product.ProductCategory.ParentID).ToList();
             return View(product);
         }
+        protected void SetAlert(string message, string type)
+        {   //temdata = viewbag
+            TempData["AlertMessage"] = message;
+            if (type == "success")
+            {
+                TempData["AlertType"] = "alert-success";
+            }
+            else if (type == "warning")
+            {
+                TempData["AlertType"] = "alert-warning";
+            }
+            else if (type == "error")
+            {
+                TempData["AlertType"] = "alert-danger";
+            }
+        }
     }
 }

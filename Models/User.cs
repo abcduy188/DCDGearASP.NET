@@ -35,8 +35,8 @@ namespace DCDGear.Models
         public string ModifiedBy { get; set; }
         public string Code { get; set; }
     
-        public virtual UserGroup UserGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+        public virtual UserGroup UserGroup { get; set; }
     }
 }

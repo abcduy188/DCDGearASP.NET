@@ -18,8 +18,8 @@ namespace DCDGear.Areas.Admin.Controllers
 
         // GET: Admin/New
         public ActionResult Index()
-        {      
-            return View(db.News.OrderByDescending(d=>d.CreateDate).ToList());
+        {
+            return View(db.News.OrderByDescending(d => d.CreateDate).ToList());
         }
 
         // GET: Admin/New/Create
@@ -56,7 +56,7 @@ namespace DCDGear.Areas.Admin.Controllers
                     {
                         fileUpload.SaveAs(path);
                     }
-                    
+
                     var session = (UserLogin)Session["DUY"];
                     @new.CreateBy = session.UserName;
                     @new.Image = fileName;
@@ -183,7 +183,7 @@ namespace DCDGear.Areas.Admin.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             New @new = db.News.Find(id);
-            db.News.Remove(@new);
+            @new.Status = false;
             db.SaveChanges();
             SetAlert("Xóa tin tức thành công", "success");
             return RedirectToAction("Index");

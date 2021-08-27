@@ -36,37 +36,28 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr id="row_@item.ID">
-                            <td>@item.ID</td>
-                            <td>@item.OrderUser</td>
-                            <td>@item.ProductOrder</td>
-                            <td>@item.Quantity</td>
-                            <td>@item.ShipName</td>
-                            <td>@item.ShipAddress</td>
-                            <td>@item.ShipEmail</td>
-                            <td>@item.ShipPhone</td>
-                            @{
-                                if (item.Status == 1)
-                                {
-                                    <td style="color:green">Đang chờ xác nhận</td>
-                                }
-                                else if(item.Status == 0)
-                                {
-                                    <td>Đã giao hàng</td>
-                                }
-                            }
-                            <td>@item.Price.Value.ToString("N0")</td>
-                            <td>
-                                <a href="/Admin/Order/Delete/@item.ID">Xóa</a>  ||
-                                <i class="zmdi zmdi - delete">
-                                    @Ajax.ActionLink("Update", "Update", new { @id = item.ID }, new AjaxOptions
-    {
-     Confirm = "Are you sure?",
-     HttpMethod = "Post"
-    })
-                                </i>
-                            </td>
-                        </tr>
+                            <tr id="row_@item.ID">
+                                <td>@item.ID</td>
+                                <td>@item.OrderUser</td>
+                                <td>@item.ProductOrder</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.ShipName</td>
+                                <td>@item.ShipAddress</td>
+                                <td>@item.ShipEmail</td>
+                                <td>@item.ShipPhone</td>
+                                <td style="color:green">Đã xóa</td>
+                                <td>@item.Price.Value.ToString("N0")</td>
+                                <td>
+                                    <a href="/Admin/Order/Delete/@item.ID">Xóa</a>  ||
+                                    <i class="zmdi zmdi - delete">
+                                        @Ajax.ActionLink("khôi phục", "RestoreOrder", new { @id = item.ID }, new AjaxOptions
+        {
+         Confirm = "Are you sure?",
+         HttpMethod = "Post"
+        })
+                                    </i>
+                                </td>
+                            </tr>
                         }
 
                     </tbody>

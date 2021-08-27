@@ -34,10 +34,10 @@ namespace DCDGear.Areas.Admin.Controllers
         public ActionResult Delete(long id)
         {
             Product product = db.Products.Find(id);
-           
+
             return View(product);
         }
-       
+
         #region Create with single img
 
         //[HttpPost]
@@ -233,7 +233,7 @@ namespace DCDGear.Areas.Admin.Controllers
         public ActionResult Delete(Product product)
         {
             Product entity = db.Products.Find(product.ID);
-            db.Products.Remove(entity);
+            entity.Status = false;
             db.SaveChanges();
             SetAlert("Xóa sản phẩm thành công", "success");
             return RedirectToAction("Index");

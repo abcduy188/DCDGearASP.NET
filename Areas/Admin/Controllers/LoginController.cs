@@ -33,7 +33,7 @@ namespace DCDGear.Areas.Admin.Controllers
                 }
                 else
                 {
-                    if (result.GroupID != "ADMIN")
+                    if (result.GroupID != "ADMIN" && result.GroupID != "MOD" )
                     {
                         ModelState.AddModelError("", "Bạn không có quyền đăng nhập");
                     }
@@ -51,7 +51,14 @@ namespace DCDGear.Areas.Admin.Controllers
                                 userSession.UserName = result.UserName;
                                 userSession.UserID = result.ID;
                                 userSession.Name = result.Name;
-                                Session.Add("DUY", userSession);
+                                if(result.GroupID == "ADMIN")
+                                {
+                                    Session.Add("DUY", userSession);
+                                }
+                                else
+                                {
+                                    Session.Add("MOD", userSession);
+                                }
                                 return RedirectToAction("Index", "Home");
                             }
                             else

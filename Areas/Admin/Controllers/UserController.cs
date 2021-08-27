@@ -27,7 +27,6 @@ namespace DCDGear.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(long id)
         {
-
             var user = db.Users.Find(id);
             ViewBag.GroupID = new SelectList(db.UserGroups.ToList(), "ID", "Name", user.GroupID);
             return View(user);
@@ -90,40 +89,73 @@ namespace DCDGear.Areas.Admin.Controllers
                     }
                     else
                     {
-                        
-                        user.UserName = entity.UserName;
-                        user.Name = entity.Name;
-                        if (!string.IsNullOrEmpty(entity.PassWord))
+                        if(session.UserName == "duy")
                         {
-                            user.PassWord = Encryptor.MD5Hash(entity.PassWord);
+                            ChangeInfo(entity);
+                            return RedirectToAction("Index", "User");
                         }
                         else
                         {
-                            user.PassWord = user.PassWord;
-                        }
-                        user.GroupID = entity.GroupID;
-                        user.Email = entity.Email;
-                        user.Phone = entity.Phone;
-                        user.Address = entity.Address;
-                        user.Status = entity.Status;
-                        user.ModifiedBy = entity.ModifiedBy;
-                        user.ModifiedDate = DateTime.Now;
-                        db.SaveChanges();
-                        SetAlert("Sửa tài khoản thành công", "success");
-                        return RedirectToAction("Index", "User");
+                            if (user.UserName != session.UserName)
+                            {
+                                SetAlert("Bạn không có quyền", "error");
+                                return RedirectToAction("Index", "User");
+                            }
+                            else
+                            {
+                                ChangeInfo(entity);
+                                return RedirectToAction("Index", "User");
+                            }
+                        } 
                     }
                 }
             }
             return View("Index");
         }
 
-        [HttpPost]
         public ActionResult Delete(long id)
         {
             var user = db.Users.Find(id);
-            db.Users.Remove(user);
+           
+            return View(user);
+        }
+        [HttpPost]
+        public ActionResult Delete(User entity)
+        {
+            User user = db.Users.Find(entity.ID);
+            if(user.UserName != "duy")
+            {
+                db.Users.Remove(user);
+                db.SaveChanges();
+            }
+            else
+            {
+                SetAlert("Không thể xóa admin", "error");
+            }
+            return RedirectToAction("Index");
+        }
+        public void ChangeInfo(User entity)
+        {
+            User user = db.Users.Find(entity.ID);
+            user.UserName = entity.UserName;
+            user.Name = entity.Name;
+            if (!string.IsNullOrEmpty(entity.PassWord))
+            {
+                user.PassWord = Encryptor.MD5Hash(entity.PassWord);
+            }
+            else
+            {
+                user.PassWord = user.PassWord;
+            }
+            user.GroupID = entity.GroupID;
+            user.Email = entity.Email;
+            user.Phone = entity.Phone;
+            user.Address = entity.Address;
+            user.Status = entity.Status;
+            user.ModifiedBy = entity.ModifiedBy;
+            user.ModifiedDate = DateTime.Now;
             db.SaveChanges();
-            return Redirect("Index");
+            SetAlert("Sửa tài khoản thành công", "success");
         }
     }
 }

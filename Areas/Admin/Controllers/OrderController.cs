@@ -27,5 +27,19 @@ namespace DCDGear.Areas.Admin.Controllers
             db.SaveChanges();
             return Redirect("Index");
         }
+        public ActionResult Delete(long id)
+        {
+            var user = db.Orders.Find(id);
+
+            return View(user);
+        }
+        [HttpPost]
+        public ActionResult Delete(Order entity)
+        {
+            Order order = db.Orders.Find(entity.ID);
+            order.Status = -1;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

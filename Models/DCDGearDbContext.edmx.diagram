@@ -4,27 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b550a9ac1daa40a48bfb762190836101" Name="Diagram1" ZoomLevel="102">
-        <EntityTypeShape EntityType="DCDGearModel.About" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DCDGearModel.Banner" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DCDGearModel.Category" Width="1.5" PointX="5.75" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DCDGearModel.Contact" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DCDGearModel.FeedBack" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DCDGearModel.New" Width="1.5" PointX="8" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="DCDGearModel.Order" Width="1.5" PointX="9.75" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="DCDGearModel.OrderDetail" Width="1.5" PointX="1.375" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DCDGearModel.Product" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DCDGearModel.ProductCategory" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="DCDGearModel.Role" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+      <Diagram DiagramId="764f1e1dbf8a420cb667857d0da32bcb" Name="Diagram1">
+        <EntityTypeShape EntityType="DCDGearModel.About" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCDGearModel.Banner" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCDGearModel.Category" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCDGearModel.Contact" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCDGearModel.FeedBack" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCDGearModel.New" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCDGearModel.Order" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCDGearModel.OrderDetail" Width="1.5" PointX="9.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCDGearModel.Product" Width="1.5" PointX="7.5" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCDGearModel.ProductCategory" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCDGearModel.Role" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DCDGearModel.User" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="DCDGearModel.UserGroup" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="DCDGearModel.UserGroup" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
         <AssociationConnector Association="DCDGearModel.FK_New_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="DCDGearModel.FK_Order_User" ManuallyRouted="false" />
+        <AssociationConnector Association="DCDGearModel.FK_OrderDetail_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="DCDGearModel.FK_OrderDetail_Product" ManuallyRouted="false" />
         <AssociationConnector Association="DCDGearModel.FK_Product_ProductCategory" ManuallyRouted="false" />
         <AssociationConnector Association="DCDGearModel.FK_User_UserGroup" ManuallyRouted="false" />
         <AssociationConnector Association="DCDGearModel.Group_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="DCDGearModel.FK_Order_User" />
-        <AssociationConnector Association="DCDGearModel.FK_OrderDetail_Order" />
-        <AssociationConnector Association="DCDGearModel.FK_OrderDetail_Product" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

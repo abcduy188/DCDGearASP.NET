@@ -37,6 +37,7 @@ namespace DCDGear.Controllers
                 item = new Cart(ID);
                 item.strURL = strURL;
                 listCart.Add(item);
+                TempData["Success"] = "Thành công";
                 return Redirect(strURL);
             }
             else
@@ -91,6 +92,7 @@ namespace DCDGear.Controllers
             if (sanpham != null)
             {
                 listCart.RemoveAll(n => n.ID == ID);
+                TempData["Delete"] = "Xóa giỏ hàng thành công";
                 return RedirectToAction("Cart");
             }
             if (listCart.Count == 0)
@@ -107,6 +109,7 @@ namespace DCDGear.Controllers
             {
                 sanpham.Quantity = int.Parse(f["txtSoluong"].ToString());
             }
+            TempData["Success"] = "Thành công";
             return RedirectToAction("Cart");
         }
         public ActionResult XoatatcaCart()
@@ -131,7 +134,7 @@ namespace DCDGear.Controllers
         public ActionResult Payment(string shipName, string shipPhone, string shipAddress, string shipEmail)
         {
             var order = new Order();
-            var user = (UserLogin)Session["DUY"];
+            var user = (UserLogin)Session["MEMBER"];
             order.UserID = user.UserID;
             order.CreateDate = DateTime.Now;
             order.Status = 1;
@@ -168,6 +171,7 @@ namespace DCDGear.Controllers
             }
             List<Cart> listCart = ListCart();
             listCart.Clear();
+            TempData["Success"] = "Thành công";
             return Redirect("/Cart/Success");
         }
         public ActionResult Success()
@@ -177,7 +181,7 @@ namespace DCDGear.Controllers
         public void Mail(string shipName, string shipPhone, string shipAddress,string AddressEmail, decimal? totalPrice)
         {
 
-            //gửi mail cho khách hàng 
+
             string content = System.IO.File.ReadAllText(Server.MapPath("~/Mail/OrderMail.html"));
 
             content = content.Replace("{{CustomerName}}", shipName);
@@ -190,7 +194,7 @@ namespace DCDGear.Controllers
 
             new Mail().SendMail(AddressEmail, "Đơn hàng mới từ DCDGear", content); 
             new Mail().SendMail(toEmail, "Đơn hàng mới từ DCDGear", content);
-            //hết gửi mail
+
         }
     }
 }

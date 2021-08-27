@@ -39,6 +39,7 @@
                                     <p><i class="far fa-envelope"></i> @item.Email</p>
                                     <p><i class="fas fa-phone"></i> @item.Phone</p>
                                     <p><i class="fas fa-home"></i> @item.Address</p>
+                                    <p><i class="fas fa-calendar"></i> @item.CreateDate</p>
                                 </td>
                                 <td>@item.GroupID</td>
 
@@ -71,14 +72,7 @@
                             </td>
                             <td>
                                 <a href="/Admin/user/Edit/@item.ID">Edit</a>  ||
-                                <i class="zmdi zmdi - delete">
-                                    @Ajax.ActionLink("Xoa", "Delete", new { @id = item.ID }, new AjaxOptions
-    {
-     Confirm = "Are you sure?",
-     OnComplete = "$('#row_" + @item.ID + "').remove()",
-     HttpMethod = "Delete"
-    })
-                                </i>
+                                <a href="/Admin/user/delete/@item.ID">Xóa</a>
                             </td>
                         </tr>
                     }

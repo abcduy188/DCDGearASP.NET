@@ -34,12 +34,12 @@
                 </div>
                 <div class="col-6 search">
                     <form action="/tim-kiem" method="get">
-                        <input type="text" placeholder="Search" id="txtKeyWord" name="KeyWord" value="@ViewBag.KeyWord" height="20px">
+                        <input type="text" placeholder="Search" id="txtKeyWord" name="KeyWord" value="@ViewBag.KeyWord" height="20px" required>
                         <button>Search</button>
                     </form>
 
                 </div>
-                <div class="col-3">
+                <div class="col-3" style="padding-top:20px">
                     @{ Html.RenderAction("CartPartial", "Cart");}
                 </div>
             </div>
@@ -69,13 +69,13 @@
                 <li>
                     <a href="#">Hỗ Trợ<i class="fa fa-chevron-down"></i></a>
                     <ul>
-                        <li><a href="#">Phương Thức Vận Chuyển</a></li>
-                        <li><a href="#">Chính Sách Đổi Trả Hàng</a></li>
+                        <li><a href="/phuong-thuc-van-chuyen">Phương Thức Vận Chuyển</a></li>
+                        <li><a href="/chinh-sach">Chính Sách Đổi Trả Hàng</a></li>
                     </ul>
                 </li>
                 <li><a href="/lien-he">Liên Hệ</a></li>
                 @{
-                    var sess = (DCDGear.Common.UserLogin)Session["DUY"];
+                    var sess = (DCDGear.Common.UserLogin)Session["MEMBER"];
                     if (sess != null)
                     {
                         <li><a href="/thong-tin-ca-nhan-@sess.UserID">Xin chào: @sess.Name </a></li>
@@ -133,28 +133,36 @@
         </footer>
     </div>
 
-    @*@Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")*@
+    <script src="/Scripts/jquery-3.4.1.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
             crossorigin="anonymous"></script>
-    <script src="/Assets/Admin/ckeditor/ckeditor.js"></script>
-    <script src="/Assets/Admin/ckfinder/ckfinder.js"></script>
     <script>
-
         $(document).ready(function () {
             //custom alert
             $('#alertM').removeClass('hide');
-            $('#alertM').delay(1000).slideUp(500);
+            $('#alertM').delay(2000).slideUp(1000);
+
+            $('#alertM').hide();
+        });
+        $(document).ready(function () {
+            $('#tempdata').removeClass('hide');
+            $('#tempdata').delay(1000).slideUp(500);
+
         });
     </script>
+   
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="/Assets/Admin/ckeditor/ckeditor.js"></script>
+    <script src="/Assets/Admin/ckfinder/ckfinder.js"></script>
+
     @RenderSection("scripts", required: false)
+
 </body>
 </html>
+<noembed>

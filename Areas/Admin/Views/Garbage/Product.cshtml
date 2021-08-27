@@ -1,0 +1,67 @@
+﻿@model List<DCDGear.Models.Product>
+@{
+    ViewBag.Title = "Sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">PRODUCT</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+            <li class="breadcrumb-item active">Danh sach</li>
+        </ol>
+        <div class="card mb-4">
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <a href="/admin/product/create" class="btn btn-blue btn-flat" style="background-color:#1D89E2; color: #ffffff"><i class="far fa-plus"></i>&nbsp;Thêm mới</a>
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+
+                            <th scope="col" style="width: 40%;">Tên sản phẩm</th>
+                            <th scope="col" style="width: 15%;">Hình ảnh</th>
+                            <th scope="col" style="width: 15%;">Danh mục</th>
+                            <th scope="col" style="width: 15%;">Giá</th>
+                            <th scope="col" style="width: 15%;">Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="row_@item.ID">
+                                <td style="width: 30%;">@item.Name</td>
+                                @{
+                                    var a = item.Image.Split(',').Length;
+
+                                }
+
+                             
+                                <td style="width: 40%;">
+
+                                    @{
+
+                                        for (int path = 0; path < item.Image.Split(',').Length; path++) //tach chuoi
+                                        {
+                                            string newpath = item.Image.Split(',')[path];
+                                            <img src="@Url.Content("/Assets/Thumbnail/" + newpath)" style="width:100px" />
+                                        }
+                                    }
+                                </td>
+                                <td style="width: 15%;">@item.ProductCategory.Name</td>
+                                <td style="width: 10%;">@item.Price.Value.ToString("N0")Đ</td>
+                                <td>
+                                    <a href="/Admin/Garbage/RestoreProduct/@item.ID">Khôi phục</a>
+                                    <a href="/Admin/Product/Delete/@item.ID">Delete</a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

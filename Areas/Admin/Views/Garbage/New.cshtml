@@ -1,0 +1,70 @@
+﻿@model List<DCDGear.Models.New>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">PRODUCT</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+            <li class="breadcrumb-item active">Danh sach</li>
+        </ol>
+        <div class="card mb-4">
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <a href="/admin/new/create" class="btn btn-blue btn-flat" style="background-color:#1D89E2; color: #ffffff"><i class="far fa-plus"></i>&nbsp;Thêm mới</a>
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+
+                            <th scope="col" style="width: 40%;">Tên tin tức</th>
+                            <th scope="col" style="width: 15%;">Hình ảnh</th>
+                            <th scope="col" style="width: 15%;">Danh mục</th>
+                            <th scope="col" style="width: 15%;">Ngày tạo</th>
+                            <th scope="col" style="width: 15%;">Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="row_@item.ID">
+                                <td style="width: 30%;">@item.Name</td>
+                                <td style="width: 15%;"><img src="@Url.Content("/Assets/Thumbnail/" + item.Image)" width="auto" height="100" /></td>
+                                <td style="width: 15%;">@item.Category.Name</td>
+                                <td>
+                                    @{
+                                        if (item.ModifiedDate == null)
+                                        {
+                                            <span>@item.CreateDate (Ngày tạo)</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@item.ModifiedDate (Ngày chỉnh sửa)</span>
+                                        }
+                                    }
+
+                                </td>
+                              
+                                <td style="width: 10%;">
+                                    <i class="zmdi zmdi - delete">
+                                        @Ajax.ActionLink("khôi phục", "RestoreNew", new { @id = item.ID }, new AjaxOptions
+        {
+         Confirm = "Are you sure?",
+         HttpMethod = "Post"
+        })
+                                    </i>  ||
+                                    <a href="/Admin/new/delete/@item.ID">Xóa</a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

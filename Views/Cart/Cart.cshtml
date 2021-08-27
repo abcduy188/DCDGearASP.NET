@@ -11,6 +11,18 @@
         <a>>></a>
         <a style="text-decoration: none;color: #fe3e65" href="#">Sản phẩm</a>
     </div>
+    @if (TempData["Success"] != null)
+    {
+        <div id="tempdata" class="alert alert-success">
+            <strong>Cập nhật thành công</strong>
+        </div>
+    }
+    @if (TempData["Delete"] != null)
+    {
+        <div id="tempdata" class="alert alert-success">
+            <strong>Đã xóa sản phẩm khỏi giỏ hàng</strong>
+        </div>
+    }
     <div class="row">
         <h2 style="text-align:center">THÔNG TIN GIỎ HÀNG</h2>
         <table align="center" border="1" class="table">
@@ -66,4 +78,5 @@
                 </td>
             </tr>
         </table>
-        </div></div>
+    </div>
+</div>

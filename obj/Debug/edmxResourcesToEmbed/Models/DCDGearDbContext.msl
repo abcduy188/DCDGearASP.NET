@@ -47,11 +47,11 @@
     <EntitySetMapping Name="Contacts">
       <EntityTypeMapping TypeName="DCDGearModel.Contact">
         <MappingFragment StoreEntitySet="Contact">
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="Content" ColumnName="Content" />
           <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
@@ -95,7 +95,6 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="DCDGearModel.Order">
         <MappingFragment StoreEntitySet="Order">
-          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
@@ -104,6 +103,7 @@
           <ScalarProperty Name="ShipPhone" ColumnName="ShipPhone" />
           <ScalarProperty Name="ShipAddress" ColumnName="ShipAddress" />
           <ScalarProperty Name="ShipEmail" ColumnName="ShipEmail" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -177,7 +177,6 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="DCDGearModel.User">
         <MappingFragment StoreEntitySet="User">
-          <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="PassWord" ColumnName="PassWord" />
@@ -191,6 +190,7 @@
           <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
