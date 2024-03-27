@@ -44,6 +44,7 @@ namespace DCDGear.Controllers
         }
         public ActionResult ChangePass(string code)
         {
+        
             var user = db.Users.Single(d => d.Code == code);
             var sess = new UserLogin();
             sess.UserID = user.ID;
