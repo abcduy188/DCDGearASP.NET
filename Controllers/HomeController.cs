@@ -20,6 +20,9 @@ namespace DCDGear.Controllers
             ViewBag.ListNewsNew1 = db.News.OrderByDescending(d => d.CreateDate).Where(d => d.Status == true).Take(1).ToList();
             ViewBag.ListRepresentative = db.Products.Where(d => d.Code == "01" && d.Status == true).OrderByDescending(d => d.CreateDate).Take(4).ToList();
             return View(banner);
+
+
+
         }
         public ActionResult About()
         {
@@ -101,6 +104,6 @@ namespace DCDGear.Controllers
         {
             return View();
         }
-      
+
     }
 }
