@@ -26,6 +26,8 @@ namespace DCDGear.Controllers
         public ActionResult DetailNew(long id)
         {
             New news = db.News.Find(id);
+
+
             return View(news);
         }
     }
