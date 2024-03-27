@@ -26,6 +26,7 @@ namespace DCDGear.Controllers
                 listCart = new List<Cart>();
                 Session["Cart"] = listCart;
             }
+
             return listCart;
         }
         public ActionResult AddCart(long ID, string strURL)
